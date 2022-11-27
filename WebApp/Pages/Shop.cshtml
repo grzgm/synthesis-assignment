@@ -1,0 +1,32 @@
+﻿@page
+@model WebApp.Pages.ShopModel
+@{
+	ViewData["Title"] = "Shop";
+	ViewData["Css"] = "~/css/shop.css";
+}
+
+@{
+	for (int i = 0; i < 15; i++)
+	{
+<div class="item">
+	<div class="price">
+		19,99 Euro
+	</div>
+	<div class="image">img</div>
+	<div class="details">
+		<div class="name">
+			Test
+		</div>
+		<div class="category">
+			Meat Pork
+		</div>
+		<div class="discount">
+			2 for 29,99 Euro
+		</div>
+	</div>
+	<button class="addToCart">
+		Add to Cart
+	</button>
+</div>
+	}
+}
