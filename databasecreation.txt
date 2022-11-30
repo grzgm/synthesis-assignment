@@ -1,0 +1,103 @@
+-- Item Table
+CREATE TABLE Item
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	[name] nvarchar(20) NOT NULL,
+	category int NOT NULL FOREIGN KEY REFERENCES [ItemCategory]([id]),
+	subCategory int NOT NULL FOREIGN KEY REFERENCES [ItemSubCategory]([id]) ON DELETE CASCADE,
+	price int NOT NULL,
+	[unitType] nvarchar(20) NOT NULL,
+	[unitAmount] int NOT NULL,
+);
+
+-- ItemCategory Table
+CREATE TABLE ItemCategory
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	category nvarchar(20) NOT NULL UNIQUE,
+);
+
+-- ItemSubCategory Table
+CREATE TABLE ItemSubCategory
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	subCategory nvarchar(20) NOT NULL UNIQUE,
+);
+
+
+
+
+
+
+
+-- Item Table
+CREATE TABLE Item
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	[name] nchar(15) NOT NULL,
+	Email nchar(50) NOT NULL UNIQUE,
+	[Password] nchar(10) NOT NULL,
+	CONSTRAINT UniqueNameAndPassword_account UNIQUE ([Name], [Password])
+);
+
+-- User Table
+CREATE TABLE userTable
+(
+	Id int NOT NULL FOREIGN KEY REFERENCES [account]([id]) ON DELETE CASCADE UNIQUE,
+	MaxAmountOfNotes int NOT NULL,
+	MaxLengthOfNote int NOT NULL,
+);
+
+-- Premium User Table
+CREATE TABLE premiumUserTable
+(
+	Id int NOT NULL FOREIGN KEY REFERENCES [userTable]([id]) ON DELETE CASCADE UNIQUE,
+	StartPremiumDate datetime2(0) NOT NULL,
+	EndPremiumDate datetime2(0) NOT NULL,
+);
+
+-- Admin Table
+CREATE TABLE adminTable
+(
+	Id int NOT NULL FOREIGN KEY REFERENCES [account]([id]) ON DELETE CASCADE UNIQUE,
+	AdminRole nchar(15) NOT NULL,
+);
+
+-- Premium Requests Table
+CREATE TABLE premiumRequests
+(
+	UserId int NOT NULL FOREIGN KEY REFERENCES [userTable]([id]) ON DELETE CASCADE UNIQUE,
+	Date datetime2(0) NOT NULL,
+);
+
+-- Mock Data
+INSERT INTO account VALUES ('martin', 'm@m', 'zaq12wsx');
+INSERT INTO userTable VALUES (1, 5, 100);
+INSERT INTO premiumUserTable VALUES (1, '2022-11-01 0:03:06', '2022-11-29 00:03:06');
+INSERT INTO account VALUES ('jan', 'j@j', 'zaq12wsx');
+INSERT INTO userTable VALUES (2, 15, 200);
+INSERT INTO account VALUES ('admin', 'a@a', 'zaq12wsx');
+INSERT INTO adminTable VALUES (3, 'TestRole');
+
+-- Note Table
+CREATE TABLE notes
+	(
+	Id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	UserId int NOT NULL FOREIGN KEY REFERENCES [account]([id]) ON DELETE CASCADE,
+	Title nchar(15) NULL,
+	[Text] nchar(500) NULL,
+	[Date] datetime2(0) NULL,
+	EditDate datetime2(0) NULL,
+	);
+
+-- HistoryNote Table
+CREATE TABLE historyNotes
+	(
+	NoteId int NOT NULL FOREIGN KEY REFERENCES [notes]([id]) ON DELETE CASCADE,
+	EditId int NOT NULL,
+	UserId int NOT NULL FOREIGN KEY REFERENCES [account]([id]),
+	Title nchar(15) NULL,
+	[Text] nchar(500) NULL,
+	[Date] datetime2(0) NULL,
+	CONSTRAINT PK_historyNotes PRIMARY KEY (NoteId, EditId, UserId)
+	);

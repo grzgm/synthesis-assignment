@@ -1,0 +1,385 @@
+<Project>
+  <Name>Synthesis Assignment</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>UML</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Client</Name>
+        <Access>Public</Access>
+        <Location left="469" top="499" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private string name</Member>
+        <Member type="Field">private string email</Member>
+        <Member type="Field">private string password</Member>
+        <Member type="Field">private List&lt;Order&gt; previousOrders</Member>
+        <Member type="Constructor">public Client()</Member>
+        <Member type="Property">public int Id { get; private set; }</Member>
+        <Member type="Property">public string Name { get; private set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Order</Name>
+        <Access>Public</Access>
+        <Location left="792" top="709" />
+        <Size width="188" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private BonusCard bonusCard</Member>
+        <Member type="Field">private int totalBonusPointsBeforeOrder</Member>
+        <Member type="Field">private int totalBonusPointsAfterOrder</Member>
+        <Member type="Field">private int orderBonusPoints</Member>
+        <Member type="Field">private DateOnly orderDate</Member>
+        <Member type="Field">private DateOnly deliveryDate</Member>
+        <Member type="Field">private OrderStatus orderStatus</Member>
+        <Member type="Field">private List&lt;Item&gt; purchasedItems</Member>
+        <Member type="Constructor">public Order()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Item</Name>
+        <Access>Public</Access>
+        <Location left="1159" top="501" />
+        <Size width="181" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private string name</Member>
+        <Member type="Field">private ItemCategory category</Member>
+        <Member type="Field">private ItemSubCategory subCategory</Member>
+        <Member type="Field">private int price</Member>
+        <Member type="Field">private string unitType</Member>
+        <Member type="Field">private int unitAmount</Member>
+        <Member type="Method">public int BonusCalculator()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>ItemCategory</Name>
+        <Access>Public</Access>
+        <Location left="1544" top="586" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Vegetable</Value>
+        <Value>Fruit</Value>
+        <Value>Meat</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>ItemSubCategory</Name>
+        <Access>Public</Access>
+        <Location left="1758" top="586" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>Pork</Value>
+        <Value>Chicken</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>OrderStatus</Name>
+        <Access>Public</Access>
+        <Location left="1544" top="844" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>OrderPlaced</Value>
+        <Value>Packed</Value>
+        <Value>Shipped</Value>
+        <Value>Delivered</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>BonusCard</Name>
+        <Access>Public</Access>
+        <Location left="469" top="807" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private Client client</Member>
+        <Member type="Field">private int amountOfPoints</Member>
+        <Member type="Method">public int ConvertPointsToEuros()</Member>
+        <Member type="Method">public int MaxEuros()</Member>
+        <Member type="Method">public void AddPointsFromEuros()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Employee</Name>
+        <Access>Public</Access>
+        <Location left="469" top="1082" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
+        <Member type="Field">private string name</Member>
+        <Member type="Field">private string email</Member>
+        <Member type="Field">private string password</Member>
+        <Member type="Constructor">public Employee()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Inventory</Name>
+        <Access>Public</Access>
+        <Location left="1168" top="1082" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Item&gt; items</Member>
+        <Member type="Method">public bool CreateItem()</Member>
+        <Member type="Method">public List&lt;Item&gt; ReadItem()</Member>
+        <Member type="Method">public bool UpdateItem()</Member>
+        <Member type="Method">public bool DeleteItem()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClientOrders</Name>
+        <Access>Public</Access>
+        <Location left="805" top="1082" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Order&gt; allOrders</Member>
+        <Member type="Field">private List&lt;Order&gt; newOrders</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ShoppingCart</Name>
+        <Access>Public</Access>
+        <Location left="805" top="389" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Item&gt; addedItems</Member>
+        <Member type="Method">public bool IsEmpty()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>WinFormsApp</Name>
+        <Access>Public</Access>
+        <Location left="469" top="152" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>WebApp</Name>
+        <Access>Public</Access>
+        <Location left="1168" top="152" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OrderRepository</Name>
+        <Access>Public</Access>
+        <Location left="943" top="1919" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClientRepository</Name>
+        <Access>Public</Access>
+        <Location left="1175" top="1919" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EmployeeRepository</Name>
+        <Access>Public</Access>
+        <Location left="469" top="1919" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainRepository</Name>
+        <Access>Public</Access>
+        <Location left="822" top="2290" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private SqlConnection conn</Member>
+        <Member type="Field">private string constr</Member>
+        <Member type="Constructor">public MainRepository()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClientManager</Name>
+        <Access>Public</Access>
+        <Location left="1175" top="1646" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EmployeeManager</Name>
+        <Access>Public</Access>
+        <Location left="469" top="1646" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OrderManager</Name>
+        <Access>Public</Access>
+        <Location left="943" top="1646" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemManager</Name>
+        <Access>Public</Access>
+        <Location left="702" top="1646" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemRepository</Name>
+        <Access>Public</Access>
+        <Location left="702" top="1919" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IManager</Name>
+        <Access>Public</Access>
+        <Location left="469" top="1378" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IManager</Name>
+        <Access>Public</Access>
+        <Location left="702" top="1378" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IManager</Name>
+        <Access>Public</Access>
+        <Location left="943" top="1378" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IManager</Name>
+        <Access>Public</Access>
+        <Location left="1175" top="1378" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="0" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="0" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="1" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="9" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="0" second="10">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="10" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Generalization" first="15" second="16">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="13" second="16">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="14" second="16">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="21" second="16">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="18" second="22">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="20" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="19" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="17" second="25">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="18" second="15">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="20" second="21">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="19" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="17" second="14">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
