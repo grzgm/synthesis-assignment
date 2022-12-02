@@ -42,7 +42,7 @@
         <Name>Item</Name>
         <Access>Public</Access>
         <Location left="1163" top="844" />
-        <Size width="181" height="213" />
+        <Size width="181" height="230" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
@@ -51,27 +51,9 @@
         <Member type="Field">private int price</Member>
         <Member type="Field">private string unitType</Member>
         <Member type="Field">private int unitAmount</Member>
+        <Member type="Field">private Bool avaliable</Member>
         <Member type="Method">public int BonusCalculator()</Member>
         <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Enum">
-        <Name>ItemCategory</Name>
-        <Access>Public</Access>
-        <Location left="1656" top="770" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Value>Vegetable</Value>
-        <Value>Fruit</Value>
-        <Value>Meat</Value>
-      </Entity>
-      <Entity type="Enum">
-        <Name>ItemSubCategory</Name>
-        <Access>Public</Access>
-        <Location left="1870" top="770" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Value>Pork</Value>
-        <Value>Chicken</Value>
       </Entity>
       <Entity type="Enum">
         <Name>OrderStatus</Name>
@@ -101,7 +83,7 @@
       <Entity type="Class">
         <Name>Employee</Name>
         <Access>Public</Access>
-        <Location left="268" top="604" />
+        <Location left="269" top="843" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -266,16 +248,20 @@
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
-        <Location left="1372" top="548" />
+        <Location left="1408" top="818" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string name</Member>
+        <Member type="Field">private ItemCategory parentCategory</Member>
         <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Constructor">public ItemCategory(string name, ItemCategory parentCategory)</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
     <Relationships>
-      <Relationship type="Association" first="0" second="6">
+      <Relationship type="Association" first="0" second="4">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -283,6 +269,8 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="0" second="1">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -294,13 +282,17 @@
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="1" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Association" first="8" second="2">
+      <Relationship type="Association" first="6" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -311,91 +303,89 @@
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Association" first="9" second="1">
+      <Relationship type="Association" first="7" second="1">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Association" first="0" second="10">
-        <Label>
-        </Label>
+      <Relationship type="Association" first="0" second="8">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
-      <Relationship type="Association" first="10" second="2">
-        <Label>
-        </Label>
+      <Relationship type="Association" first="8" second="2">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Generalization" first="15" second="16">
+      <Relationship type="Generalization" first="13" second="14">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="13" second="16">
+      <Relationship type="Generalization" first="11" second="14">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="14" second="16">
+      <Relationship type="Generalization" first="12" second="14">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="21" second="16">
+      <Relationship type="Generalization" first="19" second="14">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="18" second="22">
+      <Relationship type="Realization" first="16" second="20">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="20" second="23">
+      <Relationship type="Realization" first="18" second="21">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="19" second="24">
+      <Relationship type="Realization" first="17" second="22">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="17" second="25">
+      <Relationship type="Realization" first="15" second="23">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Association" first="18" second="15">
-        <Label>
-        </Label>
+      <Relationship type="Association" first="16" second="13">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="20" second="21">
-        <Label>
-        </Label>
+      <Relationship type="Association" first="18" second="19">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="19" second="13">
-        <Label>
-        </Label>
+      <Relationship type="Association" first="17" second="11">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="17" second="14">
+      <Relationship type="Association" first="15" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="24" second="24">
         <Label>
         </Label>
-        <StartOrientation>Vertical</StartOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
