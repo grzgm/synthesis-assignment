@@ -43,31 +43,23 @@ CREATE TABLE Client
 	[name] nvarchar(20) NOT NULL,
 	email nvarchar(50) NOT NULL UNIQUE,
 	[password] nvarchar(10) NOT NULL,
+	bonusCardId int UNIQUE,
+	amountOfPoints int,
 	CONSTRAINT UniqueNameAndPassword_Client UNIQUE ([Name], [Password])
-);
-
--- BonusCard Table
-CREATE TABLE BonusCard
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
-	amountOfPoints int NOT NULL,
 );
 
 -- Order Table
 CREATE TABLE [Order]
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	bonusCardId int NOT NULL,
+	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
 	totalBonusPointsBeforeOrder int NOT NULL,
 	totalBonusPointsAfterOrder int NOT NULL,
 	orderBonusPoints int NOT NULL,
 	orderDate Date NOT NULL,
 	deliveryDate Date NOT NULL,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
-    CONSTRAINT FK_BonusCard FOREIGN KEY (bonusCardId) REFERENCES [BonusCard]([id]),
 );
-ALTER TABLE dbo.[Order] NOCHECK CONSTRAINT FK_BonusCard;
 
 -- PreviousOrdersList Table
 CREATE TABLE PreviousOrdersList
@@ -112,11 +104,8 @@ INSERT INTO Item VALUES ('banana', 1, 1, 10, 'kg', 7);
 INSERT INTO Item VALUES ('pear', 1, 2, 10, 'kg', 10);
 INSERT INTO Item VALUES ('pork', 2, 3, 10, 'g', 1);
 
-INSERT INTO Client VALUES ('jan', 'j@j', '12345');
+INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);
 INSERT INTO Client VALUES ('martin', 'm@m', '12345');
-
-INSERT INTO BonusCard VALUES (1, 100);
-INSERT INTO BonusCard VALUES (2, 11);
 
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-01', '2022-12-04', 1);
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-02', '2022-12-04', 1);
