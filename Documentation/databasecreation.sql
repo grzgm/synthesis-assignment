@@ -4,14 +4,8 @@
 CREATE TABLE Category
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	category nvarchar(20) NOT NULL UNIQUE,
-);
-
--- SubCategory Table
-CREATE TABLE SubCategory
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	subCategory nvarchar(20) NOT NULL UNIQUE,
+	[name] nvarchar(20) NOT NULL UNIQUE,
+	parentCategory int,
 );
 
 -- OrderStatus Table
@@ -29,9 +23,8 @@ CREATE TABLE Item
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	[name] nvarchar(20) NOT NULL,
 	category int NOT NULL FOREIGN KEY REFERENCES [Category]([id]),
-	subCategory int NOT NULL FOREIGN KEY REFERENCES [SubCategory]([id]),
-	-- price double
-	price int NOT NULL,
+	subCategory int NOT NULL FOREIGN KEY REFERENCES [Category]([id]),
+	price decimal(19,4) NOT NULL,
 	[unitType] nvarchar(20) NOT NULL,
 	[unitAmount] int NOT NULL,
 );
@@ -43,37 +36,22 @@ CREATE TABLE Client
 	[name] nvarchar(20) NOT NULL,
 	email nvarchar(50) NOT NULL UNIQUE,
 	[password] nvarchar(10) NOT NULL,
+	bonusCardId int UNIQUE,
+	amountOfPoints int,
 	CONSTRAINT UniqueNameAndPassword_Client UNIQUE ([Name], [Password])
-);
-
--- BonusCard Table
-CREATE TABLE BonusCard
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
-	amountOfPoints int NOT NULL,
 );
 
 -- Order Table
 CREATE TABLE [Order]
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	bonusCardId int,
+	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
 	totalBonusPointsBeforeOrder int NOT NULL,
 	totalBonusPointsAfterOrder int NOT NULL,
 	orderBonusPoints int NOT NULL,
 	orderDate Date NOT NULL,
 	deliveryDate Date NOT NULL,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
-    CONSTRAINT FK_BonusCard FOREIGN KEY (bonusCardId) REFERENCES [BonusCard]([id]),
-);
-ALTER TABLE dbo.[Order] NOCHECK CONSTRAINT FK_BonusCard;
-
--- PreviousOrdersList Table
-CREATE TABLE PreviousOrdersList
-(
-	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
-	orderId int NOT NULL FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE,
 );
 
 -- PurchasedItemsList Table
@@ -96,12 +74,11 @@ CREATE TABLE Employee
 
 
 -- Mock Data
-INSERT INTO Category VALUES ('fruit');
-INSERT INTO Category VALUES ('meat');
-
-INSERT INTO SubCategory VALUES ('fruit1');
-INSERT INTO SubCategory VALUES ('fruit2');
-INSERT INTO SubCategory VALUES ('meat1');
+INSERT INTO Category VALUES ('fruit', NULL);
+INSERT INTO Category VALUES ('meat', NULL);
+INSERT INTO Category VALUES ('fruit1', 1);
+INSERT INTO Category VALUES ('fruit2', 1);
+INSERT INTO Category VALUES ('meat1', 2);
 
 INSERT INTO OrderStatus VALUES ('Start');
 INSERT INTO OrderStatus VALUES ('Middle');
@@ -112,23 +89,14 @@ INSERT INTO Item VALUES ('banana', 1, 1, 10, 'kg', 7);
 INSERT INTO Item VALUES ('pear', 1, 2, 10, 'kg', 10);
 INSERT INTO Item VALUES ('pork', 2, 3, 10, 'g', 1);
 
-INSERT INTO Client VALUES ('jan', 'j@j', '12345');
-INSERT INTO Client VALUES ('martin', 'm@m', '12345');
-
-INSERT INTO BonusCard VALUES (1, 100);
-INSERT INTO BonusCard VALUES (2, 11);
+INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);
+INSERT INTO Client VALUES ('martin', 'm@m', '12345', NULL, NULL);
 
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-01', '2022-12-04', 1);
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-02', '2022-12-04', 1);
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
 INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-01', '2022-12-05', 1);
 INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
-
-INSERT INTO PreviousOrdersList VALUES (1, 1);
-INSERT INTO PreviousOrdersList VALUES (1, 2);
-INSERT INTO PreviousOrdersList VALUES (1, 3);
-INSERT INTO PreviousOrdersList VALUES (2, 4);
-INSERT INTO PreviousOrdersList VALUES (2, 5);
 
 INSERT INTO PurchasedItemsList VALUES (1, 1);
 INSERT INTO PurchasedItemsList VALUES (1, 3);
