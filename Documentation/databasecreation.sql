@@ -26,7 +26,7 @@ CREATE TABLE Item
 	subCategory int NOT NULL FOREIGN KEY REFERENCES [Category]([id]),
 	price decimal(19,4) NOT NULL,
 	[unitType] nvarchar(20) NOT NULL,
-	[unitAmount] int NOT NULL,
+	available bit NOT NULL,
 );
 
 -- Client Table
@@ -84,9 +84,9 @@ INSERT INTO OrderStatus VALUES ('Start');
 INSERT INTO OrderStatus VALUES ('Middle');
 INSERT INTO OrderStatus VALUES ('Finish');
 
-INSERT INTO Item VALUES ('apple', 1, 1, 10, 'kg', 10);
-INSERT INTO Item VALUES ('banana', 1, 1, 10, 'kg', 7);
-INSERT INTO Item VALUES ('pear', 1, 2, 10, 'kg', 10);
+INSERT INTO Item VALUES ('apple', 1, 1, 10, 'kg', 1);
+INSERT INTO Item VALUES ('banana', 1, 1, 10, 'kg', 0);
+INSERT INTO Item VALUES ('pear', 1, 2, 10, 'kg', 1);
 INSERT INTO Item VALUES ('pork', 2, 3, 10, 'g', 1);
 
 INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);

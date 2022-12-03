@@ -9,7 +9,7 @@ namespace LogicLayer.InterfacesManagers
 {
     public interface IItemManager
     {
-        Item CreateItem(Item item);
+        bool CreateItem(Item item);
 
         Item ReadItem(string name, string password);
 

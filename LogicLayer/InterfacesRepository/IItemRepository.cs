@@ -9,7 +9,7 @@ namespace LogicLayer.InterfacesRepository
 {
     public interface IItemRepository
     {
-        ItemDTO CreateItem(ItemDTO itemDTO);
+        bool CreateItem(ItemDTO itemDTO);
 
         ItemDTO ReadItem(string name, string password);
 

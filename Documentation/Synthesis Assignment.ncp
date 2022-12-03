@@ -39,7 +39,7 @@
         <Name>Item</Name>
         <Access>Public</Access>
         <Location left="1440" top="844" />
-        <Size width="181" height="230" />
+        <Size width="181" height="349" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
@@ -48,6 +48,14 @@
         <Member type="Field">private decimal price</Member>
         <Member type="Field">private bool available</Member>
         <Member type="Field">private string unitType</Member>
+        <Member type="Constructor">public Item()</Member>
+        <Member type="Constructor">public Item(ItemDTO itemDTO)</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public ItemCategory Category { get; set; }</Member>
+        <Member type="Property">public ItemCategory SubCategory { get; set; }</Member>
+        <Member type="Property">public decimal Price { get; set; }</Member>
+        <Member type="Property">public bool Available { get; set; }</Member>
+        <Member type="Property">public string UnitType { get; set; }</Member>
         <Member type="Method">public int BonusCalculator()</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -349,6 +357,20 @@
         <Member type="Method">OrderDTO ReadOrder(string name, string password)</Member>
         <Member type="Method">bool UpdateOrder(OrderDTO orderDTO)</Member>
         <Member type="Method">bool DeleteOrder(int Id)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemDTO</Name>
+        <Access>Public</Access>
+        <Location left="1648" top="1130" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public ItemCategory Category { get; set; }</Member>
+        <Member type="Property">public ItemCategory SubCategory { get; set; }</Member>
+        <Member type="Property">public decimal Price { get; set; }</Member>
+        <Member type="Property">public bool Available { get; set; }</Member>
+        <Member type="Property">public string UnitType { get; set; }</Member>
+        <Modifier>None</Modifier>
       </Entity>
     </Entities>
     <Relationships>

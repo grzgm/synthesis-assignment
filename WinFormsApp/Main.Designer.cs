@@ -31,19 +31,29 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tpItems = new System.Windows.Forms.TabPage();
             this.gbItemCreator = new System.Windows.Forms.GroupBox();
+            this.cbAvailableCreator = new System.Windows.Forms.CheckBox();
+            this.lbAvailableCreator = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbNameCreator = new System.Windows.Forms.Label();
             this.btnItemCreate = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.lbUnitTypeCreator = new System.Windows.Forms.Label();
+            this.tbUnitTypeCreator = new System.Windows.Forms.TextBox();
             this.tbSubCategoryCreator = new System.Windows.Forms.TextBox();
-            this.tbAvailableCreator = new System.Windows.Forms.TextBox();
             this.tbCategoryCreator = new System.Windows.Forms.TextBox();
             this.tbNameCreator = new System.Windows.Forms.TextBox();
             this.tbPriceCreator = new System.Windows.Forms.TextBox();
             this.gbItemDeatils = new System.Windows.Forms.GroupBox();
+            this.lbAvailableDetails = new System.Windows.Forms.Label();
             this.btnItemDelete = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnItemUpdate = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
+            this.lbNameDetails = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.tbAvailableDetails = new System.Windows.Forms.TextBox();
@@ -52,6 +62,8 @@
             this.tbCategoryDetails = new System.Windows.Forms.TextBox();
             this.tbSubCategoryDetails = new System.Windows.Forms.TextBox();
             this.gbItemSearch = new System.Windows.Forms.GroupBox();
+            this.lbAvailable = new System.Windows.Forms.Label();
+            this.tbAvailableSearch = new System.Windows.Forms.TextBox();
             this.btnItemSearch = new System.Windows.Forms.Button();
             this.lvItemSearch = new System.Windows.Forms.ListView();
             this.lbPrice = new System.Windows.Forms.Label();
@@ -63,18 +75,6 @@
             this.lbName = new System.Windows.Forms.Label();
             this.tbNameSearch = new System.Windows.Forms.TextBox();
             this.tpOrders = new System.Windows.Forms.TabPage();
-            this.lbAvailable = new System.Windows.Forms.Label();
-            this.tbAvailableSearch = new System.Windows.Forms.TextBox();
-            this.lbAvailableDetails = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lbNameDetails = new System.Windows.Forms.Label();
-            this.lbAvailableCreator = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbNameCreator = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tpItems.SuspendLayout();
             this.gbItemCreator.SuspendLayout();
@@ -108,16 +108,16 @@
             // 
             // gbItemCreator
             // 
+            this.gbItemCreator.Controls.Add(this.cbAvailableCreator);
             this.gbItemCreator.Controls.Add(this.lbAvailableCreator);
             this.gbItemCreator.Controls.Add(this.label6);
             this.gbItemCreator.Controls.Add(this.label7);
             this.gbItemCreator.Controls.Add(this.label8);
             this.gbItemCreator.Controls.Add(this.lbNameCreator);
             this.gbItemCreator.Controls.Add(this.btnItemCreate);
-            this.gbItemCreator.Controls.Add(this.label12);
-            this.gbItemCreator.Controls.Add(this.textBox12);
+            this.gbItemCreator.Controls.Add(this.lbUnitTypeCreator);
+            this.gbItemCreator.Controls.Add(this.tbUnitTypeCreator);
             this.gbItemCreator.Controls.Add(this.tbSubCategoryCreator);
-            this.gbItemCreator.Controls.Add(this.tbAvailableCreator);
             this.gbItemCreator.Controls.Add(this.tbCategoryCreator);
             this.gbItemCreator.Controls.Add(this.tbNameCreator);
             this.gbItemCreator.Controls.Add(this.tbPriceCreator);
@@ -129,6 +129,63 @@
             this.gbItemCreator.TabStop = false;
             this.gbItemCreator.Text = "Item Creator";
             // 
+            // cbAvailableCreator
+            // 
+            this.cbAvailableCreator.AutoSize = true;
+            this.cbAvailableCreator.Checked = true;
+            this.cbAvailableCreator.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAvailableCreator.Location = new System.Drawing.Point(264, 178);
+            this.cbAvailableCreator.Name = "cbAvailableCreator";
+            this.cbAvailableCreator.Size = new System.Drawing.Size(63, 29);
+            this.cbAvailableCreator.TabIndex = 46;
+            this.cbAvailableCreator.Text = "Yes";
+            this.cbAvailableCreator.UseVisualStyleBackColor = true;
+            // 
+            // lbAvailableCreator
+            // 
+            this.lbAvailableCreator.AutoSize = true;
+            this.lbAvailableCreator.Location = new System.Drawing.Point(6, 181);
+            this.lbAvailableCreator.Name = "lbAvailableCreator";
+            this.lbAvailableCreator.Size = new System.Drawing.Size(80, 25);
+            this.lbAvailableCreator.TabIndex = 43;
+            this.lbAvailableCreator.Text = "available";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 144);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 25);
+            this.label6.TabIndex = 42;
+            this.label6.Text = "price";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 107);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(110, 25);
+            this.label7.TabIndex = 41;
+            this.label7.Text = "subcategory";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 70);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 25);
+            this.label8.TabIndex = 40;
+            this.label8.Text = "category";
+            // 
+            // lbNameCreator
+            // 
+            this.lbNameCreator.AutoSize = true;
+            this.lbNameCreator.Location = new System.Drawing.Point(6, 33);
+            this.lbNameCreator.Name = "lbNameCreator";
+            this.lbNameCreator.Size = new System.Drawing.Size(56, 25);
+            this.lbNameCreator.TabIndex = 39;
+            this.lbNameCreator.Text = "name";
+            // 
             // btnItemCreate
             // 
             this.btnItemCreate.Location = new System.Drawing.Point(6, 252);
@@ -137,22 +194,23 @@
             this.btnItemCreate.TabIndex = 28;
             this.btnItemCreate.Text = "Create";
             this.btnItemCreate.UseVisualStyleBackColor = true;
+            this.btnItemCreate.Click += new System.EventHandler(this.btnItemCreate_Click);
             // 
-            // label12
+            // lbUnitTypeCreator
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 218);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 25);
-            this.label12.TabIndex = 38;
-            this.label12.Text = "label12";
+            this.lbUnitTypeCreator.AutoSize = true;
+            this.lbUnitTypeCreator.Location = new System.Drawing.Point(6, 218);
+            this.lbUnitTypeCreator.Name = "lbUnitTypeCreator";
+            this.lbUnitTypeCreator.Size = new System.Drawing.Size(79, 25);
+            this.lbUnitTypeCreator.TabIndex = 38;
+            this.lbUnitTypeCreator.Text = "unitType";
             // 
-            // textBox12
+            // tbUnitTypeCreator
             // 
-            this.textBox12.Location = new System.Drawing.Point(264, 215);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(338, 31);
-            this.textBox12.TabIndex = 37;
+            this.tbUnitTypeCreator.Location = new System.Drawing.Point(264, 215);
+            this.tbUnitTypeCreator.Name = "tbUnitTypeCreator";
+            this.tbUnitTypeCreator.Size = new System.Drawing.Size(338, 31);
+            this.tbUnitTypeCreator.TabIndex = 37;
             // 
             // tbSubCategoryCreator
             // 
@@ -160,13 +218,6 @@
             this.tbSubCategoryCreator.Name = "tbSubCategoryCreator";
             this.tbSubCategoryCreator.Size = new System.Drawing.Size(338, 31);
             this.tbSubCategoryCreator.TabIndex = 31;
-            // 
-            // tbAvailableCreator
-            // 
-            this.tbAvailableCreator.Location = new System.Drawing.Point(264, 178);
-            this.tbAvailableCreator.Name = "tbAvailableCreator";
-            this.tbAvailableCreator.Size = new System.Drawing.Size(338, 31);
-            this.tbAvailableCreator.TabIndex = 35;
             // 
             // tbCategoryCreator
             // 
@@ -215,6 +266,15 @@
             this.gbItemDeatils.TabStop = false;
             this.gbItemDeatils.Text = "Item Details";
             // 
+            // lbAvailableDetails
+            // 
+            this.lbAvailableDetails.AutoSize = true;
+            this.lbAvailableDetails.Location = new System.Drawing.Point(42, 181);
+            this.lbAvailableDetails.Name = "lbAvailableDetails";
+            this.lbAvailableDetails.Size = new System.Drawing.Size(80, 25);
+            this.lbAvailableDetails.TabIndex = 20;
+            this.lbAvailableDetails.Text = "available";
+            // 
             // btnItemDelete
             // 
             this.btnItemDelete.Location = new System.Drawing.Point(42, 329);
@@ -223,6 +283,15 @@
             this.btnItemDelete.TabIndex = 27;
             this.btnItemDelete.Text = "Delete";
             this.btnItemDelete.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(42, 144);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 25);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "price";
             // 
             // btnItemUpdate
             // 
@@ -233,6 +302,15 @@
             this.btnItemUpdate.Text = "Update";
             this.btnItemUpdate.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(42, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 25);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "subcategory";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -242,12 +320,30 @@
             this.label11.TabIndex = 26;
             this.label11.Text = "label11";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(42, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 25);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "category";
+            // 
             // textBox11
             // 
             this.textBox11.Location = new System.Drawing.Point(300, 252);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(338, 31);
             this.textBox11.TabIndex = 25;
+            // 
+            // lbNameDetails
+            // 
+            this.lbNameDetails.AutoSize = true;
+            this.lbNameDetails.Location = new System.Drawing.Point(42, 33);
+            this.lbNameDetails.Name = "lbNameDetails";
+            this.lbNameDetails.Size = new System.Drawing.Size(56, 25);
+            this.lbNameDetails.TabIndex = 16;
+            this.lbNameDetails.Text = "name";
             // 
             // label10
             // 
@@ -321,6 +417,22 @@
             this.gbItemSearch.TabIndex = 0;
             this.gbItemSearch.TabStop = false;
             this.gbItemSearch.Text = "Item Search";
+            // 
+            // lbAvailable
+            // 
+            this.lbAvailable.AutoSize = true;
+            this.lbAvailable.Location = new System.Drawing.Point(13, 181);
+            this.lbAvailable.Name = "lbAvailable";
+            this.lbAvailable.Size = new System.Drawing.Size(80, 25);
+            this.lbAvailable.TabIndex = 15;
+            this.lbAvailable.Text = "available";
+            // 
+            // tbAvailableSearch
+            // 
+            this.tbAvailableSearch.Location = new System.Drawing.Point(271, 178);
+            this.tbAvailableSearch.Name = "tbAvailableSearch";
+            this.tbAvailableSearch.Size = new System.Drawing.Size(338, 31);
+            this.tbAvailableSearch.TabIndex = 14;
             // 
             // btnItemSearch
             // 
@@ -414,112 +526,6 @@
             this.tpOrders.Text = "Orders";
             this.tpOrders.UseVisualStyleBackColor = true;
             // 
-            // lbAvailable
-            // 
-            this.lbAvailable.AutoSize = true;
-            this.lbAvailable.Location = new System.Drawing.Point(13, 181);
-            this.lbAvailable.Name = "lbAvailable";
-            this.lbAvailable.Size = new System.Drawing.Size(80, 25);
-            this.lbAvailable.TabIndex = 15;
-            this.lbAvailable.Text = "available";
-            // 
-            // tbAvailableSearch
-            // 
-            this.tbAvailableSearch.Location = new System.Drawing.Point(271, 178);
-            this.tbAvailableSearch.Name = "tbAvailableSearch";
-            this.tbAvailableSearch.Size = new System.Drawing.Size(338, 31);
-            this.tbAvailableSearch.TabIndex = 14;
-            // 
-            // lbAvailableDetails
-            // 
-            this.lbAvailableDetails.AutoSize = true;
-            this.lbAvailableDetails.Location = new System.Drawing.Point(42, 181);
-            this.lbAvailableDetails.Name = "lbAvailableDetails";
-            this.lbAvailableDetails.Size = new System.Drawing.Size(80, 25);
-            this.lbAvailableDetails.TabIndex = 20;
-            this.lbAvailableDetails.Text = "available";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 144);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 25);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "price";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 25);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "subcategory";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 70);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 25);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "category";
-            // 
-            // lbNameDetails
-            // 
-            this.lbNameDetails.AutoSize = true;
-            this.lbNameDetails.Location = new System.Drawing.Point(42, 33);
-            this.lbNameDetails.Name = "lbNameDetails";
-            this.lbNameDetails.Size = new System.Drawing.Size(56, 25);
-            this.lbNameDetails.TabIndex = 16;
-            this.lbNameDetails.Text = "name";
-            // 
-            // lbAvailableCreator
-            // 
-            this.lbAvailableCreator.AutoSize = true;
-            this.lbAvailableCreator.Location = new System.Drawing.Point(6, 181);
-            this.lbAvailableCreator.Name = "lbAvailableCreator";
-            this.lbAvailableCreator.Size = new System.Drawing.Size(80, 25);
-            this.lbAvailableCreator.TabIndex = 43;
-            this.lbAvailableCreator.Text = "available";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 144);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 25);
-            this.label6.TabIndex = 42;
-            this.label6.Text = "price";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 107);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 25);
-            this.label7.TabIndex = 41;
-            this.label7.Text = "subcategory";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 70);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 25);
-            this.label8.TabIndex = 40;
-            this.label8.Text = "category";
-            // 
-            // lbNameCreator
-            // 
-            this.lbNameCreator.AutoSize = true;
-            this.lbNameCreator.Location = new System.Drawing.Point(6, 33);
-            this.lbNameCreator.Name = "lbNameCreator";
-            this.lbNameCreator.Size = new System.Drawing.Size(56, 25);
-            this.lbNameCreator.TabIndex = 39;
-            this.lbNameCreator.Text = "name";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -567,10 +573,9 @@
         private Label lbCategory;
         private TextBox tbCategorySearch;
         private Button btnItemCreate;
-        private Label label12;
-        private TextBox textBox12;
+        private Label lbUnitTypeCreator;
+        private TextBox tbUnitTypeCreator;
         private TextBox tbSubCategoryCreator;
-        private TextBox tbAvailableCreator;
         private TextBox tbCategoryCreator;
         private TextBox tbNameCreator;
         private TextBox tbPriceCreator;
@@ -589,5 +594,6 @@
         private Label label3;
         private Label label4;
         private Label lbNameDetails;
+        private CheckBox cbAvailableCreator;
     }
 }

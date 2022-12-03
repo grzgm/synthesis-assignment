@@ -9,12 +9,17 @@ namespace DataAccessLayer
 {
 	public class MainRepository
 	{
-		private SqlConnection conn;
-		private string constr;
+		protected SqlConnection conn;
+		protected string constr;
 
 		public MainRepository()
 		{
-			throw new NotImplementedException();
+			constr = "Server=mssqlstud.fhict.local;Database=dbi508542_synthesis;User Id=dbi508542_synthesis;Password=123;";
 		}
+        public SqlConnection GetConnection()
+        {
+            conn = new SqlConnection(constr);
+            return conn;
+        }
 	}
 }
