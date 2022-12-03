@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LogicLayer.DTOs;
 
 namespace LogicLayer.Models
 {
@@ -25,16 +21,20 @@ namespace LogicLayer.Models
             this.parentCategory = null;
         }
 
+        public int Id
+        {
+            get { return this.id; }
+            set { this.id = value; }
+        }
         public string Name
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get { return this.name; }
+            set { this.name = value; }
+        }
+        public ItemCategory? ParentCategory
+        {
+            get { return this.parentCategory; }
+            set { this.parentCategory = value; }
         }
     }
 }

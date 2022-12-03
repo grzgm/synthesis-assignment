@@ -62,7 +62,7 @@
       <Entity type="Enum">
         <Name>OrderStatus</Name>
         <Access>Public</Access>
-        <Location left="1928" top="1054" />
+        <Location left="2069" top="861" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Value>OrderPlaced</Value>
@@ -173,12 +173,13 @@
       <Entity type="Class">
         <Name>MainRepository</Name>
         <Access>Public</Access>
-        <Location left="821" top="2385" />
+        <Location left="823" top="2385" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private SqlConnection conn</Member>
-        <Member type="Field">private string constr</Member>
+        <Member type="Field">protected SqlConnection conn</Member>
+        <Member type="Field">protected string constr</Member>
         <Member type="Constructor">public MainRepository()</Member>
+        <Member type="Method">protected SqlConnection GetConnection()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -187,7 +188,7 @@
         <Location left="1334" top="1651" />
         <Size width="273" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private IClientRepository clientRepository</Member>
+        <Member type="Field">private readonly IClientRepository clientRepository</Member>
         <Member type="Constructor">public ClientManager(IClientRepository clientRepository)</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -197,7 +198,7 @@
         <Location left="159" top="1651" />
         <Size width="333" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private IEmployeeRepository employeeRepository</Member>
+        <Member type="Field">private readonly IEmployeeRepository employeeRepository</Member>
         <Member type="Constructor">public EmployeeManager(IEmployeeRepository employeeRepository)</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -207,27 +208,28 @@
         <Location left="931" top="1651" />
         <Size width="274" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private IOrderRepository orderRepository</Member>
+        <Member type="Field">private readonly IOrderRepository orderRepository</Member>
         <Member type="Constructor">public OrderManager(IOrderRepository orderRepository)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ItemManager</Name>
         <Access>Public</Access>
-        <Location left="586" top="1651" />
+        <Location left="583" top="1651" />
         <Size width="260" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private IItemRepository itemRepository</Member>
+        <Member type="Field">private readonly IItemRepository itemRepository</Member>
         <Member type="Constructor">public ItemManager(IItemRepository itemRepository)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="637" top="2159" />
-        <Size width="163" height="94" />
+        <Location left="636" top="2143" />
+        <Size width="163" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public ItemRepository()</Member>
+        <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -236,7 +238,7 @@
         <Location left="168" top="1383" />
         <Size width="315" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">Employee CreateEmployee(Employee employee)</Member>
+        <Member type="Method">bool CreateEmployee(Employee employee)</Member>
         <Member type="Method">Employee ReadEmployee(string name, string password)</Member>
         <Member type="Method">bool UpdateEmployee(Employee employe)</Member>
         <Member type="Method">bool DeleteEmployee(int employeeId)</Member>
@@ -247,7 +249,7 @@
         <Location left="583" top="1383" />
         <Size width="267" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">Item CreateItem(Item item)</Member>
+        <Member type="Method">bool CreateItem(Item item)</Member>
         <Member type="Method">Item ReadItem(string name, string password)</Member>
         <Member type="Method">bool UpdateItem(Item item)</Member>
         <Member type="Method">bool DeleteItem(int Id)</Member>
@@ -258,7 +260,7 @@
         <Location left="930" top="1383" />
         <Size width="276" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">Order CreateOrder(Order order)</Member>
+        <Member type="Method">bool CreateOrder(Order order)</Member>
         <Member type="Method">Order ReadOrder(string name, string password)</Member>
         <Member type="Method">bool UpdateOrder(Order order)</Member>
         <Member type="Method">bool DeleteOrder(int Id)</Member>
@@ -269,7 +271,7 @@
         <Location left="1333" top="1383" />
         <Size width="275" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">Client CreateClient(Client client)</Member>
+        <Member type="Method">bool CreateClient(Client client)</Member>
         <Member type="Method">Client ReadClient(string name, string password)</Member>
         <Member type="Method">bool UpdateClient(Client client)</Member>
         <Member type="Method">bool DeleteClient(int Id)</Member>
@@ -280,10 +282,14 @@
         <Location left="1700" top="861" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
-        <Member type="Field">private ItemCategory parentCategory</Member>
+        <Member type="Field">private ItemCategory? parentCategory</Member>
+        <Member type="Constructor">public ItemCategory(int id, string name, ItemCategory parentCategory)</Member>
+        <Member type="Constructor">public ItemCategory(int id, string name)</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
-        <Member type="Constructor">public ItemCategory(string name, ItemCategory parentCategory)</Member>
+        <Member type="Property">public ItemCategory? ParentCategory { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -320,7 +326,7 @@
         <Location left="156" top="1938" />
         <Size width="339" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">EmployeeDTO CreateEmployee(EmployeeDTO employeeDTO)</Member>
+        <Member type="Method">bool CreateEmployee(EmployeeDTO employeeDTO)</Member>
         <Member type="Method">EmployeeDTO ReadEmployee(string name, string password)</Member>
         <Member type="Method">bool UpdateEmployee(EmployeeDTO employeDTO)</Member>
         <Member type="Method">bool DeleteEmployee(int employeeId)</Member>
@@ -331,7 +337,7 @@
         <Location left="572" top="1938" />
         <Size width="288" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">ItemDTO CreateItem(ItemDTO itemDTO)</Member>
+        <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
         <Member type="Method">ItemDTO ReadItem(string name, string password)</Member>
         <Member type="Method">bool UpdateItem(ItemDTO itemDTO)</Member>
         <Member type="Method">bool DeleteItem(int Id)</Member>
@@ -342,7 +348,7 @@
         <Location left="1322" top="1938" />
         <Size width="297" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">ClientDTO CreateClient(ClientDTO clientDTO)</Member>
+        <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
         <Member type="Method">ClientDTO ReadClient(string name, string password)</Member>
         <Member type="Method">bool UpdateClient(ClientDTO clientDTO)</Member>
         <Member type="Method">bool DeleteClient(int Id)</Member>
@@ -353,7 +359,7 @@
         <Location left="919" top="1938" />
         <Size width="298" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">OrderDTO CreateOrder(OrderDTO orderDTO)</Member>
+        <Member type="Method">bool CreateOrder(OrderDTO orderDTO)</Member>
         <Member type="Method">OrderDTO ReadOrder(string name, string password)</Member>
         <Member type="Method">bool UpdateOrder(OrderDTO orderDTO)</Member>
         <Member type="Method">bool DeleteOrder(int Id)</Member>
@@ -365,11 +371,63 @@
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public string Name { get; set; }</Member>
-        <Member type="Property">public ItemCategory Category { get; set; }</Member>
-        <Member type="Property">public ItemCategory SubCategory { get; set; }</Member>
+        <Member type="Property">public ItemCategoryDTO Category { get; set; }</Member>
+        <Member type="Property">public ItemCategoryDTO SubCategory { get; set; }</Member>
         <Member type="Property">public decimal Price { get; set; }</Member>
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemCategoryDTO</Name>
+        <Access>Public</Access>
+        <Location left="1884" top="1130" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public ItemCategoryDTO? ParentCategory { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IItemCategoryRepository</Name>
+        <Access>Public</Access>
+        <Location left="1741" top="1938" />
+        <Size width="297" height="129" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
+        <Member type="Method">ItemCategoryDTO ReadItemCategory(string name, string password)</Member>
+        <Member type="Method">bool UpdateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
+        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IItemCategoryManager</Name>
+        <Access>Public</Access>
+        <Location left="1752" top="1383" />
+        <Size width="275" height="129" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
+        <Member type="Method">ItemCategory ReadItemCategory(string name, string password)</Member>
+        <Member type="Method">bool UpdateItemCategory(ItemCategory itemCategory)</Member>
+        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemCategoryManager</Name>
+        <Access>Public</Access>
+        <Location left="1753" top="1651" />
+        <Size width="273" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly IItemCategoryRepository ItemCategoryRepository</Member>
+        <Member type="Constructor">public ItemCategoryManager(IItemCategoryRepository itemCategoryRepository)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ItemCategoryRepository</Name>
+        <Access>Public</Access>
+        <Location left="1806" top="2159" />
+        <Size width="163" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ItemCategoryRepository()</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
@@ -542,6 +600,26 @@
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="35" second="34">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="35" second="33">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="36" second="33">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="36" second="14">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
       </Relationship>
     </Relationships>
   </ProjectItem>

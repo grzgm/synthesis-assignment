@@ -16,7 +16,7 @@ namespace DataAccessLayer
 		{
 			constr = "Server=mssqlstud.fhict.local;Database=dbi508542_synthesis;User Id=dbi508542_synthesis;Password=123;";
 		}
-        public SqlConnection GetConnection()
+        protected SqlConnection GetConnection()
         {
             conn = new SqlConnection(constr);
             return conn;
