@@ -8,7 +8,7 @@ namespace LogicLayer.DTOs
         { get; set; }
         public string Name
         { get; set; }
-        public ItemCategoryDTO? ParentCategory
+        public int? ParentId
         { get; set; }
     }
 }

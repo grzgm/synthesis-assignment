@@ -11,11 +11,25 @@ namespace WinFormsApp
     {
         IItemRepository itemRepository;
         IItemManager itemManager;
+        IItemCategoryRepository itemCategoryRepository;
+        IItemCategoryManager itemCategoryManager;
+
+        List<ItemCategory> itemCategories;
+        List<ItemCategory> itemSubCategories;
         public Main()
         {
             itemRepository = new ItemRepository();
             itemManager = new ItemManager(itemRepository);
+            itemCategoryRepository = new ItemCategoryRepository();
+            itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
+
+            (itemCategories, itemSubCategories) = itemCategoryManager.ReadAllItemCategories();
+
             InitializeComponent();
+
+            cbCategoryCreator.DataSource = new List<ItemCategory>(itemCategories);
+            cbCategoryDetails.DataSource = new List<ItemCategory>(itemCategories);
+            cbCategorySearch.DataSource = new List<ItemCategory>(itemCategories);
         }
 
         private void btnItemCreate_Click(object sender, EventArgs e)
@@ -32,8 +46,8 @@ namespace WinFormsApp
                 return;
             }
 
-            newItem.Category = new ItemCategory(1, "Fruit");
-            newItem.SubCategory = new ItemCategory(3, "Fruit", newItem.Category);
+            newItem.Category = (ItemCategory)cbCategoryCreator.SelectedValue;
+            newItem.SubCategory = (ItemCategory)cbSubCategoryCreator.SelectedValue;
 
             try
             {
@@ -62,13 +76,13 @@ namespace WinFormsApp
                 newItem.Available = false;
             }
 
-            if (tbUnitTypeCreator.Text.Length >= 2 && tbUnitTypeCreator.Text.Length <= 20)
+            if (tbUnitTypeCreator.Text.Length >= 1 && tbUnitTypeCreator.Text.Length <= 20)
             {
                 newItem.UnitType = tbUnitTypeCreator.Text;
             }
             else
             {
-                MessageBox.Show("New Item UnitType should be between 2 and 20 characters");
+                MessageBox.Show("New Item UnitType should be between 1 and 20 characters");
                 return;
             }
 
@@ -83,13 +97,34 @@ namespace WinFormsApp
             }
             ResetItemCreator();
         }
+
         private void ResetItemCreator()
         {
             tbNameCreator.Text = String.Empty;
-            tbCategoryCreator.Text = String.Empty;
-            tbSubCategoryCreator.Text = String.Empty;
             tbPriceCreator.Text = String.Empty;
             cbAvailableCreator.Checked = true;
+            tbUnitTypeCreator.Text = String.Empty;
+        }
+
+        private void cbCategoryCreator_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbSubCategoryCreator.DataSource = null;
+            cbSubCategoryCreator.Items.Clear();
+            cbSubCategoryCreator.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryCreator.SelectedValue);
+        }
+
+        private void cbCategoryDetails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbSubCategoryDetails.DataSource = null;
+            cbSubCategoryDetails.Items.Clear();
+            cbSubCategoryDetails.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryDetails.SelectedValue);
+        }
+
+        private void cbCategorySearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbSubCategorySearch.DataSource = null;
+            cbSubCategorySearch.Items.Clear();
+            cbSubCategorySearch.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategorySearch.SelectedValue);
         }
     }
 }

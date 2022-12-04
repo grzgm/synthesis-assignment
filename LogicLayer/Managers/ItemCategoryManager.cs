@@ -12,16 +12,37 @@ namespace LogicLayer.Managers
 {
 	public class ItemCategoryManager : IItemCategoryManager
 	{
-		private readonly IItemCategoryRepository ItemCategoryRepository;
+		private readonly IItemCategoryRepository itemCategoryRepository;
 
 		public ItemCategoryManager(IItemCategoryRepository itemCategoryRepository)
 		{
-			throw new NotImplementedException();
-		}
+            this.itemCategoryRepository = itemCategoryRepository
+                ?? throw new ArgumentNullException(nameof(itemCategoryRepository));
+        }
 
         public bool CreateItemCategory(ItemCategory itemCategory)
         {
             throw new NotImplementedException();
+        }
+        public ItemCategory ReadItemCategory(string name, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public (List<ItemCategory>, List<ItemCategory>) ReadAllItemCategories()
+        {
+            List<ItemCategoryDTO> categoriesDTO = itemCategoryRepository.ReadAllItemCategories();
+            List<ItemCategoryDTO> subCategoriesDTO = itemCategoryRepository.ReadAllItemSubCategories();
+
+            List<ItemCategory> categories = ConvertToModelParent(categoriesDTO);
+            List<ItemCategory> subCategories = new List<ItemCategory>();
+
+            foreach (ItemCategoryDTO subCategoryDTO in subCategoriesDTO)
+            {
+                subCategories.Add(new ItemCategory(subCategoryDTO, categories.Find(i => i.Id == subCategoryDTO.ParentId)));
+            }
+
+            return (categories, subCategories);
         }
 
         public bool DeleteItemCategory(int Id)
@@ -29,14 +50,29 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        public ItemCategory ReadItemCategory(string name, string password)
+        public bool UpdateItemCategory(ItemCategory itemCategory)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateItemCategory(ItemCategory itemCategory)
+        private List<ItemCategory> ConvertToModelParent(List<ItemCategoryDTO> itemCategoriesDTO)
         {
-            throw new NotImplementedException();
+            List<ItemCategory> itemCategories = new List<ItemCategory>();
+            foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
+            {
+                itemCategories.Add(new ItemCategory(itemCategoryDTO));
+            }
+            return itemCategories;
+        }
+
+        private List<ItemCategory> ConvertToModelChild(List<ItemCategoryDTO> itemCategoriesDTO)
+        {
+            List<ItemCategory> itemCategories = new List<ItemCategory>();
+            foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
+            {
+                itemCategories.Add(new ItemCategory(itemCategoryDTO));
+            }
+            return itemCategories;
         }
     }
 }

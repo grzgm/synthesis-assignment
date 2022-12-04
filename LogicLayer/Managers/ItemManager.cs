@@ -45,10 +45,8 @@ namespace LogicLayer.Managers
         {
             ItemDTO itemDTO = new ItemDTO();
             itemDTO.Name = item.Name;
-            //itemDTO.Category= item.Category;
-            //itemDTO.SubCategory= item.SubCategory;
-            itemDTO.Category= new ItemCategoryDTO { Id = 1, Name = "Fruit" };
-            itemDTO.SubCategory = new ItemCategoryDTO{ Id = 3, Name = "Fruit", ParentCategory = new ItemCategoryDTO { Id = 1, Name = "Fruit" } };
+            itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
+            itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id }; ;
             itemDTO.Price= item.Price;
             itemDTO.Available= item.Available;
             itemDTO.UnitType= item.UnitType;

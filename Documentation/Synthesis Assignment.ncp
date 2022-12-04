@@ -30,7 +30,7 @@
         <Member type="Field">private DateOnly orderDate</Member>
         <Member type="Field">private DateOnly deliveryDate</Member>
         <Member type="Field">private OrderStatus orderStatus</Member>
-        <Member type="Field">private List&lt;OrderItem&gt; purchasedItems</Member>
+        <Member type="Field">private List&lt;LineItem&gt; purchasedItems</Member>
         <Member type="Constructor">public Order()</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
@@ -46,8 +46,8 @@
         <Member type="Field">private ItemCategory category</Member>
         <Member type="Field">private ItemCategory subCategory</Member>
         <Member type="Field">private decimal price</Member>
-        <Member type="Field">private bool available</Member>
         <Member type="Field">private string unitType</Member>
+        <Member type="Field">private bool available</Member>
         <Member type="Constructor">public Item()</Member>
         <Member type="Constructor">public Item(ItemDTO itemDTO)</Member>
         <Member type="Property">public string Name { get; set; }</Member>
@@ -56,7 +56,7 @@
         <Member type="Property">public decimal Price { get; set; }</Member>
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
-        <Member type="Method">public int BonusCalculator()</Member>
+        <Member type="Method">public decimal BonusCalculator()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Enum">
@@ -123,7 +123,7 @@
         <Location left="813" top="974" />
         <Size width="176" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private List&lt;OrderItem&gt; addedItems</Member>
+        <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
         <Member type="Method">public bool IsEmpty()</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -173,7 +173,7 @@
       <Entity type="Class">
         <Name>MainRepository</Name>
         <Access>Public</Access>
-        <Location left="823" top="2385" />
+        <Location left="1012" top="2427" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">protected SqlConnection conn</Member>
@@ -225,8 +225,8 @@
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="636" top="2143" />
-        <Size width="163" height="111" />
+        <Location left="484" top="2143" />
+        <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public ItemRepository()</Member>
         <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -293,15 +293,15 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>OrderItem</Name>
+        <Name>LineItem</Name>
         <Access>Public</Access>
         <Location left="1145" top="861" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private int amount</Member>
-        <Member type="Field">private decimal purchasePrice</Member>
         <Member type="Field">private Item item</Member>
-        <Member type="Method">public int TotalPrice()</Member>
+        <Member type="Field">private decimal purchasePrice</Member>
+        <Member type="Field">private int amount</Member>
+        <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -386,28 +386,31 @@
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
-        <Member type="Property">public ItemCategoryDTO? ParentCategory { get; set; }</Member>
+        <Member type="Property">public int? ParentId { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
         <Location left="1741" top="1938" />
-        <Size width="297" height="129" />
+        <Size width="297" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
         <Member type="Method">ItemCategoryDTO ReadItemCategory(string name, string password)</Member>
+        <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemCategories()</Member>
+        <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemSubCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
         <Member type="Method">bool DeleteItemCategory(int Id)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="1752" top="1383" />
-        <Size width="275" height="129" />
+        <Location left="1753" top="1383" />
+        <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
         <Member type="Method">ItemCategory ReadItemCategory(string name, string password)</Member>
+        <Member type="Method">List&lt;ItemCategory&gt; ReadAllItemCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategory itemCategory)</Member>
         <Member type="Method">bool DeleteItemCategory(int Id)</Member>
       </Entity>
@@ -415,10 +418,12 @@
         <Name>ItemCategoryManager</Name>
         <Access>Public</Access>
         <Location left="1753" top="1651" />
-        <Size width="273" height="111" />
+        <Size width="273" height="145" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private readonly IItemCategoryRepository ItemCategoryRepository</Member>
+        <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
         <Member type="Constructor">public ItemCategoryManager(IItemCategoryRepository itemCategoryRepository)</Member>
+        <Member type="Method">private List&lt;ItemCategory&gt; ConvertToModelParent(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
+        <Member type="Method">private List&lt;ItemCategory&gt; ConvertToModelChild(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -428,6 +433,14 @@
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public ItemCategoryRepository()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Copy_Item_managers_and_change_to_LineItem</Name>
+        <Access>Public</Access>
+        <Location left="2198" top="1651" />
+        <Size width="378" height="216" />
+        <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>

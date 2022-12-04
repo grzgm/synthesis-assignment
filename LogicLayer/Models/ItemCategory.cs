@@ -20,6 +20,18 @@ namespace LogicLayer.Models
             this.name = name;
             this.parentCategory = null;
         }
+        public ItemCategory(ItemCategoryDTO itemCategoryDTO)
+        {
+            this.id = itemCategoryDTO.Id;
+            this.name = itemCategoryDTO.Name;
+            this.parentCategory = null;
+        }
+        public ItemCategory(ItemCategoryDTO itemCategoryDTO, ItemCategory itemCategory)
+        {
+            this.id = itemCategoryDTO.Id;
+            this.name = itemCategoryDTO.Name;
+            this.parentCategory = itemCategory;
+        }
 
         public int Id
         {
@@ -35,6 +47,10 @@ namespace LogicLayer.Models
         {
             get { return this.parentCategory; }
             set { this.parentCategory = value; }
+        }
+        public override string ToString()
+        {
+            return name;
         }
     }
 }
