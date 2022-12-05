@@ -64,7 +64,7 @@ namespace DataAccessLayer
 
         public ItemCategoryDTO ReadItemCategory(string name, string password)
         {
-            string Query = "SELECT * FROM ItemCategory WHERE parentCategory = NULL";
+            string Query = "SELECT [id], [name], [parentCategory] FROM ItemCategory WHERE parentCategory is NULL";
 
             try
             {
@@ -78,7 +78,7 @@ namespace DataAccessLayer
 
         public List<ItemCategoryDTO> ReadAllItemCategories()
         {
-            string Query = "SELECT * FROM Category WHERE parentCategory IS NULL;";
+            string Query = "SELECT [id], [name], [parentCategory] FROM Category WHERE parentCategory IS NULL;";
             //Query = "SELECT t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM " +
             //    "Category t1 LEFT JOIN Category t2 ON t1.id = t2.parentCategory " +
             //    "WHERE t1.parentCategory IS NULL;";
@@ -95,7 +95,7 @@ namespace DataAccessLayer
 
         public List<ItemCategoryDTO> ReadAllItemSubCategories()
         {
-            string Query = "SELECT * FROM Category WHERE parentCategory IS NOT NULL;";
+            string Query = "SELECT [id], [name], [parentCategory] FROM Category WHERE parentCategory IS NOT NULL;";
 
             try
             {

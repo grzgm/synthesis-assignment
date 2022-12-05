@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using LogicLayer.InterfacesRepository;
 using LogicLayer.DTOs;
-using System.Xml.Linq;
+using LogicLayer.InterfacesRepository;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-	public class ItemRepository : MainRepository, IItemRepository
+    public class ItemRepository : MainRepository, IItemRepository
     {
         private IEnumerable<ItemDTO> GetItems(string Query, List<SqlParameter>? sqlParameters)
         {
             List<ItemDTO> items = new List<ItemDTO>();
+
             try
             {
                 SqlConnection conn = GetConnection();
@@ -28,14 +23,28 @@ namespace DataAccessLayer
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        int timeblockid = reader.GetInt32(0);
-                        TimeSpan startingtime = reader.GetTimeSpan(1);
-                        TimeSpan endingtime = reader.GetTimeSpan(2);
+                        ItemDTO itemDTO = new ItemDTO();
+                        ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
+                        ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
-                        items.Add(new ItemDTO
-                        {
+                        itemDTO.Id = reader.GetInt32(0);
+                        itemDTO.Name = reader.GetString(1);
+                        itemDTO.Price = reader.GetDecimal(2);
+                        itemDTO.UnitType = reader.GetString(3);
+                        itemDTO.Available = reader.GetBoolean(4);
 
-                        });
+                        itemCategoryDTO.Id = reader.GetInt32(5);
+                        itemCategoryDTO.Name = reader.GetString(6);
+                        itemCategoryDTO.ParentId = null;
+
+                        itemSubCategoryDTO.Id = reader.GetInt32(7);
+                        itemSubCategoryDTO.Name = reader.GetString(8);
+                        itemSubCategoryDTO.ParentId = reader.GetInt32(9);
+
+                        itemDTO.Category = itemCategoryDTO;
+                        itemDTO.SubCategory = itemSubCategoryDTO;
+
+                        items.Add(itemDTO);
 
                     }
                 }
@@ -89,12 +98,34 @@ namespace DataAccessLayer
             return true;
         }
 
-        public bool DeleteItem(int Id)
+        public ItemDTO ReadItem()
         {
-            throw new NotImplementedException();
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL;";
+
+            try
+            {
+                return GetItems(Query, null).First();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+        }
+        public List<ItemDTO> ReadItems()
+        {
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL;";
+
+            try
+            {
+                return GetItems(Query, null).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
-        public ItemDTO ReadItem(string name, string password)
+        public bool DeleteItem(int Id)
         {
             throw new NotImplementedException();
         }

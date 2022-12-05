@@ -67,7 +67,6 @@
             this.cbCategorySearch = new System.Windows.Forms.ComboBox();
             this.tbAvailableSearch = new System.Windows.Forms.TextBox();
             this.btnItemSearch = new System.Windows.Forms.Button();
-            this.lvItemSearch = new System.Windows.Forms.ListView();
             this.lbPriceSearch = new System.Windows.Forms.Label();
             this.tbPriceSearch = new System.Windows.Forms.TextBox();
             this.lbSubCategorySearch = new System.Windows.Forms.Label();
@@ -75,6 +74,7 @@
             this.lbNameSearch = new System.Windows.Forms.Label();
             this.tbNameSearch = new System.Windows.Forms.TextBox();
             this.tpOrders = new System.Windows.Forms.TabPage();
+            this.lbItemSearch = new System.Windows.Forms.ListBox();
             this.tabControl.SuspendLayout();
             this.tpItems.SuspendLayout();
             this.gbItemCreator.SuspendLayout();
@@ -408,12 +408,12 @@
             // 
             // gbItemSearch
             // 
+            this.gbItemSearch.Controls.Add(this.lbItemSearch);
             this.gbItemSearch.Controls.Add(this.cbSubCategorySearch);
             this.gbItemSearch.Controls.Add(this.lbAvailableSearch);
             this.gbItemSearch.Controls.Add(this.cbCategorySearch);
             this.gbItemSearch.Controls.Add(this.tbAvailableSearch);
             this.gbItemSearch.Controls.Add(this.btnItemSearch);
-            this.gbItemSearch.Controls.Add(this.lvItemSearch);
             this.gbItemSearch.Controls.Add(this.lbPriceSearch);
             this.gbItemSearch.Controls.Add(this.tbPriceSearch);
             this.gbItemSearch.Controls.Add(this.lbSubCategorySearch);
@@ -471,15 +471,6 @@
             this.btnItemSearch.TabIndex = 13;
             this.btnItemSearch.Text = "Search";
             this.btnItemSearch.UseVisualStyleBackColor = true;
-            // 
-            // lvItemSearch
-            // 
-            this.lvItemSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvItemSearch.Location = new System.Drawing.Point(3, 255);
-            this.lvItemSearch.Name = "lvItemSearch";
-            this.lvItemSearch.Size = new System.Drawing.Size(609, 722);
-            this.lvItemSearch.TabIndex = 12;
-            this.lvItemSearch.UseCompatibleStateImageBehavior = false;
             // 
             // lbPriceSearch
             // 
@@ -541,6 +532,16 @@
             this.tpOrders.Text = "Orders";
             this.tpOrders.UseVisualStyleBackColor = true;
             // 
+            // lbItemSearch
+            // 
+            this.lbItemSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbItemSearch.FormattingEnabled = true;
+            this.lbItemSearch.ItemHeight = 25;
+            this.lbItemSearch.Location = new System.Drawing.Point(3, 273);
+            this.lbItemSearch.Name = "lbItemSearch";
+            this.lbItemSearch.Size = new System.Drawing.Size(609, 704);
+            this.lbItemSearch.TabIndex = 52;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -578,7 +579,6 @@
         private TextBox tbAvailableDetails;
         private TextBox tbNameDetails;
         private TextBox tbPriceDetails;
-        private ListView lvItemSearch;
         private Label lbPriceSearch;
         private TextBox tbPriceSearch;
         private Label lbSubCategorySearch;
@@ -610,5 +610,6 @@
         private ComboBox cbCategoryDetails;
         private ComboBox cbSubCategorySearch;
         private ComboBox cbCategorySearch;
+        private ListBox lbItemSearch;
     }
 }

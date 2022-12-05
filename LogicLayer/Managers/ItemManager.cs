@@ -31,9 +31,20 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        public Item ReadItem(string name, string password)
+        public Item ReadItem()
         {
             throw new NotImplementedException();
+        }
+
+        public List<Item> ReadItems()
+        {
+            List<ItemDTO> itemsDTO = itemRepository.ReadItems();
+            List<Item> items = new List<Item>();
+            foreach (ItemDTO itemDTO in itemsDTO)
+            {
+                items.Add(new Item(itemDTO));
+            }
+            return items;
         }
 
         public bool UpdateItem(Item item)
@@ -47,9 +58,9 @@ namespace LogicLayer.Managers
             itemDTO.Name = item.Name;
             itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
             itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id }; ;
-            itemDTO.Price= item.Price;
-            itemDTO.Available= item.Available;
-            itemDTO.UnitType= item.UnitType;
+            itemDTO.Price = item.Price;
+            itemDTO.Available = item.Available;
+            itemDTO.UnitType = item.UnitType;
             return itemDTO;
         }
     }

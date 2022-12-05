@@ -6,7 +6,8 @@ namespace LogicLayer.InterfacesRepository
     {
         bool CreateItem(ItemDTO itemDTO);
 
-        ItemDTO ReadItem(string name, string password);
+        ItemDTO ReadItem();
+        List<ItemDTO> ReadItems();
 
         bool UpdateItem(ItemDTO itemDTO);
 

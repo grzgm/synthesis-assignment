@@ -1,9 +1,4 @@
 using LogicLayer.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace LogicLayer.Models
@@ -16,8 +11,8 @@ namespace LogicLayer.Models
         private ItemCategory category;
         private ItemCategory subCategory;
         private decimal price;
-        private bool available;
         private string unitType;
+        private bool available;
 
         public Item()
         {
@@ -26,7 +21,13 @@ namespace LogicLayer.Models
 
         public Item(ItemDTO itemDTO)
         {
-
+            this.id = itemDTO.Id;
+            this.name = itemDTO.Name;
+            this.category = new ItemCategory(itemDTO.Category);
+            this.subCategory = new ItemCategory(itemDTO.SubCategory);
+            this.price = itemDTO.Price;
+            this.available = itemDTO.Available;
+            this.unitType = itemDTO.UnitType;
         }
 
         public string Name
@@ -68,6 +69,11 @@ namespace LogicLayer.Models
         public int BonusCalculator()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + available.ToString() + "; " + unitType + "; ";
         }
     }
 }

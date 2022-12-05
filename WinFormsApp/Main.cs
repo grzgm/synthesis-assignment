@@ -30,6 +30,9 @@ namespace WinFormsApp
             cbCategoryCreator.DataSource = new List<ItemCategory>(itemCategories);
             cbCategoryDetails.DataSource = new List<ItemCategory>(itemCategories);
             cbCategorySearch.DataSource = new List<ItemCategory>(itemCategories);
+
+
+            lbItemSearch.DataSource = itemManager.ReadItems();
         }
 
         private void btnItemCreate_Click(object sender, EventArgs e)
