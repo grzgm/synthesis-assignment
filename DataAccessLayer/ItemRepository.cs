@@ -98,13 +98,15 @@ namespace DataAccessLayer
             return true;
         }
 
-        public ItemDTO ReadItem()
+        public ItemDTO ReadItem(int id)
         {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL;";
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL AND Item.id = @id;";
+            List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
             try
             {
-                return GetItems(Query, null).First();
+                sqlParameters.Add(new SqlParameter("@id", id));
+                return GetItems(Query, sqlParameters).First();
             }
             catch (Exception ex)
             {

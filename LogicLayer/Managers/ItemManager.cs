@@ -31,9 +31,50 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        public Item ReadItem()
+        public Item ReadItem(int id, string name, ItemCategory Category, ItemCategory SubCategory, decimal price, bool itemAvailable)
         {
-            throw new NotImplementedException();
+            ItemDTO itemDTO;
+            // There is no need to search with name, email, password in database, cuz id is Unique
+            try
+            {
+                itemDTO = itemRepository.ReadItem(id);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            if (name != "")
+            {
+                if (itemDTO.Name != name)
+                    return null;
+            }
+
+            if (Category != null)
+            {
+                if (itemDTO.Category.Name != Category.Name)
+                    return null;
+            }
+
+            if (SubCategory != null)
+            {
+                if (itemDTO.SubCategory.Name != SubCategory.Name)
+                    return null;
+            }
+
+            if (price > 0)
+            {
+                if (itemDTO.Price != price)
+                    return null;
+            }
+
+            if(itemAvailable)
+            {
+                if (itemDTO.Available != itemAvailable)
+                    return null;
+            }
+
+            return new Item(itemDTO);
         }
 
         public List<Item> ReadItems()

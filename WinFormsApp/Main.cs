@@ -3,6 +3,8 @@ using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 
 namespace WinFormsApp
@@ -16,6 +18,9 @@ namespace WinFormsApp
 
         List<ItemCategory> itemCategories;
         List<ItemCategory> itemSubCategories;
+        List<Item> items;
+        Item selectedItem;
+
         public Main()
         {
             itemRepository = new ItemRepository();
@@ -27,12 +32,122 @@ namespace WinFormsApp
 
             InitializeComponent();
 
-            cbCategoryCreator.DataSource = new List<ItemCategory>(itemCategories);
+            List<ItemCategory> cbCategorySearchList = new List<ItemCategory>(itemCategories);
+            cbCategorySearchList.Insert(0, new ItemCategory(0, ""));
+            cbCategorySearch.DataSource = cbCategorySearchList;
             cbCategoryDetails.DataSource = new List<ItemCategory>(itemCategories);
-            cbCategorySearch.DataSource = new List<ItemCategory>(itemCategories);
+            cbCategoryCreator.DataSource = new List<ItemCategory>(itemCategories);
 
 
-            lbItemSearch.DataSource = itemManager.ReadItems();
+            items = itemManager.ReadItems();
+        }
+
+        private void btnItemSearch_Click(object sender, EventArgs e)
+        {
+
+            DisableItemDetailsGroup();
+
+            items = null;
+
+            int itemId;
+
+            // input Id validation
+            if (tbIdSearch.Text != "")
+            {
+                try
+                {
+                    itemId = int.Parse(tbIdSearch.Text);
+                    if (itemId <= 0)
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Id must be intiger bigger than 0");
+                    return;
+                }
+            }
+            else
+            {
+                itemId = 0;
+            }
+
+            string itemName = tbNameSearch.Text;
+            ItemCategory itemCategory = (ItemCategory)cbCategorySearch.SelectedValue;
+            ItemCategory itemSubCategory = (ItemCategory)cbSubCategorySearch.SelectedValue;
+            if (itemCategory.Id == 0)
+            {
+                itemCategory = null;
+                itemSubCategory = null;
+            }
+
+            // input Price validation
+            decimal itemPrice;
+            if (tbPriceCreator.Text != "")
+            {
+                try
+                {
+                    itemPrice = decimal.Parse(tbPriceCreator.Text);
+                    if (itemPrice <= 0)
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Id must be intiger bigger than 0");
+                    return;
+                }
+            }
+            else
+            {
+                itemPrice = 0;
+            }
+
+            bool itemAvailable = cbAvailableCreator.Checked;
+
+            if (itemId > 0)
+            {
+                items = new List<Item>() { itemManager.ReadItem(itemId, itemName, itemCategory, itemSubCategory, itemPrice, itemAvailable) };
+                if (items[0] == null)
+                    items = null;
+            }
+            else if (itemId == 0)
+            {
+                //items = itemManager.Readitems(itemName, itemPrice);
+            }
+
+            if (items != null)
+            {
+                // Reset also populates listboxitems with list items as data source
+                ResetListBoxItemSearch();
+            }
+            else
+            {
+                lbItemSearch.DataSource = null;
+                lbItemSearch.Items.Clear();
+                lbItemSearch.Items.Add("There is no such Item.");
+            }
+        }
+
+        private void DisableItemDetailsGroup()
+        {
+            gbItemDeatils.Enabled = false;
+            ResetItemDetails();
+
+            lbItemSearch.SelectedIndexChanged -= lbItemSearch_SelectedIndexChanged;
+            lbItemSearch.DataSource = null;
+            lbItemSearch.Items.Clear();
+            lbItemSearch.SelectedIndexChanged += lbItemSearch_SelectedIndexChanged;
+        }
+        private void EnableItemDetailsGroup()
+        {
+            gbItemDeatils.Enabled = true;
+            tbNameDetails.Text = selectedItem.Name;
+            tbPriceDetails.Text = selectedItem.Price.ToString();
+            cbAvailableDetails.Checked = selectedItem.Available;
+            tbUnitTypeDetails.Text = selectedItem.UnitType;
         }
 
         private void btnItemCreate_Click(object sender, EventArgs e)
@@ -101,6 +216,31 @@ namespace WinFormsApp
             ResetItemCreator();
         }
 
+        private void ResetItemSearch()
+        {
+            tbIdSearch.Text = String.Empty;
+            tbNameSearch.Text = String.Empty;
+            tbPriceSearch.Text = String.Empty;
+            cbAvailableSearch.Checked = true;
+        }
+
+        private void ResetListBoxItemSearch()
+        {
+            lbItemSearch.SelectedIndexChanged -= lbItemSearch_SelectedIndexChanged;
+            lbItemSearch.DataSource = null;
+            lbItemSearch.DataSource = items;
+            lbItemSearch.SelectedIndex = -1;
+            lbItemSearch.SelectedIndexChanged += lbItemSearch_SelectedIndexChanged;
+        }
+
+        private void ResetItemDetails()
+        {
+            tbNameDetails.Text = String.Empty;
+            tbPriceDetails.Text = String.Empty;
+            cbAvailableDetails.Checked = true;
+            tbUnitTypeDetails.Text = String.Empty;
+        }
+
         private void ResetItemCreator()
         {
             tbNameCreator.Text = String.Empty;
@@ -128,6 +268,12 @@ namespace WinFormsApp
             cbSubCategorySearch.DataSource = null;
             cbSubCategorySearch.Items.Clear();
             cbSubCategorySearch.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategorySearch.SelectedValue);
+        }
+
+        private void lbItemSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedItem = (Item)lbItemSearch.SelectedValue;
+            EnableItemDetailsGroup();
         }
     }
 }
