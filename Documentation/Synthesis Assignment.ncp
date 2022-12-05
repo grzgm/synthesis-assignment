@@ -7,11 +7,12 @@
       <Entity type="Class">
         <Name>Client</Name>
         <Access>Public</Access>
-        <Location left="703" top="701" />
+        <Location left="806" top="695" />
         <Size width="178" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;Order&gt; previousOrders</Member>
         <Member type="Field">private string username</Member>
+        <Member type="Field">private BonusCard bonusCard</Member>
         <Member type="Constructor">public Client()</Member>
         <Member type="Property">public string Username { get; private set; }</Member>
         <Modifier>None</Modifier>
@@ -19,7 +20,7 @@
       <Entity type="Class">
         <Name>Order</Name>
         <Access>Public</Access>
-        <Location left="1026" top="815" />
+        <Location left="1281" top="832" />
         <Size width="196" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -38,7 +39,7 @@
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
-        <Location left="1671" top="684" />
+        <Location left="1794" top="694" />
         <Size width="181" height="349" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -62,7 +63,7 @@
       <Entity type="Enum">
         <Name>OrderStatus</Name>
         <Access>Public</Access>
-        <Location left="2561" top="866" />
+        <Location left="2918" top="692" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Value>OrderPlaced</Value>
@@ -73,7 +74,7 @@
       <Entity type="Class">
         <Name>BonusCard</Name>
         <Access>Public</Access>
-        <Location left="475" top="701" />
+        <Location left="549" top="695" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -87,7 +88,7 @@
       <Entity type="Class">
         <Name>Employee</Name>
         <Access>Public</Access>
-        <Location left="237" top="701" />
+        <Location left="340" top="695" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string employeeRole</Member>
@@ -96,32 +97,9 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Inventory</Name>
-        <Access>Public</Access>
-        <Location left="1671" top="353" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private List&lt;Item&gt; items</Member>
-        <Member type="Method">public bool CreateItem()</Member>
-        <Member type="Method">public List&lt;Item&gt; ReadItem()</Member>
-        <Member type="Method">public bool UpdateItem()</Member>
-        <Member type="Method">public bool DeleteItem()</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>ClientOrders</Name>
-        <Access>Public</Access>
-        <Location left="1376" top="1052" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private List&lt;Order&gt; allOrders</Member>
-        <Member type="Field">private List&lt;Order&gt; newOrders</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
         <Name>ShoppingCart</Name>
         <Access>Public</Access>
-        <Location left="1037" top="684" />
+        <Location left="1292" top="701" />
         <Size width="176" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
@@ -129,25 +107,9 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>WinFormsApp</Name>
-        <Access>Public</Access>
-        <Location left="1459" top="96" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>WebApp</Name>
-        <Access>Public</Access>
-        <Location left="872" top="96" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
         <Name>OrderRepository</Name>
         <Access>Public</Access>
-        <Location left="1143" top="2173" />
+        <Location left="1299" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -155,7 +117,7 @@
       <Entity type="Class">
         <Name>ClientRepository</Name>
         <Access>Public</Access>
-        <Location left="704" top="2173" />
+        <Location left="807" top="2167" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -163,7 +125,7 @@
       <Entity type="Class">
         <Name>EmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="221" top="2173" />
+        <Location left="324" top="2167" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -171,7 +133,7 @@
       <Entity type="Class">
         <Name>MainRepository</Name>
         <Access>Public</Access>
-        <Location left="1143" top="2427" />
+        <Location left="1299" top="2440" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">protected SqlConnection conn</Member>
@@ -183,7 +145,7 @@
       <Entity type="Class">
         <Name>ClientManager</Name>
         <Access>Public</Access>
-        <Location left="651" top="1656" />
+        <Location left="754" top="1650" />
         <Size width="273" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IClientRepository clientRepository</Member>
@@ -193,7 +155,7 @@
       <Entity type="Class">
         <Name>EmployeeManager</Name>
         <Access>Public</Access>
-        <Location left="159" top="1656" />
+        <Location left="262" top="1650" />
         <Size width="333" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IEmployeeRepository employeeRepository</Member>
@@ -203,7 +165,7 @@
       <Entity type="Class">
         <Name>OrderManager</Name>
         <Access>Public</Access>
-        <Location left="1087" top="1656" />
+        <Location left="1243" top="1669" />
         <Size width="274" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IOrderRepository orderRepository</Member>
@@ -213,7 +175,7 @@
       <Entity type="Class">
         <Name>ItemManager</Name>
         <Access>Public</Access>
-        <Location left="1585" top="1647" />
+        <Location left="1729" top="1652" />
         <Size width="260" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemRepository itemRepository</Member>
@@ -224,7 +186,7 @@
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1486" top="2156" />
+        <Location left="1628" top="2149" />
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -233,7 +195,7 @@
       <Entity type="Interface">
         <Name>IEmployeeManager</Name>
         <Access>Public</Access>
-        <Location left="168" top="1386" />
+        <Location left="30" top="1497" />
         <Size width="315" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateEmployee(Employee employee)</Member>
@@ -244,7 +206,7 @@
       <Entity type="Interface">
         <Name>IItemManager</Name>
         <Access>Public</Access>
-        <Location left="1585" top="1386" />
+        <Location left="1559" top="1470" />
         <Size width="267" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(Item item)</Member>
@@ -256,7 +218,7 @@
       <Entity type="Interface">
         <Name>IOrderManager</Name>
         <Access>Public</Access>
-        <Location left="1086" top="1386" />
+        <Location left="1026" top="1480" />
         <Size width="276" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(Order order)</Member>
@@ -267,7 +229,7 @@
       <Entity type="Interface">
         <Name>IClientManager</Name>
         <Access>Public</Access>
-        <Location left="650" top="1386" />
+        <Location left="599" top="1497" />
         <Size width="275" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(Client client)</Member>
@@ -278,7 +240,7 @@
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
-        <Location left="2191" top="718" />
+        <Location left="2328" top="744" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -294,7 +256,7 @@
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
-        <Location left="1376" top="701" />
+        <Location left="1549" top="715" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Item item</Member>
@@ -306,7 +268,7 @@
       <Entity type="Class">
         <Name>Account</Name>
         <Access>Public</Access>
-        <Location left="492" top="374" />
+        <Location left="595" top="368" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -322,7 +284,7 @@
       <Entity type="Interface">
         <Name>IEmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="156" top="1943" />
+        <Location left="259" top="1937" />
         <Size width="339" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateEmployee(EmployeeDTO employeeDTO)</Member>
@@ -333,7 +295,7 @@
       <Entity type="Interface">
         <Name>IItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1574" top="1926" />
+        <Location left="1718" top="1931" />
         <Size width="288" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
@@ -345,7 +307,7 @@
       <Entity type="Interface">
         <Name>IClientRepository</Name>
         <Access>Public</Access>
-        <Location left="639" top="1943" />
+        <Location left="742" top="1937" />
         <Size width="297" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
@@ -356,7 +318,7 @@
       <Entity type="Interface">
         <Name>IOrderRepository</Name>
         <Access>Public</Access>
-        <Location left="1075" top="1943" />
+        <Location left="1231" top="1956" />
         <Size width="298" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(OrderDTO orderDTO)</Member>
@@ -367,7 +329,7 @@
       <Entity type="Class">
         <Name>ItemDTO</Name>
         <Access>Public</Access>
-        <Location left="1878" top="1903" />
+        <Location left="2043" top="1855" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -382,7 +344,7 @@
       <Entity type="Class">
         <Name>ItemCategoryDTO</Name>
         <Access>Public</Access>
-        <Location left="2402" top="1903" />
+        <Location left="2593" top="1910" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -393,7 +355,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2077" top="1926" />
+        <Location left="2268" top="1933" />
         <Size width="297" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
@@ -406,7 +368,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2089" top="1377" />
+        <Location left="2103" top="1470" />
         <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
@@ -418,7 +380,7 @@
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2089" top="1639" />
+        <Location left="2280" top="1646" />
         <Size width="273" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
@@ -430,7 +392,7 @@
       <Entity type="Class">
         <Name>ItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2144" top="2156" />
+        <Location left="2333" top="2149" />
         <Size width="163" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemCategoryDTO&gt; GetItemCategories(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -439,7 +401,7 @@
       <Entity type="Class">
         <Name>Copy_Item_managers_and_change_to_LineItem</Name>
         <Access>Public</Access>
-        <Location left="2652" top="1625" />
+        <Location left="2809" top="1629" />
         <Size width="378" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -447,6 +409,8 @@
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="4">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -454,243 +418,218 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="0" second="1">
-        <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
-        <BendPoint relativeToStartShape="True">
-          <X>927</X>
-          <Y>878</Y>
-        </BendPoint>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-        <EndMultiplicity>0..*</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Association" first="6" second="2">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-        <EndMultiplicity>0..*</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Association" first="7" second="1">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
-        <BendPoint relativeToStartShape="True">
-          <X>1454</X>
-          <Y>1027</Y>
-        </BendPoint>
-        <BendPoint relativeToStartShape="False">
-          <X>1275</X>
-          <Y>995</Y>
-        </BendPoint>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-        <EndMultiplicity>0..*</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Association" first="0" second="8">
         <Label>
         </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
-        <BendPoint relativeToStartShape="True">
-          <X>908</X>
-          <Y>734</Y>
-        </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
-        <EndMultiplicity>1</EndMultiplicity>
+        <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Generalization" first="13" second="14">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="11" second="14">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="12" second="14">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="19" second="14">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="16" second="20">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="18" second="21">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="17" second="22">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="15" second="23">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Association" first="24" second="24">
-        <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Association" first="1" second="25">
-        <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
-        <BendPoint relativeToStartShape="False">
-          <X>1351</X>
-          <Y>874</Y>
-        </BendPoint>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-        <EndMultiplicity>1..*</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Association" first="8" second="25">
-        <StartOrientation>Horizontal</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
-        <BendPoint relativeToStartShape="True">
-          <X>1238</X>
-          <Y>734</Y>
-        </BendPoint>
-        <BendPoint relativeToStartShape="False">
-          <X>1337</X>
-          <Y>734</Y>
-        </BendPoint>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-        <EndMultiplicity>1..*</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Association" first="25" second="2">
-        <Label>- item: Item</Label>
+      <Relationship type="Association" first="0" second="6">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
-      <Relationship type="Generalization" first="5" second="26">
+      <Relationship type="Generalization" first="9" second="10">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="0" second="26">
+      <Relationship type="Generalization" first="7" second="10">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Association" first="16" second="27">
+      <Relationship type="Generalization" first="8" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="15" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="12" second="16">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>193</X>
+          <Y>1700</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="14" second="17">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="13" second="18">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1179</X>
+          <Y>1742</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="11" second="19">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>716</X>
+          <Y>1697</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="20" second="20">
         <Label>
         </Label>
-        <StartOrientation>Vertical</StartOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="18" second="28">
-        <Label>
-        </Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Association" first="17" second="30">
-        <Label>
-        </Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Association" first="15" second="29">
-        <Label>
-        </Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Realization" first="13" second="27">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="19" second="28">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="11" second="30">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Realization" first="12" second="29">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Association" first="2" second="24">
+      <Relationship type="Association" first="1" second="21">
         <Label>
         </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Realization" first="35" second="34">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Association" first="35" second="33">
+      <Relationship type="Association" first="6" second="21">
         <Label>
         </Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Realization" first="36" second="33">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="36" second="14">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Association" first="20" second="5">
-        <Label>Retrieves information about Employee</Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Association" first="23" second="0">
-        <Label>Retrieves information about Client</Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
-      </Relationship>
-      <Relationship type="Association" first="22" second="1">
-        <Label>Retrieves information about Order</Label>
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-        <Direction>Unidirectional</Direction>
-        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="21" second="2">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Generalization" first="5" second="22">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="0" second="22">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="12" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="14" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="13" second="26">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="11" second="25">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="9" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="15" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="7" second="26">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="25">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="2" second="20">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="31" second="30">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="31" second="29">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="32" second="29">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="32" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="15" second="27">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="14" second="27">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="14" second="2">
         <Label>Retrieves information about Item</Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
-      <Relationship type="Association" first="34" second="24">
+      <Relationship type="Association" first="31" second="20">
         <Label>Retrieves information about ItemCategory</Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
-        <BendPoint relativeToStartShape="False">
-          <X>2215</X>
-          <Y>975</Y>
-        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="13" second="1">
+        <Label>Retrieves information about Order</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="11" second="0">
+        <Label>Retrieves information about Client</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="12" second="5">
+        <Label>Retrieves information about Employee</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
