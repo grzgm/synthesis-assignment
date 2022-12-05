@@ -1,4 +1,5 @@
 using LogicLayer.DTOs;
+using LogicLayer.Models;
 
 namespace LogicLayer.InterfacesRepository
 {
@@ -7,7 +8,7 @@ namespace LogicLayer.InterfacesRepository
         bool CreateItem(ItemDTO itemDTO);
 
         ItemDTO ReadItem(int id);
-        List<ItemDTO> ReadItems();
+        List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available);
 
         bool UpdateItem(ItemDTO itemDTO);
 

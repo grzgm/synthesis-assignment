@@ -38,8 +38,7 @@ namespace WinFormsApp
             cbCategoryDetails.DataSource = new List<ItemCategory>(itemCategories);
             cbCategoryCreator.DataSource = new List<ItemCategory>(itemCategories);
 
-
-            items = itemManager.ReadItems();
+            DisableItemDetailsGroup();
         }
 
         private void btnItemSearch_Click(object sender, EventArgs e)
@@ -84,11 +83,11 @@ namespace WinFormsApp
 
             // input Price validation
             decimal itemPrice;
-            if (tbPriceCreator.Text != "")
+            if (tbPriceSearch.Text != "")
             {
                 try
                 {
-                    itemPrice = decimal.Parse(tbPriceCreator.Text);
+                    itemPrice = decimal.Parse(tbPriceSearch.Text);
                     if (itemPrice <= 0)
                     {
                         throw new Exception();
@@ -105,7 +104,7 @@ namespace WinFormsApp
                 itemPrice = 0;
             }
 
-            bool itemAvailable = cbAvailableCreator.Checked;
+            bool itemAvailable = cbAvailableSearch.Checked;
 
             if (itemId > 0)
             {
@@ -115,7 +114,7 @@ namespace WinFormsApp
             }
             else if (itemId == 0)
             {
-                //items = itemManager.Readitems(itemName, itemPrice);
+                items = itemManager.ReadItems(itemName, itemCategory, itemSubCategory, itemPrice, itemAvailable);
             }
 
             if (items != null)
@@ -145,6 +144,7 @@ namespace WinFormsApp
         {
             gbItemDeatils.Enabled = true;
             tbNameDetails.Text = selectedItem.Name;
+            cbCategoryDetails.SelectedIndex = itemCategories.FindIndex(i => i.Id == selectedItem.Category.Id);
             tbPriceDetails.Text = selectedItem.Price.ToString();
             cbAvailableDetails.Checked = selectedItem.Available;
             tbUnitTypeDetails.Text = selectedItem.UnitType;
@@ -169,30 +169,23 @@ namespace WinFormsApp
 
             try
             {
-                if (decimal.Parse(tbPriceCreator.Text) >= 0)
+                if (decimal.Parse(tbPriceCreator.Text) > 0)
                 {
                     newItem.Price = decimal.Parse(tbPriceCreator.Text);
                 }
                 else
                 {
-                    MessageBox.Show("New Admin data is not valid");
+                    MessageBox.Show("Price is a positive Intiger");
                     return;
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Price is an positive Intiger");
+                MessageBox.Show("Price is a positive Intiger");
                 return;
             }
 
-            if (cbAvailableCreator.Checked)
-            {
-                newItem.Available = true;
-            }
-            else
-            {
-                newItem.Available = false;
-            }
+            newItem.Available = cbAvailableCreator.Checked;
 
             if (tbUnitTypeCreator.Text.Length >= 1 && tbUnitTypeCreator.Text.Length <= 20)
             {
@@ -260,7 +253,12 @@ namespace WinFormsApp
         {
             cbSubCategoryDetails.DataSource = null;
             cbSubCategoryDetails.Items.Clear();
-            cbSubCategoryDetails.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryDetails.SelectedValue);
+            List<ItemCategory> validSubCategories = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryDetails.SelectedValue);
+            cbSubCategoryDetails.DataSource = validSubCategories;
+            if(selectedItem != null)
+                cbSubCategoryDetails.SelectedIndex = validSubCategories.FindIndex(i => i.Id == selectedItem.SubCategory.Id);
+            if (cbSubCategoryDetails.SelectedIndex == -1)
+                cbSubCategoryDetails.SelectedIndex = 0;
         }
 
         private void cbCategorySearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -274,6 +272,62 @@ namespace WinFormsApp
         {
             selectedItem = (Item)lbItemSearch.SelectedValue;
             EnableItemDetailsGroup();
+        }
+
+        private void btnItemUpdate_Click(object sender, EventArgs e)
+        {
+            if(ValidateItemData())
+            {
+                selectedItem.Name = tbNameDetails.Text;
+                selectedItem.Category = (ItemCategory)cbCategoryDetails.SelectedValue;
+                selectedItem.SubCategory = (ItemCategory)cbSubCategoryDetails.SelectedValue;
+                selectedItem.Price = decimal.Parse(tbPriceDetails.Text);
+                selectedItem.Available = cbAvailableDetails.Checked;
+                selectedItem.UnitType = tbUnitTypeDetails.Text;
+
+                itemManager.UpdateItem(selectedItem);
+
+                items = null;
+                ResetListBoxItemSearch();
+            }
+        }
+
+        private void btnItemDelete_Click(object sender, EventArgs e)
+        {
+
+            items = null;
+            ResetListBoxItemSearch();
+        }
+
+        private bool ValidateItemData()
+        {
+            if (!(tbNameDetails.Text.Length >= 2 && tbNameDetails.Text.Length <= 20))
+            {
+                MessageBox.Show("New Item Name should be between 2 and 20 characters");
+                return false;
+            }
+
+            try
+            {
+                if (decimal.Parse(tbPriceDetails.Text) < 0)
+                {
+                    MessageBox.Show("Price must be a positive Intiger");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Price must be a positive Intiger");
+                return false;
+            }
+
+            if (!(tbUnitTypeDetails.Text.Length >= 1 && tbUnitTypeDetails.Text.Length <= 20))
+            {
+                MessageBox.Show("Item UnitType should be between 1 and 20 characters");
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -22,16 +22,10 @@ namespace LogicLayer.Managers
 
         public bool CreateItem(Item item)
         {
-            ItemDTO newItemDTO = ConvertToItemDTO(item);
-            return itemRepository.CreateItem(newItemDTO);
+            return itemRepository.CreateItem(ConvertToItemDTO(item));
         }
 
-        public bool DeleteItem(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Item ReadItem(int id, string name, ItemCategory Category, ItemCategory SubCategory, decimal price, bool itemAvailable)
+        public Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
         {
             ItemDTO itemDTO;
             // There is no need to search with name, email, password in database, cuz id is Unique
@@ -50,15 +44,15 @@ namespace LogicLayer.Managers
                     return null;
             }
 
-            if (Category != null)
+            if (category != null)
             {
-                if (itemDTO.Category.Name != Category.Name)
+                if (itemDTO.Category.Name != category.Name)
                     return null;
             }
 
-            if (SubCategory != null)
+            if (subCategory != null)
             {
-                if (itemDTO.SubCategory.Name != SubCategory.Name)
+                if (itemDTO.SubCategory.Name != subCategory.Name)
                     return null;
             }
 
@@ -68,18 +62,34 @@ namespace LogicLayer.Managers
                     return null;
             }
 
-            if(itemAvailable)
+            if(available)
             {
-                if (itemDTO.Available != itemAvailable)
+                if (itemDTO.Available != available)
                     return null;
             }
 
             return new Item(itemDTO);
         }
 
-        public List<Item> ReadItems()
+        public List<Item> ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
         {
-            List<ItemDTO> itemsDTO = itemRepository.ReadItems();
+            List<ItemDTO> itemsDTO;
+            if (category != null && subCategory != null)
+            {
+                itemsDTO = itemRepository.ReadItems(name, category.Id, subCategory.Id, price, available);
+            }
+            else if (category == null && subCategory != null)
+            {
+                itemsDTO = itemRepository.ReadItems(name, 0, subCategory.Id, price, available);
+            }
+            else if (category != null && subCategory == null)
+            {
+                itemsDTO = itemRepository.ReadItems(name, category.Id, 0, price, available);
+            }
+            else
+            {
+                itemsDTO = itemRepository.ReadItems(name, 0, 0, price, available);
+            }
             List<Item> items = new List<Item>();
             foreach (ItemDTO itemDTO in itemsDTO)
             {
@@ -90,12 +100,18 @@ namespace LogicLayer.Managers
 
         public bool UpdateItem(Item item)
         {
+            return itemRepository.UpdateItem(ConvertToItemDTO(item));
+        }
+
+        public bool DeleteItem(int Id)
+        {
             throw new NotImplementedException();
         }
 
         private ItemDTO ConvertToItemDTO(Item item)
         {
             ItemDTO itemDTO = new ItemDTO();
+            itemDTO.Id = item.Id;
             itemDTO.Name = item.Name;
             itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
             itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id }; ;

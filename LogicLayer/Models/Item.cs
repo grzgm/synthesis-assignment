@@ -30,6 +30,11 @@ namespace LogicLayer.Models
             this.unitType = itemDTO.UnitType;
         }
 
+        public int Id
+        {
+            get { return this.id; }
+        }
+
         public string Name
         {
             get { return this.name; }
@@ -73,7 +78,7 @@ namespace LogicLayer.Models
 
         public override string ToString()
         {
-            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + available.ToString() + "; " + unitType + "; ";
+            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + unitType + "; " + available.ToString() + "; ";
         }
     }
 }

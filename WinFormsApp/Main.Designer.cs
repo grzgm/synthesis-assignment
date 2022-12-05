@@ -330,6 +330,7 @@
             this.btnItemDelete.TabIndex = 27;
             this.btnItemDelete.Text = "Delete";
             this.btnItemDelete.UseVisualStyleBackColor = true;
+            this.btnItemDelete.Click += new System.EventHandler(this.btnItemDelete_Click);
             // 
             // label2
             // 
@@ -348,6 +349,7 @@
             this.btnItemUpdate.TabIndex = 14;
             this.btnItemUpdate.Text = "Update";
             this.btnItemUpdate.UseVisualStyleBackColor = true;
+            this.btnItemUpdate.Click += new System.EventHandler(this.btnItemUpdate_Click);
             // 
             // label3
             // 

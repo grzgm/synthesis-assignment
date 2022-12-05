@@ -11,8 +11,8 @@ namespace LogicLayer.InterfacesManagers
     {
         bool CreateItem(Item item);
 
-        Item ReadItem(int id, string name, ItemCategory Category, ItemCategory SubCategory, decimal price, bool itemAvailable);
-        List<Item> ReadItems();
+        Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available);
+        List<Item> ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available);
 
         bool UpdateItem(Item item);
 
