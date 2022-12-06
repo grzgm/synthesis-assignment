@@ -197,8 +197,7 @@ namespace WinFormsApp
                 return;
             }
 
-            bool created = itemManager.CreateItem(newItem);
-            if (created)
+            if (itemManager.CreateItem(newItem))
             {
                 MessageBox.Show("New item created succesfully");
             }
@@ -285,17 +284,33 @@ namespace WinFormsApp
                 selectedItem.Available = cbAvailableDetails.Checked;
                 selectedItem.UnitType = tbUnitTypeDetails.Text;
 
-                itemManager.UpdateItem(selectedItem);
+                if (itemManager.UpdateItem(selectedItem))
+                {
+                    MessageBox.Show("Item updated succesfully");
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't update item");
+                }
 
                 items = null;
+                DisableItemDetailsGroup();
                 ResetListBoxItemSearch();
             }
         }
 
         private void btnItemDelete_Click(object sender, EventArgs e)
         {
-            itemManager.DeleteItem(selectedItem);
+            if (itemManager.DeleteItem(selectedItem))
+            {
+                MessageBox.Show("Item deleted succesfully");
+            }
+            else
+            {
+                MessageBox.Show("Couldn't delete item");
+            }
             items = null;
+            DisableItemDetailsGroup();
             ResetListBoxItemSearch();
         }
 
