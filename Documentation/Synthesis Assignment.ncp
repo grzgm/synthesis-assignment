@@ -201,7 +201,7 @@
         <Member type="Method">bool CreateEmployee(Employee employee)</Member>
         <Member type="Method">Employee ReadEmployee(string name, string password)</Member>
         <Member type="Method">bool UpdateEmployee(Employee employe)</Member>
-        <Member type="Method">bool DeleteEmployee(int employeeId)</Member>
+        <Member type="Method">bool DeleteEmployee(Employee employe)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemManager</Name>
@@ -213,7 +213,7 @@
         <Member type="Method">Item ReadItem(int id, string name, ItemCategory Category, ItemCategory SubCategory, decimal price, bool itemAvailable)</Member>
         <Member type="Method">List&lt;Item&gt; ReadItems()</Member>
         <Member type="Method">bool UpdateItem(Item item)</Member>
-        <Member type="Method">bool DeleteItem(int Id)</Member>
+        <Member type="Method">bool DeleteItem(Item item)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IOrderManager</Name>
@@ -224,7 +224,7 @@
         <Member type="Method">bool CreateOrder(Order order)</Member>
         <Member type="Method">Order ReadOrder(string name, string password)</Member>
         <Member type="Method">bool UpdateOrder(Order order)</Member>
-        <Member type="Method">bool DeleteOrder(int Id)</Member>
+        <Member type="Method">bool DeleteOrder(Order order)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IClientManager</Name>
@@ -235,7 +235,7 @@
         <Member type="Method">bool CreateClient(Client client)</Member>
         <Member type="Method">Client ReadClient(string name, string password)</Member>
         <Member type="Method">bool UpdateClient(Client client)</Member>
-        <Member type="Method">bool DeleteClient(int Id)</Member>
+        <Member type="Method">bool DeleteClient(Client client)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategory</Name>
@@ -290,7 +290,7 @@
         <Member type="Method">bool CreateEmployee(EmployeeDTO employeeDTO)</Member>
         <Member type="Method">EmployeeDTO ReadEmployee(string name, string password)</Member>
         <Member type="Method">bool UpdateEmployee(EmployeeDTO employeDTO)</Member>
-        <Member type="Method">bool DeleteEmployee(int employeeId)</Member>
+        <Member type="Method">bool DeleteEmployee(EmployeeDTO employeDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemRepository</Name>
@@ -302,7 +302,7 @@
         <Member type="Method">ItemDTO ReadItem(int id)</Member>
         <Member type="Method">List&lt;ItemDTO&gt; ReadItems()</Member>
         <Member type="Method">bool UpdateItem(ItemDTO itemDTO)</Member>
-        <Member type="Method">bool DeleteItem(int Id)</Member>
+        <Member type="Method">bool DeleteItem(ItemDTO itemDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IClientRepository</Name>
@@ -313,7 +313,7 @@
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
         <Member type="Method">ClientDTO ReadClient(string name, string password)</Member>
         <Member type="Method">bool UpdateClient(ClientDTO clientDTO)</Member>
-        <Member type="Method">bool DeleteClient(int Id)</Member>
+        <Member type="Method">bool DeleteClient(ClientDTO clientDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IOrderRepository</Name>
@@ -324,7 +324,7 @@
         <Member type="Method">bool CreateOrder(OrderDTO orderDTO)</Member>
         <Member type="Method">OrderDTO ReadOrder(string name, string password)</Member>
         <Member type="Method">bool UpdateOrder(OrderDTO orderDTO)</Member>
-        <Member type="Method">bool DeleteOrder(int Id)</Member>
+        <Member type="Method">bool DeleteOrder(OrderDTO orderDTO)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemDTO</Name>
@@ -363,7 +363,7 @@
         <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemCategories()</Member>
         <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemSubCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
-        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
+        <Member type="Method">bool DeleteItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
@@ -375,7 +375,7 @@
         <Member type="Method">ItemCategory ReadItemCategory(string name, string password)</Member>
         <Member type="Method">List&lt;ItemCategory&gt; ReadAllItemCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategory itemCategory)</Member>
-        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
+        <Member type="Method">bool DeleteItemCategory(ItemCategory itemCategory)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>

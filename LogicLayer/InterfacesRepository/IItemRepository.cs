@@ -12,6 +12,6 @@ namespace LogicLayer.InterfacesRepository
 
         bool UpdateItem(ItemDTO itemDTO);
 
-        bool DeleteItem(int Id);
+        bool DeleteItem(ItemDTO itemDTO);
     }
 }

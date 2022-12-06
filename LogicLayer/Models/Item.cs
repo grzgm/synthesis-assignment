@@ -24,7 +24,7 @@ namespace LogicLayer.Models
             this.id = itemDTO.Id;
             this.name = itemDTO.Name;
             this.category = new ItemCategory(itemDTO.Category);
-            this.subCategory = new ItemCategory(itemDTO.SubCategory);
+            this.subCategory = new ItemCategory(itemDTO.SubCategory, this.Category);
             this.price = itemDTO.Price;
             this.available = itemDTO.Available;
             this.unitType = itemDTO.UnitType;

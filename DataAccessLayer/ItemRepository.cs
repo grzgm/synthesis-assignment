@@ -157,7 +157,6 @@ namespace DataAccessLayer
             GetConnection();
             conn.Open();
             SqlCommand cmd;
-            SqlDataReader dreader;
 
             string sql = "UPDATE Item SET name = @name, category = @category, subCategory = @subCategory, price = @price, unitType = @unitType, available = @available WHERE id = @id;";
 
@@ -190,9 +189,35 @@ namespace DataAccessLayer
             return true;
         }
 
-        public bool DeleteItem(int Id)
+        public bool DeleteItem(ItemDTO itemDTO)
         {
-            throw new NotImplementedException();
+            GetConnection();
+            conn.Open();
+            SqlCommand cmd;
+
+            string sql = "DELETE FROM Item WHERE id = @id;";
+
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = itemDTO.Id });
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Application error");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+            return true;
         }
     }
 }

@@ -294,7 +294,7 @@ namespace WinFormsApp
 
         private void btnItemDelete_Click(object sender, EventArgs e)
         {
-
+            itemManager.DeleteItem(selectedItem);
             items = null;
             ResetListBoxItemSearch();
         }

@@ -78,9 +78,9 @@ namespace LogicLayer.Managers
             {
                 itemsDTO = itemRepository.ReadItems(name, category.Id, subCategory.Id, price, available);
             }
-            else if (category == null && subCategory != null)
+            else if (category == null && subCategory == null)
             {
-                itemsDTO = itemRepository.ReadItems(name, 0, subCategory.Id, price, available);
+                itemsDTO = itemRepository.ReadItems(name, 0, 0, price, available);
             }
             else if (category != null && subCategory == null)
             {
@@ -88,7 +88,7 @@ namespace LogicLayer.Managers
             }
             else
             {
-                itemsDTO = itemRepository.ReadItems(name, 0, 0, price, available);
+                itemsDTO = itemRepository.ReadItems(name, 0, subCategory.Id, price, available);
             }
             List<Item> items = new List<Item>();
             foreach (ItemDTO itemDTO in itemsDTO)
@@ -103,9 +103,9 @@ namespace LogicLayer.Managers
             return itemRepository.UpdateItem(ConvertToItemDTO(item));
         }
 
-        public bool DeleteItem(int Id)
+        public bool DeleteItem(Item item)
         {
-            throw new NotImplementedException();
+            return itemRepository.DeleteItem(ConvertToItemDTO(item));
         }
 
         private ItemDTO ConvertToItemDTO(Item item)
@@ -114,7 +114,7 @@ namespace LogicLayer.Managers
             itemDTO.Id = item.Id;
             itemDTO.Name = item.Name;
             itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
-            itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id }; ;
+            itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id };
             itemDTO.Price = item.Price;
             itemDTO.Available = item.Available;
             itemDTO.UnitType = item.UnitType;

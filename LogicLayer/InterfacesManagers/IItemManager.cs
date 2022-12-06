@@ -16,6 +16,6 @@ namespace LogicLayer.InterfacesManagers
 
         bool UpdateItem(Item item);
 
-        bool DeleteItem(int Id);
+        bool DeleteItem(Item item);
     }
 }
