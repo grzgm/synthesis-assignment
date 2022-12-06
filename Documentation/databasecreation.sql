@@ -29,15 +29,6 @@ CREATE TABLE Item
 	available bit NOT NULL,
 );
 
--- LineItem Table
-CREATE TABLE LineItem
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	itemId int FOREIGN KEY REFERENCES [Item]([id]) ON DELETE SET NULL,
-	purchasePrice decimal(19,4) NOT NULL,
-	amount int NOT NULL,
-);
-
 -- Client Table
 CREATE TABLE Client
 (
@@ -63,11 +54,14 @@ CREATE TABLE [Order]
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
 );
 
--- PurchasedItemsList Table
-CREATE TABLE PurchasedItemsList
+-- LineItem Table
+CREATE TABLE LineItem
 (
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	itemId int FOREIGN KEY REFERENCES [Item]([id]) ON DELETE SET NULL,
 	orderId int NOT NULL FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE,
-	lineItemId int NOT NULL FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE,
+	purchasePrice decimal(19,4) NOT NULL,
+	amount int NOT NULL,
 );
 
 -- Employee Table
@@ -93,16 +87,10 @@ INSERT INTO OrderStatus VALUES ('Start');
 INSERT INTO OrderStatus VALUES ('Middle');
 INSERT INTO OrderStatus VALUES ('Finish');
 
-INSERT INTO Item VALUES ('apple', 1, 1, 10, 'kg', 1);
-INSERT INTO Item VALUES ('banana', 1, 1, 10, 'kg', 0);
-INSERT INTO Item VALUES ('pear', 1, 2, 10, 'kg', 1);
-INSERT INTO Item VALUES ('pork', 2, 3, 10, 'g', 1);
-
-INSERT INTO LineItem VALUES (1, 10, 10);
-INSERT INTO LineItem VALUES (2, 11, 1);
-INSERT INTO LineItem VALUES (3, 10, 8);
-INSERT INTO LineItem VALUES (3, 1, 5);
-INSERT INTO LineItem VALUES (4, 7, 10);
+INSERT INTO Item VALUES ('apple', 1, 3, 10, 'kg', 1);
+INSERT INTO Item VALUES ('banana', 1, 4, 10, 'kg', 0);
+INSERT INTO Item VALUES ('pear', 1, 3, 10, 'kg', 1);
+INSERT INTO Item VALUES ('pork', 2, 5, 10, 'g', 1);
 
 INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);
 INSERT INTO Client VALUES ('martin', 'm@m', '12345', NULL, NULL);
@@ -113,11 +101,14 @@ INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
 INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-01', '2022-12-05', 1);
 INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
 
-INSERT INTO PurchasedItemsList VALUES (1, 1);
-INSERT INTO PurchasedItemsList VALUES (1, 3);
-INSERT INTO PurchasedItemsList VALUES (2, 3);
-INSERT INTO PurchasedItemsList VALUES (2, 5);
-INSERT INTO PurchasedItemsList VALUES (3, 2);
-INSERT INTO PurchasedItemsList VALUES (3, 4);
-INSERT INTO PurchasedItemsList VALUES (4, 4);
-INSERT INTO PurchasedItemsList VALUES (5, 1);
+INSERT INTO LineItem VALUES (1, 1, 10, 10);
+INSERT INTO LineItem VALUES (2, 1, 11, 1);
+INSERT INTO LineItem VALUES (3, 1, 10, 8);
+INSERT INTO LineItem VALUES (3, 2, 1, 5);
+INSERT INTO LineItem VALUES (3, 2, 1, 5);
+INSERT INTO LineItem VALUES (3, 3, 1, 5);
+INSERT INTO LineItem VALUES (3, 3, 1, 5);
+INSERT INTO LineItem VALUES (3, 3, 1, 5);
+INSERT INTO LineItem VALUES (4, 4, 7, 10);
+INSERT INTO LineItem VALUES (4, 4, 7, 10);
+INSERT INTO LineItem VALUES (4, 5, 7, 10);

@@ -4,6 +4,7 @@ using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Data.SqlClient;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
 
@@ -196,16 +197,21 @@ namespace WinFormsApp
                 MessageBox.Show("New Item UnitType should be between 1 and 20 characters");
                 return;
             }
-
-            if (itemManager.CreateItem(newItem))
+            try
             {
-                MessageBox.Show("New item created succesfully");
+                if (itemManager.CreateItem(newItem))
+                {
+                    MessageBox.Show("New item created succesfully");
+                }
             }
-            else
+            catch (Exception ex)
             {
                 MessageBox.Show("Couldn't create new item");
             }
-            ResetItemCreator();
+            finally
+            {
+                ResetItemCreator();
+            }
         }
 
         private void ResetItemSearch()
@@ -284,34 +290,45 @@ namespace WinFormsApp
                 selectedItem.Available = cbAvailableDetails.Checked;
                 selectedItem.UnitType = tbUnitTypeDetails.Text;
 
-                if (itemManager.UpdateItem(selectedItem))
+                try
                 {
-                    MessageBox.Show("Item updated succesfully");
+                    if (itemManager.UpdateItem(selectedItem))
+                    {
+                        MessageBox.Show("Item updated succesfully");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
                     MessageBox.Show("Couldn't update item");
                 }
-
-                items = null;
-                DisableItemDetailsGroup();
-                ResetListBoxItemSearch();
+                finally
+                {
+                    items = null;
+                    DisableItemDetailsGroup();
+                    ResetListBoxItemSearch();
+                }
             }
         }
 
         private void btnItemDelete_Click(object sender, EventArgs e)
         {
-            if (itemManager.DeleteItem(selectedItem))
+            try
             {
-                MessageBox.Show("Item deleted succesfully");
+                if (itemManager.DeleteItem(selectedItem))
+                {
+                    MessageBox.Show("Item deleted succesfully");
+                }
             }
-            else
+            catch (Exception ex)
             {
                 MessageBox.Show("Couldn't delete item");
             }
-            items = null;
-            DisableItemDetailsGroup();
-            ResetListBoxItemSearch();
+            finally
+            {
+                items = null;
+                DisableItemDetailsGroup();
+                ResetListBoxItemSearch();
+            }
         }
 
         private bool ValidateItemData()

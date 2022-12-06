@@ -195,7 +195,9 @@ namespace DataAccessLayer
             conn.Open();
             SqlCommand cmd;
 
-            string sql = "DELETE FROM Item WHERE id = @id;";
+            //string sql = "DELETE FROM Item WHERE id = @id;";
+            string sql = "UPDATE Item SET available = 0 WHERE id = @id;";
+
 
             cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = itemDTO.Id });
