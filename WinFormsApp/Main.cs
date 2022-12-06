@@ -197,21 +197,16 @@ namespace WinFormsApp
                 MessageBox.Show("New Item UnitType should be between 1 and 20 characters");
                 return;
             }
-            try
+
+            if (itemManager.CreateItem(newItem))
             {
-                if (itemManager.CreateItem(newItem))
-                {
-                    MessageBox.Show("New item created succesfully");
-                }
+                MessageBox.Show("New item created succesfully");
             }
-            catch (Exception ex)
+            else
             {
                 MessageBox.Show("Couldn't create new item");
             }
-            finally
-            {
-                ResetItemCreator();
-            }
+            ResetItemCreator();
         }
 
         private void ResetItemSearch()
@@ -290,45 +285,34 @@ namespace WinFormsApp
                 selectedItem.Available = cbAvailableDetails.Checked;
                 selectedItem.UnitType = tbUnitTypeDetails.Text;
 
-                try
+                if (itemManager.UpdateItem(selectedItem))
                 {
-                    if (itemManager.UpdateItem(selectedItem))
-                    {
-                        MessageBox.Show("Item updated succesfully");
-                    }
+                    MessageBox.Show("Item updated succesfully");
                 }
-                catch (Exception ex)
+                else
                 {
                     MessageBox.Show("Couldn't update item");
                 }
-                finally
-                {
-                    items = null;
-                    DisableItemDetailsGroup();
-                    ResetListBoxItemSearch();
-                }
+
+                items = null;
+                DisableItemDetailsGroup();
+                ResetListBoxItemSearch();
             }
         }
 
         private void btnItemDelete_Click(object sender, EventArgs e)
         {
-            try
+            if (itemManager.DeleteItem(selectedItem))
             {
-                if (itemManager.DeleteItem(selectedItem))
-                {
-                    MessageBox.Show("Item deleted succesfully");
-                }
+                MessageBox.Show("Item deleted succesfully");
             }
-            catch (Exception ex)
+            else
             {
                 MessageBox.Show("Couldn't delete item");
             }
-            finally
-            {
-                items = null;
-                DisableItemDetailsGroup();
-                ResetListBoxItemSearch();
-            }
+            items = null;
+            DisableItemDetailsGroup();
+            ResetListBoxItemSearch();
         }
 
         private bool ValidateItemData()
