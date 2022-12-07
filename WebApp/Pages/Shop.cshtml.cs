@@ -16,14 +16,37 @@ namespace WebApp.Pages
         IItemCategoryManager itemCategoryManager;
 
         public List<Item> items;
+
+		//TESTING
+		[BindProperty]
+		int itemId { get; set; }
+		List<LineItem> lineItems;
+
+        public ShopModel()
+		{
+			itemRepository = new ItemRepository();
+			itemManager = new ItemManager(itemRepository);
+			itemCategoryRepository = new ItemCategoryRepository();
+			itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
+
+			items = itemManager.ReadItems("", null, null, 0, true);
+
+
+			lineItems= new List<LineItem>();
+		}
+
         public void OnGet()
         {
-            itemRepository = new ItemRepository();
-            itemManager = new ItemManager(itemRepository);
-            itemCategoryRepository = new ItemCategoryRepository();
-            itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
 
-            items = itemManager.ReadItems("", null, null, 0, true);
-        }
-    }
+		}
+		public void OnPost()
+		{
+
+		}
+		public void OnPostAddItem()
+		{
+			Item addedItem = items.Find(item => item.Id == itemId);
+			lineItems.Add(new LineItem(addedItem));
+		}
+	}
 }

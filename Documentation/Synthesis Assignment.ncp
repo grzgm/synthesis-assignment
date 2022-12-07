@@ -75,12 +75,12 @@
       <Entity type="Class">
         <Name>BonusCard</Name>
         <Access>Public</Access>
-        <Location left="549" top="695" />
+        <Location left="584" top="695" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
-        <Member type="Field">private Client client</Member>
         <Member type="Field">private int amountOfPoints</Member>
+        <Member type="Constructor">public BonusCard(int id, int amountOfPoints)</Member>
         <Member type="Method">public int ConvertPointsToEuros()</Member>
         <Member type="Method">public int MaxEuros()</Member>
         <Member type="Method">public void AddPointsFromEuros()</Member>
@@ -234,7 +234,7 @@
         <Size width="275" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(Client client)</Member>
-        <Member type="Method">Client ReadClient(string name, string password)</Member>
+        <Member type="Method">Client ReadClient(string username, string password)</Member>
         <Member type="Method">bool UpdateClient(Client client)</Member>
         <Member type="Method">bool DeleteClient(Client client)</Member>
       </Entity>
@@ -264,21 +264,22 @@
         <Member type="Field">private decimal purchasePrice</Member>
         <Member type="Field">private int amount</Member>
         <Member type="Constructor">public LineItem(Item item)</Member>
-        <Member type="Constructor">public LineItem(Item item, decimal purchasePrice, int amount)</Member>
+        <Member type="Constructor">public LineItem(Item item, int amount)</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Account</Name>
         <Access>Public</Access>
-        <Location left="595" top="368" />
-        <Size width="162" height="247" />
+        <Location left="584" top="274" />
+        <Size width="162" height="275" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string firstname</Member>
         <Member type="Field">private string lastname</Member>
         <Member type="Field">private string email</Member>
         <Member type="Field">private string password</Member>
+        <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email, string password)</Member>
         <Member type="Property">public int Id { get; private set; }</Member>
         <Member type="Property">public string Firstname { get; private set; }</Member>
         <Member type="Property">public string Lastname { get; private set; }</Member>
@@ -316,7 +317,7 @@
         <Size width="297" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
-        <Member type="Method">ClientDTO ReadClient(string name, string password)</Member>
+        <Member type="Method">ClientDTO ReadClient(string username, string password)</Member>
         <Member type="Method">bool UpdateClient(ClientDTO clientDTO)</Member>
         <Member type="Method">bool DeleteClient(ClientDTO clientDTO)</Member>
       </Entity>
@@ -404,9 +405,9 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Copy_Item_managers_and_change_to_LineItem</Name>
+        <Name>Adresses</Name>
         <Access>Public</Access>
-        <Location left="2967" top="523" />
+        <Location left="3482" top="1085" />
         <Size width="378" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -468,6 +469,20 @@
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetLineItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClientDTO</Name>
+        <Access>Public</Access>
+        <Location left="1045" top="1865" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Firstname { get; set; }</Member>
+        <Member type="Property">public string Lastname { get; set; }</Member>
+        <Member type="Property">public string Email { get; set; }</Member>
+        <Member type="Property">public int Passowrd { get; set; }</Member>
+        <Member type="Property">public int Username { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>

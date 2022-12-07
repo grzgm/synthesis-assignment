@@ -8,17 +8,25 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text.Json;
 using LogicLayer.Models;
+using DataAccessLayer;
+using LogicLayer.InterfacesManagers;
+using LogicLayer.InterfacesRepository;
+using LogicLayer.Managers;
 
 namespace WebApp.Pages
 {
     public class LoginModel : PageModel
     {
-        [BindProperty]
-        [Required, MinLength(3), MaxLength(15)]
-        public string Username { get; set; }
+        IClientRepository clientRepository;
+        IClientManager clientManager;
+
 
         [BindProperty]
-        [Required, RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$", ErrorMessage = "Password mus have minimum 6 characters and maximum 10, at least 1 letter and 1 number")]
+        [Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]
+		public string Username { get; set; }
+
+        [BindProperty]
+        [Required, RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Password must consist only of letters and numbers")]
         public string Password { get; set; }
         public string mess { get; private set; }
         public void OnGet()
@@ -27,15 +35,15 @@ namespace WebApp.Pages
 
         public IActionResult OnPost()
         {
-            //clientRepositroty = new ClientRepository();
-            //clientMenager = new ClientManager(clientRepositroty);
+			clientRepository = new ClientRepository();
+			clientManager = new ClientManager(clientRepository);
             // here check in database if cerdentials are ok
             if (Username != null && Password != null)
             {
                 Client client = null;
                 try
                 {
-                    //client = clientMenager.LoginClient(Email, Password);
+                    client = clientManager.ReadClient(Username, Password);
                 }
                 catch (Exception ex)
                 {
@@ -45,15 +53,14 @@ namespace WebApp.Pages
                 if (client != null)
                 {
                     List<Claim> claims = new List<Claim>();
-                    //claims.Add(new Claim(ClaimTypes.Name, client.Name));
-                    //claims.Add(new Claim("Id", client.ID.ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, client.Firstname));
+                    claims.Add(new Claim("Lastname", client.Lastname));
                     claims.Add(new Claim("Id", client.Id.ToString()));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
-                    return RedirectToPage("/Welcome");
+                    return RedirectToPage("/Index");
                 }
                 else
                 {

@@ -6,7 +6,21 @@ namespace LogicLayer.Models
         private decimal purchasePrice;
         private int amount;
 
-        public decimal TotalPrice()
+		public LineItem(Item item)
+        { 
+            this.item = item;
+			this.purchasePrice = item.Price;
+			this.amount = 1;
+        }
+
+		public LineItem(Item item, int amount)
+        {
+            this.item = item;
+			this.purchasePrice = item.Price;
+			this.amount = amount;
+        }
+
+		public decimal TotalPrice()
         {
             return amount * purchasePrice;
         }

@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace LogicLayer.Models
 {
 	public abstract class Account
@@ -14,43 +8,45 @@ namespace LogicLayer.Models
 		private string email;
 		private string password;
 
+		protected Account(int id, string firstname, string lastname, string email, string password)
+		{
+			this.id = id;
+			this.firstname = firstname;
+			this.lastname = lastname;
+			this.email = email;
+			this.password = password;
+		}
+
 		public int Id
+		{
+			get { return this.id; }
+		}
+
+		public string Firstname
 		{
 			get
 			{
-				return this.id;
+				return this.firstname;
 			}
 			set
 			{
-				this.id = value;
+				this.firstname = value;
 			}
-        }
+		}
 
-        public string Firstname
-        {
-            get
-            {
-                return this.firstname;
-            }
-            set
-            {
-                this.firstname = value;
-            }
-        }
+		public string Lastname
+		{
+			get
+			{
+				return this.lastname;
+			}
+			set
+			{
+				this.lastname = value;
+			}
+		}
 
-        public string Lastname
-        {
-            get
-            {
-                return this.lastname;
-            }
-            set
-            {
-                this.lastname = value;
-            }
-        }
-
-        public string Email
+		public string Email
 		{
 			get
 			{

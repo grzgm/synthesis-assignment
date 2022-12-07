@@ -1,14 +1,17 @@
+using LogicLayer.DTOs;
+
 namespace LogicLayer.Models
 {
     public class Client : Account
     {
         //private List<Order> previousOrders;
         private string username;
-        //private BonusCard bonusCard;
+        private BonusCard bonusCard;
 
-        public Client()
+        public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email, clientDTO.Password)
         {
-            throw new NotImplementedException();
+            username= clientDTO.Username;
+            bonusCard = new BonusCard(clientDTO.BonusCardId, clientDTO.AmountOfPoints);
         }
 
         public string Username
@@ -21,6 +24,10 @@ namespace LogicLayer.Models
             {
                 username = value;
             }
-        }
-    }
+		}
+		public BonusCard BonusCard
+		{
+			get { return this.bonusCard; }
+		}
+	}
 }
