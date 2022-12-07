@@ -8,19 +8,21 @@
         <Name>Client</Name>
         <Access>Public</Access>
         <Location left="806" top="695" />
-        <Size width="178" height="216" />
+        <Size width="178" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;Order&gt; previousOrders</Member>
         <Member type="Field">private string username</Member>
         <Member type="Field">private BonusCard bonusCard</Member>
+        <Member type="Field">private List&lt;Address&gt; adresses</Member>
         <Member type="Constructor">public Client()</Member>
         <Member type="Property">public string Username { get; private set; }</Member>
+        <Member type="Property">public List&lt;Address&gt; Adresses { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Order</Name>
         <Access>Public</Access>
-        <Location left="1281" top="832" />
+        <Location left="1282" top="816" />
         <Size width="196" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -76,7 +78,7 @@
         <Name>BonusCard</Name>
         <Access>Public</Access>
         <Location left="584" top="695" />
-        <Size width="162" height="216" />
+        <Size width="162" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private int amountOfPoints</Member>
@@ -90,7 +92,7 @@
         <Name>Employee</Name>
         <Access>Public</Access>
         <Location left="340" top="695" />
-        <Size width="162" height="216" />
+        <Size width="162" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string employeeRole</Member>
         <Member type="Constructor">public Employee()</Member>
@@ -100,7 +102,7 @@
       <Entity type="Class">
         <Name>ShoppingCart</Name>
         <Access>Public</Access>
-        <Location left="1292" top="701" />
+        <Location left="1292" top="683" />
         <Size width="176" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
@@ -257,8 +259,8 @@
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
-        <Location left="1900" top="746" />
-        <Size width="162" height="216" />
+        <Location left="1900" top="715" />
+        <Size width="162" height="220" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Item item</Member>
         <Member type="Field">private decimal purchasePrice</Member>
@@ -280,7 +282,7 @@
         <Member type="Field">private string email</Member>
         <Member type="Field">private string password</Member>
         <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email, string password)</Member>
-        <Member type="Property">public int Id { get; private set; }</Member>
+        <Member type="Property">public int Id { get; }</Member>
         <Member type="Property">public string Firstname { get; private set; }</Member>
         <Member type="Property">public string Lastname { get; private set; }</Member>
         <Member type="Property">public string Email { get; private set; }</Member>
@@ -405,11 +407,22 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Adresses</Name>
+        <Name>Address</Name>
         <Access>Public</Access>
-        <Location left="3482" top="1085" />
-        <Size width="378" height="216" />
+        <Location left="1026" top="972" />
+        <Size width="209" height="264" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">private string country</Member>
+        <Member type="Field">private string city</Member>
+        <Member type="Field">private string street</Member>
+        <Member type="Field">private string postalCode</Member>
+        <Member type="Field">private Client client</Member>
+        <Member type="Constructor">protected Address(string country, string city, string street, string postalCode, Client client)</Member>
+        <Member type="Property">public string Country { get; set; }</Member>
+        <Member type="Property">public string City { get; set; }</Member>
+        <Member type="Property">public string Street { get; set; }</Member>
+        <Member type="Property">public string PostalCode { get; set; }</Member>
+        <Member type="Property">public Client Client { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -483,6 +496,8 @@
         <Member type="Property">public string Email { get; set; }</Member>
         <Member type="Property">public int Passowrd { get; set; }</Member>
         <Member type="Property">public int Username { get; set; }</Member>
+        <Member type="Property">public int BonusCardId { get; set; }</Member>
+        <Member type="Property">public int AmountOfPoints { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
