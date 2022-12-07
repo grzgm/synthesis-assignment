@@ -270,17 +270,19 @@
         <Name>Account</Name>
         <Access>Public</Access>
         <Location left="595" top="368" />
-        <Size width="162" height="216" />
+        <Size width="162" height="247" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
-        <Member type="Field">private string name</Member>
+        <Member type="Field">private string firstname</Member>
+        <Member type="Field">private string lastname</Member>
         <Member type="Field">private string email</Member>
         <Member type="Field">private string password</Member>
         <Member type="Property">public int Id { get; private set; }</Member>
-        <Member type="Property">public string Name { get; private set; }</Member>
+        <Member type="Property">public string Firstname { get; private set; }</Member>
+        <Member type="Property">public string Lastname { get; private set; }</Member>
         <Member type="Property">public string Email { get; private set; }</Member>
         <Member type="Property">public string Password { get; private set; }</Member>
-        <Modifier>None</Modifier>
+        <Modifier>Abstract</Modifier>
       </Entity>
       <Entity type="Interface">
         <Name>IEmployeeRepository</Name>

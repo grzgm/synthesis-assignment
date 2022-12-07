@@ -22,11 +22,14 @@
         display: grid;
         place-items:center;
         aspect-ratio: 1;
+
+        background-color: #333
     }
 
 .details {
     display: grid;
     grid-template-columns: 1fr;
+    place-items: center;
 }
 
 .name{
