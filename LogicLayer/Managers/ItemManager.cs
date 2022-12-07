@@ -136,16 +136,18 @@ namespace LogicLayer.Managers
             }
         }
 
-        private ItemDTO ConvertToItemDTO(Item item)
+        public static ItemDTO ConvertToItemDTO(Item item)
         {
-            ItemDTO itemDTO = new ItemDTO();
-            itemDTO.Id = item.Id;
-            itemDTO.Name = item.Name;
-            itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
-            itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id };
-            itemDTO.Price = item.Price;
-            itemDTO.Available = item.Available;
-            itemDTO.UnitType = item.UnitType;
+            ItemDTO itemDTO = new ItemDTO()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null },
+                SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id },
+                Price = item.Price,
+                Available = item.Available,
+                UnitType = item.UnitType,
+            };
             return itemDTO;
         }
     }

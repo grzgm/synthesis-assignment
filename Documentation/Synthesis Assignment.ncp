@@ -39,7 +39,7 @@
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
-        <Location left="1794" top="694" />
+        <Location left="2509" top="694" />
         <Size width="181" height="366" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -64,7 +64,7 @@
       <Entity type="Enum">
         <Name>OrderStatus</Name>
         <Access>Public</Access>
-        <Location left="2918" top="692" />
+        <Location left="2731" top="385" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Value>OrderPlaced</Value>
@@ -118,7 +118,7 @@
       <Entity type="Class">
         <Name>ClientRepository</Name>
         <Access>Public</Access>
-        <Location left="807" top="2167" />
+        <Location left="807" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -126,7 +126,7 @@
       <Entity type="Class">
         <Name>EmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="324" top="2167" />
+        <Location left="324" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -176,7 +176,7 @@
       <Entity type="Class">
         <Name>ItemManager</Name>
         <Access>Public</Access>
-        <Location left="1729" top="1652" />
+        <Location left="2444" top="1652" />
         <Size width="260" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemRepository itemRepository</Member>
@@ -187,7 +187,7 @@
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1628" top="2149" />
+        <Location left="2343" top="2169" />
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -207,7 +207,7 @@
       <Entity type="Interface">
         <Name>IItemManager</Name>
         <Access>Public</Access>
-        <Location left="1559" top="1470" />
+        <Location left="2274" top="1470" />
         <Size width="295" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(Item item)</Member>
@@ -241,7 +241,7 @@
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
-        <Location left="2328" top="744" />
+        <Location left="3043" top="744" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -257,12 +257,14 @@
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
-        <Location left="1549" top="715" />
+        <Location left="1900" top="746" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Item item</Member>
         <Member type="Field">private decimal purchasePrice</Member>
         <Member type="Field">private int amount</Member>
+        <Member type="Constructor">public LineItem(Item item)</Member>
+        <Member type="Constructor">public LineItem(Item item, decimal purchasePrice, int amount)</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -298,7 +300,7 @@
       <Entity type="Interface">
         <Name>IItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1718" top="1931" />
+        <Location left="2433" top="1931" />
         <Size width="288" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
@@ -332,7 +334,7 @@
       <Entity type="Class">
         <Name>ItemDTO</Name>
         <Access>Public</Access>
-        <Location left="2043" top="1855" />
+        <Location left="2758" top="1855" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -347,7 +349,7 @@
       <Entity type="Class">
         <Name>ItemCategoryDTO</Name>
         <Access>Public</Access>
-        <Location left="2593" top="1910" />
+        <Location left="3315" top="1912" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -358,7 +360,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2268" top="1933" />
+        <Location left="2983" top="1933" />
         <Size width="297" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
@@ -371,7 +373,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2103" top="1470" />
+        <Location left="2818" top="1470" />
         <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
@@ -383,7 +385,7 @@
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2280" top="1646" />
+        <Location left="2995" top="1646" />
         <Size width="273" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
@@ -395,7 +397,7 @@
       <Entity type="Class">
         <Name>ItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2333" top="2149" />
+        <Location left="3048" top="2169" />
         <Size width="163" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemCategoryDTO&gt; GetItemCategories(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -404,9 +406,68 @@
       <Entity type="Class">
         <Name>Copy_Item_managers_and_change_to_LineItem</Name>
         <Access>Public</Access>
-        <Location left="2809" top="1629" />
+        <Location left="2967" top="523" />
         <Size width="378" height="216" />
         <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILineItemManager</Name>
+        <Access>Public</Access>
+        <Location left="1651" top="1480" />
+        <Size width="295" height="146" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateLineItem(LineItem lineItem)</Member>
+        <Member type="Method">LineItem ReadLineItem(int id, Item lineItem, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">List&lt;LineItem&gt; ReadLineItems(Item lineItem, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">bool UpdateLineItem(LineItem lineItem)</Member>
+        <Member type="Method">bool DeleteLineItem(LineItem lineItem)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemManager</Name>
+        <Access>Public</Access>
+        <Location left="1821" top="1662" />
+        <Size width="260" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly ILineItemRepository lineItemRepository</Member>
+        <Member type="Constructor">public LineItemManager(ILineItemRepository lineItemRepository)</Member>
+        <Member type="Method">private LineItemDTO ConvertToLineItemDTO(LineItem lineItem)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILineItemRepository</Name>
+        <Access>Public</Access>
+        <Location left="1810" top="1941" />
+        <Size width="288" height="146" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateLineItem(LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">LineItemDTO ReadLineItem(int id)</Member>
+        <Member type="Method">List&lt;LineItemDTO&gt; ReadLineItems(LineItemDTO lineItemDTO, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">bool UpdateLineItem(LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">bool DeleteLineItem(LineItemDTO lineItemDTO)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemDTO</Name>
+        <Access>Public</Access>
+        <Location left="2135" top="1865" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public LineItemCategoryDTO Category { get; set; }</Member>
+        <Member type="Property">public LineItemCategoryDTO SubCategory { get; set; }</Member>
+        <Member type="Property">public decimal Price { get; set; }</Member>
+        <Member type="Property">public bool Available { get; set; }</Member>
+        <Member type="Property">public string UnitType { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemRepository</Name>
+        <Access>Public</Access>
+        <Location left="1720" top="2169" />
+        <Size width="463" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetLineItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>
