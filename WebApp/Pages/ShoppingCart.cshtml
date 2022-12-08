@@ -5,7 +5,7 @@
 	ViewData["Title"] = "ShoppingCart";
 	ViewData["Css"] = "~/css/shoppingCart.css";
 }
-
+<div class="items">
 @{
 	foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
 	{
@@ -23,5 +23,10 @@
 				</div>
 			</div>
 		</form>
+
 	}
 }
+</div>
+<div class="buy">
+
+</div>

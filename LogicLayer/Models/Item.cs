@@ -15,24 +15,20 @@ namespace LogicLayer.Models
         private bool available;
         private int stockAmount;
 
-        public Item()
-        {
-
-        }
-
-        public Item(ItemDTO itemDTO)
-        {
-            this.id = itemDTO.Id;
-            this.name = itemDTO.Name;
-            this.category = new ItemCategory(itemDTO.Category);
-            this.subCategory = new ItemCategory(itemDTO.SubCategory, this.Category);
-            this.price = itemDTO.Price;
-            this.available = itemDTO.Available;
-            this.unitType = itemDTO.UnitType;
-            this.stockAmount= itemDTO.StockAmount;
-        }
-
-		[JsonConstructor]
+		public Item()
+		{
+		}
+		public Item(ItemDTO itemDTO)
+		{
+			this.id = itemDTO.Id;
+			this.name = itemDTO.Name;
+			this.category = new ItemCategory(itemDTO.Category);
+			this.subCategory = new ItemCategory(itemDTO.SubCategory, this.Category);
+			this.price = itemDTO.Price;
+			this.available = itemDTO.Available;
+			this.unitType = itemDTO.UnitType;
+			this.stockAmount = itemDTO.StockAmount;
+		}
 		public Item(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, string unitType, bool available, int stockAmount)
 		{
 			this.id = id;

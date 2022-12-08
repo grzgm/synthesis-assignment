@@ -1,3 +1,4 @@
+using LogicLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,17 @@ namespace LogicLayer.Models
 		{
 			addedItems = new List<LineItem>();
 		}
-
-		[JsonConstructor]
 		public ShoppingCart(List<LineItem> addedItems)
 		{
 			this.addedItems = addedItems;
+		}
+		public ShoppingCart(ShoppingCartDTO shoppingCartDTO)
+		{
+			addedItems = new List<LineItem>();
+			foreach (LineItemDTO lineItemDTO in shoppingCartDTO.AddedItems)
+			{
+				addedItems.Add(new LineItem(lineItemDTO));
+			}
 		}
 
 		public bool IsEmpty()

@@ -14,10 +14,12 @@ namespace WebApp.Pages
     {
         IItemRepository itemRepository;
         IItemManager itemManager;
-        IItemCategoryRepository itemCategoryRepository;
-        IItemCategoryManager itemCategoryManager;
+		IItemCategoryRepository itemCategoryRepository;
+		IItemCategoryManager itemCategoryManager;
+		IShoppingCartRepository shoppingCartRepository;
+		IShoppingCartManager shoppingCartManager;
 
-        public List<Item> items;
+		public List<Item> items;
 
 		//TESTING
 		[BindProperty]
@@ -34,6 +36,8 @@ namespace WebApp.Pages
 			itemManager = new ItemManager(itemRepository);
 			itemCategoryRepository = new ItemCategoryRepository();
 			itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
+			shoppingCartRepository = new ShoppingCartRepository();
+			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
 
 			items = itemManager.ReadItems("", null, null, 0, true);
 
@@ -53,24 +57,7 @@ namespace WebApp.Pages
 			Item addedItem = items.Find(item => item.Id == ItemId);
 			shoppingCart.AddedItems.Add(new LineItem(addedItem, Amount));
 
-
-			if (Request.Cookies.ContainsKey("shoppingCart"))
-			{
-				ShoppingCart shoppingCartOld = JsonSerializer.Deserialize<ShoppingCart>(Request.Cookies["shoppingCart"]);
-				shoppingCart.AddedItems.AddRange(shoppingCartOld.AddedItems);
-
-				string shoppingCartCookie = JsonSerializer.Serialize((ShoppingCart)shoppingCart);
-				CookieOptions cookieOptions = new CookieOptions();
-				cookieOptions.Expires = DateTime.Now.AddDays(7);
-				Response.Cookies.Append("shoppingCart", shoppingCartCookie, cookieOptions);
-			}
-			else
-			{
-				string shoppingCartCookie = JsonSerializer.Serialize((ShoppingCart)shoppingCart);
-				CookieOptions cookieOptions = new CookieOptions();
-				cookieOptions.Expires = DateTime.Now.AddDays(7);
-				Response.Cookies.Append("shoppingCart", shoppingCartCookie, cookieOptions);
-			}
+			shoppingCartManager.CreateShoppingCart(int.Parse(User.FindFirst("Id").Value), new LineItem(addedItem, Amount));
 		}
 	}
 }

@@ -73,9 +73,16 @@ CREATE TABLE LineItem
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	itemId int FOREIGN KEY REFERENCES [Item]([id]) ON DELETE SET NULL,
-	orderId int NOT NULL FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE,
+	orderId int FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE,
 	purchasePrice decimal(19,4) NOT NULL,
 	amount int NOT NULL,
+);
+
+-- ShoppingCart Table
+CREATE TABLE ShoppingCart
+(
+	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
+	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]),
 );
 
 
@@ -119,3 +126,4 @@ INSERT INTO LineItem VALUES (3, 3, 1, 5);
 INSERT INTO LineItem VALUES (4, 4, 7, 10);
 INSERT INTO LineItem VALUES (4, 4, 7, 10);
 INSERT INTO LineItem VALUES (4, 5, 7, 10);
+INSERT INTO LineItem VALUES (4, NULL, 7, 10);

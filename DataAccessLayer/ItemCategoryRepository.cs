@@ -53,6 +53,10 @@ namespace DataAccessLayer
             {
                 throw new Exception(ex.ToString());
             }
+            finally
+            {
+                conn.Close();
+            }
 
             return itemCategories;
         }

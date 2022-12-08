@@ -61,7 +61,7 @@ namespace LogicLayer.Managers
             }
         }
 
-        private LineItemDTO ConvertToLineItemDTO(LineItem lineItem)
+		public static LineItemDTO ConvertToLineItemDTO(LineItem lineItem)
         {
             LineItemDTO lineItemDTO = new LineItemDTO()
             {
