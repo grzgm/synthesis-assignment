@@ -1,4 +1,5 @@
 using LogicLayer.DTOs;
+using System.Text.Json.Serialization;
 
 namespace LogicLayer.Models
 {
@@ -8,7 +9,15 @@ namespace LogicLayer.Models
         private string name;
         private ItemCategory? parentCategory;
 
-        public ItemCategory(int id, string name, ItemCategory parentCategory)
+		public ItemCategory()
+		{
+			this.id = id;
+			this.name = name;
+			this.parentCategory = parentCategory;
+		}
+
+		[JsonConstructor]
+		public ItemCategory(int id, string name, ItemCategory parentCategory)
         {
             this.id = id;
             this.name = name;

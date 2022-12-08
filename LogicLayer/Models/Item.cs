@@ -1,5 +1,5 @@
 using LogicLayer.DTOs;
-
+using System.Text.Json.Serialization;
 
 namespace LogicLayer.Models
 {
@@ -32,7 +32,20 @@ namespace LogicLayer.Models
             this.stockAmount= itemDTO.StockAmount;
         }
 
-        public int Id
+		[JsonConstructor]
+		public Item(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, string unitType, bool available, int stockAmount)
+		{
+			this.id = id;
+			this.name = name;
+			this.category = category;
+			this.subCategory = subCategory;
+			this.price = price;
+			this.unitType = unitType;
+			this.available = available;
+			this.stockAmount = stockAmount;
+		}
+
+		public int Id
         {
             get { return this.id; }
         }

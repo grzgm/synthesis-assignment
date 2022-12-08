@@ -5,6 +5,8 @@ using LogicLayer.Managers;
 using LogicLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Principal;
+using System.Text.Json;
 
 namespace WebApp.Pages
 {
@@ -19,10 +21,14 @@ namespace WebApp.Pages
 
 		//TESTING
 		[BindProperty]
-		int itemId { get; set; }
-		List<LineItem> lineItems;
+		public int ItemId { get; set; }
+		[BindProperty]
+		public int Amount { get; set; }
 
-        public ShopModel()
+		ShoppingCart shoppingCart;
+
+
+		public ShopModel()
 		{
 			itemRepository = new ItemRepository();
 			itemManager = new ItemManager(itemRepository);
@@ -31,8 +37,7 @@ namespace WebApp.Pages
 
 			items = itemManager.ReadItems("", null, null, 0, true);
 
-
-			lineItems= new List<LineItem>();
+			shoppingCart = new ShoppingCart();
 		}
 
         public void OnGet()
@@ -45,8 +50,27 @@ namespace WebApp.Pages
 		}
 		public void OnPostAddItem()
 		{
-			Item addedItem = items.Find(item => item.Id == itemId);
-			lineItems.Add(new LineItem(addedItem));
+			Item addedItem = items.Find(item => item.Id == ItemId);
+			shoppingCart.AddedItems.Add(new LineItem(addedItem, Amount));
+
+
+			if (Request.Cookies.ContainsKey("shoppingCart"))
+			{
+				ShoppingCart shoppingCartOld = JsonSerializer.Deserialize<ShoppingCart>(Request.Cookies["shoppingCart"]);
+				shoppingCart.AddedItems.AddRange(shoppingCartOld.AddedItems);
+
+				string shoppingCartCookie = JsonSerializer.Serialize((ShoppingCart)shoppingCart);
+				CookieOptions cookieOptions = new CookieOptions();
+				cookieOptions.Expires = DateTime.Now.AddDays(7);
+				Response.Cookies.Append("shoppingCart", shoppingCartCookie, cookieOptions);
+			}
+			else
+			{
+				string shoppingCartCookie = JsonSerializer.Serialize((ShoppingCart)shoppingCart);
+				CookieOptions cookieOptions = new CookieOptions();
+				cookieOptions.Expires = DateTime.Now.AddDays(7);
+				Response.Cookies.Append("shoppingCart", shoppingCartCookie, cookieOptions);
+			}
 		}
 	}
 }

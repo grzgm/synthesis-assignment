@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace LogicLayer.Models
 {
     public class LineItem
@@ -13,6 +15,7 @@ namespace LogicLayer.Models
 			this.amount = 1;
         }
 
+        [JsonConstructor]
 		public LineItem(Item item, int amount)
         {
             this.item = item;
