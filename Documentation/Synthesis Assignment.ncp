@@ -8,19 +8,21 @@
         <Name>Client</Name>
         <Access>Public</Access>
         <Location left="806" top="695" />
-        <Size width="178" height="216" />
+        <Size width="178" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;Order&gt; previousOrders</Member>
         <Member type="Field">private string username</Member>
         <Member type="Field">private BonusCard bonusCard</Member>
+        <Member type="Field">private List&lt;Address&gt; adresses</Member>
         <Member type="Constructor">public Client()</Member>
         <Member type="Property">public string Username { get; private set; }</Member>
+        <Member type="Property">public List&lt;Address&gt; Adresses { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Order</Name>
         <Access>Public</Access>
-        <Location left="1281" top="832" />
+        <Location left="1282" top="816" />
         <Size width="196" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -39,7 +41,7 @@
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
-        <Location left="1794" top="694" />
+        <Location left="2509" top="694" />
         <Size width="181" height="366" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -64,7 +66,7 @@
       <Entity type="Enum">
         <Name>OrderStatus</Name>
         <Access>Public</Access>
-        <Location left="2918" top="692" />
+        <Location left="2731" top="385" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Value>OrderPlaced</Value>
@@ -75,12 +77,12 @@
       <Entity type="Class">
         <Name>BonusCard</Name>
         <Access>Public</Access>
-        <Location left="549" top="695" />
-        <Size width="162" height="216" />
+        <Location left="584" top="695" />
+        <Size width="162" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
-        <Member type="Field">private Client client</Member>
         <Member type="Field">private int amountOfPoints</Member>
+        <Member type="Constructor">public BonusCard(int id, int amountOfPoints)</Member>
         <Member type="Method">public int ConvertPointsToEuros()</Member>
         <Member type="Method">public int MaxEuros()</Member>
         <Member type="Method">public void AddPointsFromEuros()</Member>
@@ -90,7 +92,7 @@
         <Name>Employee</Name>
         <Access>Public</Access>
         <Location left="340" top="695" />
-        <Size width="162" height="216" />
+        <Size width="162" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string employeeRole</Member>
         <Member type="Constructor">public Employee()</Member>
@@ -100,7 +102,7 @@
       <Entity type="Class">
         <Name>ShoppingCart</Name>
         <Access>Public</Access>
-        <Location left="1292" top="701" />
+        <Location left="1292" top="683" />
         <Size width="176" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
@@ -118,7 +120,7 @@
       <Entity type="Class">
         <Name>ClientRepository</Name>
         <Access>Public</Access>
-        <Location left="807" top="2167" />
+        <Location left="807" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -126,7 +128,7 @@
       <Entity type="Class">
         <Name>EmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="324" top="2167" />
+        <Location left="324" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -176,7 +178,7 @@
       <Entity type="Class">
         <Name>ItemManager</Name>
         <Access>Public</Access>
-        <Location left="1729" top="1652" />
+        <Location left="2444" top="1652" />
         <Size width="260" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemRepository itemRepository</Member>
@@ -187,7 +189,7 @@
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1628" top="2149" />
+        <Location left="2343" top="2169" />
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -207,7 +209,7 @@
       <Entity type="Interface">
         <Name>IItemManager</Name>
         <Access>Public</Access>
-        <Location left="1559" top="1470" />
+        <Location left="2274" top="1470" />
         <Size width="295" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(Item item)</Member>
@@ -234,14 +236,14 @@
         <Size width="275" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(Client client)</Member>
-        <Member type="Method">Client ReadClient(string name, string password)</Member>
+        <Member type="Method">Client ReadClient(string username, string password)</Member>
         <Member type="Method">bool UpdateClient(Client client)</Member>
         <Member type="Method">bool DeleteClient(Client client)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
-        <Location left="2328" top="744" />
+        <Location left="3043" top="744" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -257,30 +259,35 @@
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
-        <Location left="1549" top="715" />
-        <Size width="162" height="216" />
+        <Location left="1900" top="715" />
+        <Size width="162" height="220" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private Item item</Member>
         <Member type="Field">private decimal purchasePrice</Member>
         <Member type="Field">private int amount</Member>
+        <Member type="Constructor">public LineItem(Item item)</Member>
+        <Member type="Constructor">public LineItem(Item item, int amount)</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Account</Name>
         <Access>Public</Access>
-        <Location left="595" top="368" />
-        <Size width="162" height="216" />
+        <Location left="584" top="274" />
+        <Size width="162" height="275" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
-        <Member type="Field">private string name</Member>
+        <Member type="Field">private string firstname</Member>
+        <Member type="Field">private string lastname</Member>
         <Member type="Field">private string email</Member>
         <Member type="Field">private string password</Member>
-        <Member type="Property">public int Id { get; private set; }</Member>
-        <Member type="Property">public string Name { get; private set; }</Member>
+        <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email, string password)</Member>
+        <Member type="Property">public int Id { get; }</Member>
+        <Member type="Property">public string Firstname { get; private set; }</Member>
+        <Member type="Property">public string Lastname { get; private set; }</Member>
         <Member type="Property">public string Email { get; private set; }</Member>
         <Member type="Property">public string Password { get; private set; }</Member>
-        <Modifier>None</Modifier>
+        <Modifier>Abstract</Modifier>
       </Entity>
       <Entity type="Interface">
         <Name>IEmployeeRepository</Name>
@@ -296,7 +303,7 @@
       <Entity type="Interface">
         <Name>IItemRepository</Name>
         <Access>Public</Access>
-        <Location left="1718" top="1931" />
+        <Location left="2433" top="1931" />
         <Size width="288" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
@@ -312,7 +319,7 @@
         <Size width="297" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
-        <Member type="Method">ClientDTO ReadClient(string name, string password)</Member>
+        <Member type="Method">ClientDTO ReadClient(string username, string password)</Member>
         <Member type="Method">bool UpdateClient(ClientDTO clientDTO)</Member>
         <Member type="Method">bool DeleteClient(ClientDTO clientDTO)</Member>
       </Entity>
@@ -330,7 +337,7 @@
       <Entity type="Class">
         <Name>ItemDTO</Name>
         <Access>Public</Access>
-        <Location left="2043" top="1855" />
+        <Location left="2758" top="1855" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -345,7 +352,7 @@
       <Entity type="Class">
         <Name>ItemCategoryDTO</Name>
         <Access>Public</Access>
-        <Location left="2593" top="1910" />
+        <Location left="3315" top="1912" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -356,7 +363,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2268" top="1933" />
+        <Location left="2983" top="1933" />
         <Size width="297" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
@@ -369,7 +376,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2103" top="1470" />
+        <Location left="2818" top="1470" />
         <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
@@ -381,7 +388,7 @@
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="2280" top="1646" />
+        <Location left="2995" top="1646" />
         <Size width="273" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
@@ -393,18 +400,104 @@
       <Entity type="Class">
         <Name>ItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="2333" top="2149" />
+        <Location left="3048" top="2169" />
         <Size width="163" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemCategoryDTO&gt; GetItemCategories(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Copy_Item_managers_and_change_to_LineItem</Name>
+        <Name>Address</Name>
         <Access>Public</Access>
-        <Location left="2809" top="1629" />
-        <Size width="378" height="216" />
+        <Location left="1026" top="972" />
+        <Size width="209" height="264" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">private string country</Member>
+        <Member type="Field">private string city</Member>
+        <Member type="Field">private string street</Member>
+        <Member type="Field">private string postalCode</Member>
+        <Member type="Field">private Client client</Member>
+        <Member type="Constructor">protected Address(string country, string city, string street, string postalCode, Client client)</Member>
+        <Member type="Property">public string Country { get; set; }</Member>
+        <Member type="Property">public string City { get; set; }</Member>
+        <Member type="Property">public string Street { get; set; }</Member>
+        <Member type="Property">public string PostalCode { get; set; }</Member>
+        <Member type="Property">public Client Client { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILineItemManager</Name>
+        <Access>Public</Access>
+        <Location left="1651" top="1480" />
+        <Size width="295" height="146" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateLineItem(LineItem lineItem)</Member>
+        <Member type="Method">LineItem ReadLineItem(int id, Item lineItem, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">List&lt;LineItem&gt; ReadLineItems(Item lineItem, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">bool UpdateLineItem(LineItem lineItem)</Member>
+        <Member type="Method">bool DeleteLineItem(LineItem lineItem)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemManager</Name>
+        <Access>Public</Access>
+        <Location left="1821" top="1662" />
+        <Size width="260" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly ILineItemRepository lineItemRepository</Member>
+        <Member type="Constructor">public LineItemManager(ILineItemRepository lineItemRepository)</Member>
+        <Member type="Method">private LineItemDTO ConvertToLineItemDTO(LineItem lineItem)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILineItemRepository</Name>
+        <Access>Public</Access>
+        <Location left="1810" top="1941" />
+        <Size width="288" height="146" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">bool CreateLineItem(LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">LineItemDTO ReadLineItem(int id)</Member>
+        <Member type="Method">List&lt;LineItemDTO&gt; ReadLineItems(LineItemDTO lineItemDTO, decimal purchasePrice, int amount)</Member>
+        <Member type="Method">bool UpdateLineItem(LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">bool DeleteLineItem(LineItemDTO lineItemDTO)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemDTO</Name>
+        <Access>Public</Access>
+        <Location left="2135" top="1865" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public LineItemCategoryDTO Category { get; set; }</Member>
+        <Member type="Property">public LineItemCategoryDTO SubCategory { get; set; }</Member>
+        <Member type="Property">public decimal Price { get; set; }</Member>
+        <Member type="Property">public bool Available { get; set; }</Member>
+        <Member type="Property">public string UnitType { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LineItemRepository</Name>
+        <Access>Public</Access>
+        <Location left="1720" top="2169" />
+        <Size width="463" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetLineItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClientDTO</Name>
+        <Access>Public</Access>
+        <Location left="1045" top="1865" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Firstname { get; set; }</Member>
+        <Member type="Property">public string Lastname { get; set; }</Member>
+        <Member type="Property">public string Email { get; set; }</Member>
+        <Member type="Property">public int Passowrd { get; set; }</Member>
+        <Member type="Property">public int Username { get; set; }</Member>
+        <Member type="Property">public int BonusCardId { get; set; }</Member>
+        <Member type="Property">public int AmountOfPoints { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
     </Entities>

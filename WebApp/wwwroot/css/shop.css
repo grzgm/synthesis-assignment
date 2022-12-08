@@ -13,7 +13,7 @@
     width: 100%;
     aspect-ratio: 1/2;
     display: grid;
-    grid-template-rows: auto 2fr 1fr;
+    grid-template-rows: auto 3fr 1fr;
     background-color: #111;
     text-align: center;
 }
@@ -22,11 +22,14 @@
         display: grid;
         place-items:center;
         aspect-ratio: 1;
+
+        background-color: #333
     }
 
 .details {
     display: grid;
     grid-template-columns: 1fr;
+    place-items: center;
 }
 
 .name{

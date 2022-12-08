@@ -22,7 +22,14 @@ namespace LogicLayer.Managers
 
         public bool CreateItem(Item item)
         {
-            return itemRepository.CreateItem(ConvertToItemDTO(item));
+            try
+            {
+                return itemRepository.CreateItem(ConvertToItemDTO(item));
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         public Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
@@ -74,21 +81,28 @@ namespace LogicLayer.Managers
         public List<Item> ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
         {
             List<ItemDTO> itemsDTO;
-            if (category != null && subCategory != null)
+            try
             {
-                itemsDTO = itemRepository.ReadItems(name, category.Id, subCategory.Id, price, available);
+                if (category != null && subCategory != null)
+                {
+                    itemsDTO = itemRepository.ReadItems(name, category.Id, subCategory.Id, price, available);
+                }
+                else if (category == null && subCategory == null)
+                {
+                    itemsDTO = itemRepository.ReadItems(name, 0, 0, price, available);
+                }
+                else if (category != null && subCategory == null)
+                {
+                    itemsDTO = itemRepository.ReadItems(name, category.Id, 0, price, available);
+                }
+                else
+                {
+                    itemsDTO = itemRepository.ReadItems(name, 0, subCategory.Id, price, available);
+                }
             }
-            else if (category == null && subCategory == null)
+            catch(Exception ex)
             {
-                itemsDTO = itemRepository.ReadItems(name, 0, 0, price, available);
-            }
-            else if (category != null && subCategory == null)
-            {
-                itemsDTO = itemRepository.ReadItems(name, category.Id, 0, price, available);
-            }
-            else
-            {
-                itemsDTO = itemRepository.ReadItems(name, 0, subCategory.Id, price, available);
+                return new List<Item>();
             }
             List<Item> items = new List<Item>();
             foreach (ItemDTO itemDTO in itemsDTO)
@@ -100,24 +114,40 @@ namespace LogicLayer.Managers
 
         public bool UpdateItem(Item item)
         {
-            return itemRepository.UpdateItem(ConvertToItemDTO(item));
+            try
+            {
+                return itemRepository.UpdateItem(ConvertToItemDTO(item));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool DeleteItem(Item item)
         {
-            return itemRepository.DeleteItem(ConvertToItemDTO(item));
+            try
+            {
+                return itemRepository.DeleteItem(ConvertToItemDTO(item));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        private ItemDTO ConvertToItemDTO(Item item)
+        public static ItemDTO ConvertToItemDTO(Item item)
         {
-            ItemDTO itemDTO = new ItemDTO();
-            itemDTO.Id = item.Id;
-            itemDTO.Name = item.Name;
-            itemDTO.Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null };
-            itemDTO.SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id };
-            itemDTO.Price = item.Price;
-            itemDTO.Available = item.Available;
-            itemDTO.UnitType = item.UnitType;
+            ItemDTO itemDTO = new ItemDTO()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null },
+                SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id },
+                Price = item.Price,
+                Available = item.Available,
+                UnitType = item.UnitType,
+            };
             return itemDTO;
         }
     }

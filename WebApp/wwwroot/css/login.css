@@ -1,0 +1,13 @@
+main {
+    display: grid;
+    place-items: center;
+    place-content: center;
+}
+
+.login {
+    display: grid;
+    gap: 15px;
+    padding: 75px;
+    place-items: center;
+    background-color: #333;
+}

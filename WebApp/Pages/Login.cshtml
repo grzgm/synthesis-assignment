@@ -1,0 +1,22 @@
+﻿@page
+@model WebApp.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    ViewData["Css"] = "~/css/login.css";
+}
+<form method="post" autocomplete="on" class="login">
+    <label asp-for="Username">Username: </label>
+    <input asp-for="Username" type="text">
+    <label asp-for="Password">Password:</label>
+    <input asp-for="Password" type="password">
+    <button type="submit">Login</button>
+    <div class="validation">
+        @Model.mess
+        <span class="feedback" asp-validation-for="Username"></span>
+        <span class="feedback" asp-validation-for="Password"></span>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

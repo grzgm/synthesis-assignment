@@ -29,16 +29,30 @@ CREATE TABLE Item
 	stockAmount int NOT NULL,
 );
 
+-- Account Table
+CREATE TABLE Account
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	[firstname] nvarchar(20) NOT NULL,
+	[lastname] nvarchar(20) NOT NULL,
+	email nvarchar(50) NOT NULL UNIQUE,
+	[password] nvarchar(10) NOT NULL,
+);
+
 -- Client Table
 CREATE TABLE Client
 (
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	[name] nvarchar(20) NOT NULL,
-	email nvarchar(50) NOT NULL UNIQUE,
-	[password] nvarchar(10) NOT NULL,
+	id int NOT NULL FOREIGN KEY REFERENCES [Account]([id]) ON DELETE CASCADE UNIQUE,
+	[username] nvarchar(20) NOT NULL UNIQUE,
 	bonusCardId int UNIQUE,
 	amountOfPoints int,
-	CONSTRAINT UniqueNameAndPassword_Client UNIQUE ([Name], [Password])
+);
+
+-- Employee Table
+CREATE TABLE Employee
+(
+	id int NOT NULL FOREIGN KEY REFERENCES [Account]([id]) ON DELETE CASCADE UNIQUE,
+	[role] nvarchar(20) NOT NULL,
 );
 
 -- Order Table
@@ -64,16 +78,6 @@ CREATE TABLE LineItem
 	amount int NOT NULL,
 );
 
--- Employee Table
-CREATE TABLE Employee
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	[name] nvarchar(20) NOT NULL,
-	email nvarchar(50) NOT NULL UNIQUE,
-	[password] nvarchar(10) NOT NULL,
-	CONSTRAINT UniqueNameAndPassword_Employee UNIQUE ([Name], [Password])
-);
-
 
 
 -- Mock Data
@@ -92,8 +96,11 @@ INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
 INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
-INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);
-INSERT INTO Client VALUES ('martin', 'm@m', '12345', NULL, NULL);
+INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '12345');
+INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '12345');
+
+INSERT INTO Client VALUES (1, 'jan', 1, 100);
+INSERT INTO Client VALUES (2, 'martin2', NULL, NULL);
 
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-01', '2022-12-04', 1);
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-02', '2022-12-04', 1);
