@@ -1,0 +1,27 @@
+﻿@page
+@using LogicLayer.Models;
+@model WebApp.Pages.ShoppingCartModel
+@{
+	ViewData["Title"] = "ShoppingCart";
+	ViewData["Css"] = "~/css/shoppingCart.css";
+}
+
+@{
+	foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
+	{
+		<form method="post" class="item">
+			<div class="image">img</div>
+			<div class="details">
+				<div class="name">
+					@lineItem.Item.Name
+				</div>
+				<div class="category">
+					@lineItem.Item.Category @lineItem.Item.SubCategory
+				</div>
+				<div class="price">
+					@lineItem.Amount x @lineItem.PurchasePrice
+				</div>
+			</div>
+		</form>
+	}
+}

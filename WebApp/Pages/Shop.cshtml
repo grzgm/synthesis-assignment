@@ -10,8 +10,8 @@
 	foreach (Item item in Model.items)
 	{
 <form method="post" class="item">
-	<div class="price">
-		@item.Price
+	<div class="discount">
+		2 for 29,99 Euro
 	</div>
 	<div class="image">img</div>
 	<div class="details">
@@ -21,12 +21,12 @@
 		<div class="category">
 			@item.Category @item.SubCategory
 		</div>
+		<div class="price">
+			@item.Price
+		</div>
 		<div class="amount">
 			<input type="number" asp-for="Amount"/> 
 			<label asp-for="Amount">/ @item.StockAmount</label>
-		</div>
-		<div class="discount">
-			2 for 29,99 Euro
 		</div>
 	</div>
 			<button asp-page-handler="AddItem" asp-route-ItemId="@item.Id" type="submit" class="addToCart">
