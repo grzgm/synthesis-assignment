@@ -147,6 +147,7 @@ namespace LogicLayer.Managers
                 Price = item.Price,
                 Available = item.Available,
                 UnitType = item.UnitType,
+                StockAmount = item.StockAmount,
             };
             return itemDTO;
         }

@@ -149,6 +149,7 @@ namespace WinFormsApp
             tbPriceDetails.Text = selectedItem.Price.ToString();
             cbAvailableDetails.Checked = selectedItem.Available;
             tbUnitTypeDetails.Text = selectedItem.UnitType;
+            tbStockAmountDetails.Text = selectedItem.StockAmount.ToString();
         }
 
         private void btnItemCreate_Click(object sender, EventArgs e)
@@ -198,6 +199,24 @@ namespace WinFormsApp
                 return;
             }
 
+            try
+            {
+                if (int.Parse(tbStockAmountCreator.Text) > 0)
+                {
+                    newItem.StockAmount = int.Parse(tbStockAmountCreator.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Stock Amount is a positive Intiger");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Stock Amount is a positive Intiger");
+                return;
+            }
+
             if (itemManager.CreateItem(newItem))
             {
                 MessageBox.Show("New item created succesfully");
@@ -232,6 +251,7 @@ namespace WinFormsApp
             tbPriceDetails.Text = String.Empty;
             cbAvailableDetails.Checked = true;
             tbUnitTypeDetails.Text = String.Empty;
+            tbStockAmountDetails.Text = String.Empty;
         }
 
         private void ResetItemCreator()
@@ -240,6 +260,7 @@ namespace WinFormsApp
             tbPriceCreator.Text = String.Empty;
             cbAvailableCreator.Checked = true;
             tbUnitTypeCreator.Text = String.Empty;
+            tbStockAmountCreator.Text = String.Empty;
         }
 
         private void cbCategoryCreator_SelectedIndexChanged(object sender, EventArgs e)
@@ -284,6 +305,7 @@ namespace WinFormsApp
                 selectedItem.Price = decimal.Parse(tbPriceDetails.Text);
                 selectedItem.Available = cbAvailableDetails.Checked;
                 selectedItem.UnitType = tbUnitTypeDetails.Text;
+                selectedItem.StockAmount = int.Parse(tbStockAmountDetails.Text);
 
                 if (itemManager.UpdateItem(selectedItem))
                 {
@@ -340,6 +362,20 @@ namespace WinFormsApp
             if (!(tbUnitTypeDetails.Text.Length >= 1 && tbUnitTypeDetails.Text.Length <= 20))
             {
                 MessageBox.Show("Item UnitType should be between 1 and 20 characters");
+                return false;
+            }
+
+            try
+            {
+                if (int.Parse(tbStockAmountDetails.Text) < 0)
+                {
+                    MessageBox.Show("Stock Amount is a positive Intiger");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Stock Amount is a positive Intiger");
                 return false;
             }
 
