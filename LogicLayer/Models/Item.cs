@@ -13,6 +13,7 @@ namespace LogicLayer.Models
         private decimal price;
         private string unitType;
         private bool available;
+        private int stockAmount;
 
         public Item()
         {
@@ -28,6 +29,7 @@ namespace LogicLayer.Models
             this.price = itemDTO.Price;
             this.available = itemDTO.Available;
             this.unitType = itemDTO.UnitType;
+            this.stockAmount= itemDTO.StockAmount;
         }
 
         public int Id
@@ -70,6 +72,11 @@ namespace LogicLayer.Models
             get { return this.unitType; }
             set { this.unitType = value; }
         }
+        public int StockAmount
+        {
+            get { return this.stockAmount; }
+            set { this.stockAmount = value; }
+        }
 
         public int BonusCalculator()
         {
@@ -78,7 +85,7 @@ namespace LogicLayer.Models
 
         public override string ToString()
         {
-            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + unitType + "; " + available.ToString() + "; ";
+            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + unitType + "; " + stockAmount.ToString() + "; " + available.ToString() + "; ";
         }
     }
 }

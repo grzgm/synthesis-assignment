@@ -68,7 +68,7 @@ namespace DataAccessLayer
             SqlCommand cmd;
             SqlDataReader dreader;
 
-            string sql = "INSERT INTO Item VALUES (@name, @category, @subCategory, @price, @unitType, @available);";
+            string sql = "INSERT INTO Item VALUES (@name, @category, @subCategory, @price, @unitType, @available, @stockAmount);";
 
             cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@name", Value = itemDTO.Name });
@@ -77,6 +77,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@price", Value = itemDTO.Price });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@unitType", Value = itemDTO.UnitType });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@available", Value = itemDTO.Available });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@stockAmount", Value = itemDTO.StockAmount });
 
             try
             {
@@ -100,8 +101,9 @@ namespace DataAccessLayer
 
         public ItemDTO ReadItem(int id)
         {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id " +
-                "WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL AND Item.id = @id;";
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] " +
+                "FROM Item LEFT JOIN Category t1 ON Item.subCategory = t1.id LEFT JOIN Category t2 ON t1.parentCategory = t2.id " +
+                "WHERE Item.id = @id;";
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
             try
@@ -116,8 +118,9 @@ namespace DataAccessLayer
         }
         public List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available)
         {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM Item LEFT JOIN Category t1 ON Item.category = t1.id LEFT JOIN Category t2 ON Item.subCategory = t2.id " +
-                "WHERE t1.parentCategory IS NULL AND t2.parentCategory IS NOT NULL AND Item.available = @available";
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] " +
+                "FROM Item LEFT JOIN Category t1 ON Item.subCategory = t1.id LEFT JOIN Category t2 ON t1.parentCategory = t2.id " +
+                "WHERE Item.available = @available";
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
             try
@@ -158,7 +161,7 @@ namespace DataAccessLayer
             conn.Open();
             SqlCommand cmd;
 
-            string sql = "UPDATE Item SET name = @name, category = @category, subCategory = @subCategory, price = @price, unitType = @unitType, available = @available WHERE id = @id;";
+            string sql = "UPDATE Item SET name = @name, category = @category, subCategory = @subCategory, price = @price, unitType = @unitType, available = @available, stockAmount = @stockAmount WHERE id = @id;";
 
             cmd = new SqlCommand(sql, conn);
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = itemDTO.Id });
@@ -168,6 +171,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@price", Value = itemDTO.Price });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@unitType", Value = itemDTO.UnitType });
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@available", Value = itemDTO.Available });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@stockAmount", Value = itemDTO.StockAmount });
 
             try
             {
@@ -196,7 +200,7 @@ namespace DataAccessLayer
             SqlCommand cmd;
 
             //string sql = "DELETE FROM Item WHERE id = @id;";
-            string sql = "UPDATE Item SET available = 0 WHERE id = @id;";
+            string sql = "UPDATE Item SET available = 0, stockAmount = 0 WHERE id = @id;";
 
 
             cmd = new SqlCommand(sql, conn);

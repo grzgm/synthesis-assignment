@@ -5,7 +5,7 @@ CREATE TABLE Category
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	[name] nvarchar(20) NOT NULL UNIQUE,
-	parentCategory int,
+	parentCategory int FOREIGN KEY REFERENCES [Category]([id]),
 );
 
 -- OrderStatus Table
@@ -22,11 +22,11 @@ CREATE TABLE Item
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	[name] nvarchar(20) NOT NULL,
-	category int NOT NULL FOREIGN KEY REFERENCES [Category]([id]),
 	subCategory int NOT NULL FOREIGN KEY REFERENCES [Category]([id]),
 	price decimal(19,4) NOT NULL,
 	[unitType] nvarchar(20) NOT NULL,
 	available bit NOT NULL,
+	stockAmount int NOT NULL,
 );
 
 -- Client Table
@@ -87,10 +87,10 @@ INSERT INTO OrderStatus VALUES ('Start');
 INSERT INTO OrderStatus VALUES ('Middle');
 INSERT INTO OrderStatus VALUES ('Finish');
 
-INSERT INTO Item VALUES ('apple', 1, 3, 10, 'kg', 1);
-INSERT INTO Item VALUES ('banana', 1, 4, 10, 'kg', 0);
-INSERT INTO Item VALUES ('pear', 1, 3, 10, 'kg', 1);
-INSERT INTO Item VALUES ('pork', 2, 5, 10, 'g', 1);
+INSERT INTO Item VALUES ('apple', 3, 10, 'kg', 1, 100);
+INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
+INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
+INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
 INSERT INTO Client VALUES ('jan', 'j@j', '12345', 1, 100);
 INSERT INTO Client VALUES ('martin', 'm@m', '12345', NULL, NULL);

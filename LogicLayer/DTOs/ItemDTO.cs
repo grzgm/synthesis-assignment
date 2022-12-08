@@ -42,5 +42,10 @@ namespace LogicLayer.DTOs
         {
             get; set;
         }
+
+        public int StockAmount
+        {
+            get; set;
+        }
     }
 }
