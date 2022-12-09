@@ -36,7 +36,8 @@ CREATE TABLE Account
 	[firstname] nvarchar(20) NOT NULL,
 	[lastname] nvarchar(20) NOT NULL,
 	email nvarchar(50) NOT NULL UNIQUE,
-	[password] nvarchar(10) NOT NULL,
+	[password] nvarchar(60) NOT NULL,
+	[salt] nvarchar(100) NOT NULL,
 );
 
 -- Client Table

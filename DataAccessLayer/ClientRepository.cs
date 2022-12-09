@@ -1,6 +1,8 @@
 using LogicLayer.DTOs;
 using LogicLayer.InterfacesRepository;
 using System.Data.SqlClient;
+using BCrypt;
+using System.Reflection.PortableExecutable;
 
 namespace DataAccessLayer
 {
@@ -14,7 +16,7 @@ namespace DataAccessLayer
             SqlDataReader dreader;
 
             string sql = "BEGIN TRANSACTION;" +
-                        "INSERT INTO Account VALUES (@firstname, @lastname, @email, @password);" +
+                        "INSERT INTO Account VALUES (@firstname, @lastname, @email, @password, @salt);" +
                         "DECLARE @id INT;" +
                         "SET @id = IDENT_CURRENT('Account')" +
                         "INSERT INTO Client VALUES (@id, @username, @amountOfPoints);" +
@@ -24,8 +26,13 @@ namespace DataAccessLayer
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@firstname", Value = clientDTO.Firstname});
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@lastname", Value =  clientDTO.Lastname});
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@email", Value =  clientDTO.Email});
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@password", Value =  clientDTO.Password});
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@username", Value =  clientDTO.Username});
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@username", Value = clientDTO.Username });
+
+			string salt = GenerateSalt();
+			string hashedPassword = HashPassword(clientDTO.Password, salt);
+
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@password", Value =  hashedPassword });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@salt", Value = salt });
 			if(clientDTO.AmountOfPoints == null)
 			{
 				cmd.Parameters.AddWithValue("@amountOfPoints", DBNull.Value);
@@ -62,14 +69,13 @@ namespace DataAccessLayer
 			SqlCommand cmd;
 			SqlDataReader dreader;
 
-			string sql = "SELECT [Account].[id], [Account].[firstname], [Account].[lastname], [Account].[email], [Account].[password], " +
+			string sql = "SELECT [Account].[id], [Account].[firstname], [Account].[lastname], [Account].[email], [Account].[password], [Account].[salt], " +
 				"[Client].[username], [Client].[amountOfPoints] " +
 				"FROM [Account] LEFT JOIN [Client] ON [Account].id = [Client].id " +
-				"WHERE [Client].username = @username AND [Account].[password] = @password;";
+				"WHERE [Client].username = @username";
 
 			cmd = new SqlCommand(sql, conn);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@username", Value = username });
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@password", Value = password });
 
 			ClientDTO clientDTO;
 
@@ -78,22 +84,29 @@ namespace DataAccessLayer
 				dreader = cmd.ExecuteReader();
 
 				dreader.Read();
+
+				//Password Validation
+
+				string hashedPassword = dreader.GetString(dreader.GetOrdinal("password"));
+				string salt = dreader.GetString(dreader.GetOrdinal("salt"));
+
+				//if(!ValidatePassword(hashedPassword, HashPassword(password, salt)))
+				if(!ValidatePassword(password, hashedPassword))
+				{
+					throw new Exception();
+				}
+
 				clientDTO = new ClientDTO
 				{
-					Id = dreader.GetInt32(0),
-					Firstname = dreader.GetString(1).Trim(),
-					Lastname = dreader.GetString(2).Trim(),
-					Email = dreader.GetString(3).Trim(),
-					Password = dreader.GetString(4).Trim(),
-					Username = dreader.GetString(5).Trim(),
+					Id = dreader.GetInt32(dreader.GetOrdinal("id")),
+					Firstname = dreader.GetString(dreader.GetOrdinal("firstname")),
+					Lastname = dreader.GetString(dreader.GetOrdinal("lastname")),
+					Email = dreader.GetString(dreader.GetOrdinal("email")),
+					Password = dreader.GetString(dreader.GetOrdinal("password")),
+					Username = dreader.GetString(dreader.GetOrdinal("username")),
 				};
-				if (!DBNull.Value.Equals(dreader.GetValue(6)))
-					clientDTO.AmountOfPoints = dreader.GetInt32(6);
-
-				//if (!DBNull.Value.Equals(dreader.GetValue(6)))
-				//	bonusCardDTO.Id = dreader.GetInt32(6);
-				//if (!DBNull.Value.Equals(dreader.GetValue(7)))
-				//	bonusCardDTO.AmountOfPoints = dreader.GetInt32(7);
+                if(!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
+                    clientDTO.AmountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
 
 				dreader.Close();
 			}
@@ -119,5 +132,21 @@ namespace DataAccessLayer
 		{
 			throw new NotImplementedException();
 		}
-	}
+
+		private string GenerateSalt(int length = 10)
+		{
+			return BCrypt.Net.BCrypt.GenerateSalt(10);
+        }
+
+        private string HashPassword(string password, string salt)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, salt);
+        }
+
+        private bool ValidatePassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
+
+    }
 }
