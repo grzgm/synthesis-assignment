@@ -78,6 +78,16 @@ namespace LogicLayer.Models
             this.addedItems = new List<LineItem>(sortedShoppingCart.AddedItems);
         }
 
+        public decimal GetTotalPrice()
+        {
+            decimal totalPrice = 0;
+            foreach (LineItem lineItem in addedItems)
+            {
+                totalPrice += (lineItem.PurchasePrice * lineItem.Amount);
+            }
+            return totalPrice;
+        }
+
         public List<LineItem> AddedItems
         {
             get { return this.addedItems; }

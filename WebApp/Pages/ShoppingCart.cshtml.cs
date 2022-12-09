@@ -37,5 +37,10 @@ namespace WebApp.Pages
 			shoppingCartManager.DeleteShoppingCart(shoppingCart.AddedItems.Find(x => x.Id == LineItemId));
             shoppingCart.AddedItems.Remove(shoppingCart.AddedItems.Find(x => x.Id == LineItemId));
         }
+
+        public IActionResult OnPostPlaceOrder()
+		{
+			return RedirectToPage("/Shipping");
+		}
     }
 }
