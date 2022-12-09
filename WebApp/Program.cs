@@ -10,7 +10,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = new PathString("/Login");
         options.LogoutPath = new PathString("/Index");
-        options.AccessDeniedPath = new PathString("/Index");
+        options.AccessDeniedPath = new PathString("/Login");
     });
 
 var app = builder.Build();
