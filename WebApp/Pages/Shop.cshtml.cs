@@ -40,8 +40,6 @@ namespace WebApp.Pages
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
 
 			items = itemManager.ReadItems("", null, null, 0, true);
-
-			shoppingCart = new ShoppingCart();
 		}
 
         public void OnGet()
@@ -54,10 +52,21 @@ namespace WebApp.Pages
 		}
 		public void OnPostAddItem()
 		{
-			Item addedItem = items.Find(item => item.Id == ItemId);
-			shoppingCart.AddedItems.Add(new LineItem(addedItem, Amount));
+			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
 
-			shoppingCartManager.CreateShoppingCart(int.Parse(User.FindFirst("Id").Value), new LineItem(addedItem, Amount));
+            Item addedItem = items.Find(item => item.Id == ItemId);
+
+			LineItem addedLineItem = new LineItem(addedItem, Amount);
+
+            if (shoppingCart.IsAddedLineItemNew(addedLineItem))
+            {
+                shoppingCartManager.CreateShoppingCartItem(int.Parse(User.FindFirst("Id").Value), addedLineItem);
+            }
+			else
+			{
+				shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
+			}
+
 		}
 	}
 }

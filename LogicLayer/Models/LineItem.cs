@@ -3,8 +3,9 @@ using LogicLayer.DTOs;
 namespace LogicLayer.Models
 {
 	public class LineItem
-	{
-		private Item item;
+    {
+        private int id;
+        private Item item;
 		private decimal purchasePrice;
 		private int amount;
 
@@ -23,6 +24,7 @@ namespace LogicLayer.Models
 		}
 		public LineItem(LineItemDTO lineItemDTO)
 		{
+			this.id = lineItemDTO.Id;
 			this.item = new Item(lineItemDTO.ItemDTO);
 			this.purchasePrice = lineItemDTO.PurchasePrice;
 			this.amount = lineItemDTO.Amount;
@@ -31,8 +33,13 @@ namespace LogicLayer.Models
 		public decimal TotalPrice()
 		{
 			return amount * purchasePrice;
-		}
-		public Item Item
+        }
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        public Item Item
 		{
 			get { return item; }
 			set { item = value; }

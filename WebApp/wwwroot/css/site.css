@@ -14,7 +14,7 @@ html, body {
 .container {
     height: 100%;
     display: grid;
-    grid-template-rows: 60px auto 60px;
+    grid-template-rows: 60px calc(100vh - 120px) 60px;
 }
 
 nav {

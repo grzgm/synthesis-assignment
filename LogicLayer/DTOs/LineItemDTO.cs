@@ -4,6 +4,11 @@ namespace LogicLayer.DTOs
 {
     public class LineItemDTO
     {
+        public int Id
+        {
+            get;
+            set;
+        }
         public ItemDTO ItemDTO
         {
             get;

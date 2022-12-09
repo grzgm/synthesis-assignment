@@ -4,12 +4,12 @@ namespace LogicLayer.InterfacesManagers
 {
 	public interface IShoppingCartManager
 	{
-		bool CreateShoppingCart(int clientId, LineItem lineItem);
+		bool CreateShoppingCartItem(int clientId, LineItem lineItem);
 
 		ShoppingCart ReadShoppingCart(int clientId);
 
-		bool UpdateShoppingCart(ShoppingCart shoppingCart);
+		bool UpdateShoppingCartItem(LineItem lineItem);
 
-		bool DeleteShoppingCart(ShoppingCart shoppingCart);
+		bool DeleteShoppingCart(LineItem lineItem);
 	}
 }

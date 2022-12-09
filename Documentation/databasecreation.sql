@@ -81,8 +81,8 @@ CREATE TABLE LineItem
 -- ShoppingCart Table
 CREATE TABLE ShoppingCart
 (
-	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
-	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]),
+	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]),
+	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE UNIQUE,
 );
 
 

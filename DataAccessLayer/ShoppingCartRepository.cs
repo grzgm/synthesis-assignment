@@ -1,5 +1,6 @@
 using LogicLayer.DTOs;
 using LogicLayer.InterfacesRepository;
+using LogicLayer.Models;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Xml.Linq;
@@ -31,6 +32,7 @@ namespace DataAccessLayer
 						ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
 						ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
+						lineItemDTO.Id = reader.GetInt32(reader.GetOrdinal("lineItemId"));
 						lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("purchasePrice"));
 						lineItemDTO.Amount = reader.GetInt32(reader.GetOrdinal("amount"));
 
@@ -73,49 +75,46 @@ namespace DataAccessLayer
 
 			return lineItems;
 		}
+        bool IShoppingCartRepository.CreateShoppingCartItem(int clientId, LineItemDTO lineItemDTO)
+        {
+            GetConnection();
+            conn.Open();
+            SqlCommand cmd;
+            SqlDataReader dreader;
 
-		bool IShoppingCartRepository.CreateShoppingCart(int clientId, LineItemDTO lineItemDTO)
-		{
-			GetConnection();
-			conn.Open();
-			SqlCommand cmd;
-			SqlDataReader dreader;
+            string sql = "BEGIN TRANSACTION;" +
+                        "INSERT INTO LineItem VALUES (@itemId, NULL, @purchasePrice, @amount);" +
+                        "DECLARE @id INT;" +
+                        "SET @id = IDENT_CURRENT('LineItem')" +
+                        "INSERT INTO ShoppingCart VALUES (@clientId, @id);" +
+                        "COMMIT;";
 
-			string sql = "BEGIN TRANSACTION;" +
-						"INSERT INTO LineItem VALUES (@itemId, NULL, @purchasePrice, @amount);" +
-						"DECLARE @id INT;" +
-						"SET @id = IDENT_CURRENT('LineItem')" +
-						"INSERT INTO ShoppingCart VALUES (@clientId, @id);" +
-						"COMMIT;";
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@itemId", Value = lineItemDTO.ItemDTO.Id });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@purchasePrice", Value = lineItemDTO.ItemDTO.Price });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@amount", Value = lineItemDTO.Amount });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientId });
 
-			//"INSERT INTO Item VALUES (@name, @subCategory, @price, @unitType, @available, @stockAmount);";
-
-			cmd = new SqlCommand(sql, conn);
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@itemId", Value = lineItemDTO.ItemDTO.Id });
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@purchasePrice", Value = lineItemDTO.ItemDTO.Price });
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@amount", Value = lineItemDTO.Amount });
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value =  clientId});
-
-			try
-			{
-				cmd.ExecuteNonQuery();
-			}
-			catch (SqlException ex)
-			{
-				throw new Exception("Database error");
-			}
-			catch (Exception ex)
-			{
-				throw new Exception("Application error");
-			}
-			finally
-			{
-				cmd.Dispose();
-				conn.Close();
-			}
-			return true;
-		}
-		ShoppingCartDTO IShoppingCartRepository.ReadShoppingCart(int clientId)
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Application error");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+            return true;
+        }
+        ShoppingCartDTO IShoppingCartRepository.ReadShoppingCart(int clientId)
 		{
 			string Query = "SELECT clientId, lineItemId, purchasePrice, amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
@@ -138,16 +137,81 @@ namespace DataAccessLayer
 			{
 				throw new Exception(ex.ToString());
 			}
-		}
+        }
 
-		bool IShoppingCartRepository.UpdateShoppingCart(ShoppingCartDTO shoppingCartDTO)
-		{
-			throw new NotImplementedException();
-		}
+        bool IShoppingCartRepository.UpdateShoppingCartItem(LineItemDTO lineItemDTO)
+        {
+            GetConnection();
+            conn.Open();
+            SqlCommand cmd;
+            SqlDataReader dreader;
 
-		bool IShoppingCartRepository.DeleteShoppingCart(ShoppingCartDTO shoppingCartDTO)
-		{
-			throw new NotImplementedException();
-		}
+            string sql = "UPDATE LineItem SET LineItem.amount = @amount WHERE LineItem.id = @lineItemId;";
+
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@amount", Value = lineItemDTO.Amount });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@lineItemId", Value = lineItemDTO.Id});
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Application error");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+            return true;
+        }
+
+        bool IShoppingCartRepository.PlaceOrder(ShoppingCartDTO shoppingCartDTO)
+        {
+            string sql = "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;";
+            throw new NotImplementedException();
+        }
+
+        bool IShoppingCartRepository.DeleteShoppingCart(LineItemDTO lineItemDTO)
+        {
+            GetConnection();
+            conn.Open();
+            SqlCommand cmd;
+            SqlDataReader dreader;
+
+			string sql = "BEGIN TRANSACTION;" +
+						 "DELETE FROM ShoppingCart WHERE lineItemId = @lineItemId;" +
+						 "DELETE FROM LineItem WHERE id = @lineItemId;" +
+						 "COMMIT;";
+
+			cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@lineItemId", Value = lineItemDTO.Id });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = lineItemDTO.Id });
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Application error");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+            return true;
+        }
 	}
 }

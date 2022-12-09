@@ -4,12 +4,15 @@ namespace LogicLayer.InterfacesRepository
 {
 	public interface IShoppingCartRepository
 	{
-		bool CreateShoppingCart(int clientId, LineItemDTO lineItemDTO);
+		bool CreateShoppingCartItem(int clientId, LineItemDTO lineItemDTO);
 
 		ShoppingCartDTO ReadShoppingCart(int id);
 
-		bool UpdateShoppingCart(ShoppingCartDTO shoppingCartDTO);
+		bool UpdateShoppingCartItem(LineItemDTO lineItemDTO);
 
-		bool DeleteShoppingCart(ShoppingCartDTO shoppingCartDTO);
+		bool PlaceOrder(ShoppingCartDTO shoppingCartDTO);
+
+
+        bool DeleteShoppingCart(LineItemDTO lineItemDTO);
 	}
 }

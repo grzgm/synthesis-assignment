@@ -13,21 +13,21 @@ namespace LogicLayer.Managers
 		{
 			this.shoppingCartRepository = shoppingCartRepository
 				?? throw new ArgumentNullException(nameof(shoppingCartRepository));
-		}
+        }
 
-		bool IShoppingCartManager.CreateShoppingCart(int clientId, LineItem lineItem)
-		{
-			try
-			{
-				return shoppingCartRepository.CreateShoppingCart(clientId, LineItemManager.ConvertToLineItemDTO(lineItem));
-			}
-			catch (Exception ex)
-			{
-				return false;
-			}
-		}
+        bool IShoppingCartManager.CreateShoppingCartItem(int clientId, LineItem lineItem)
+        {
+            try
+            {
+                return shoppingCartRepository.CreateShoppingCartItem(clientId, LineItemManager.ConvertToLineItemDTO(lineItem));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-		ShoppingCart IShoppingCartManager.ReadShoppingCart(int clientId)
+        ShoppingCart IShoppingCartManager.ReadShoppingCart(int clientId)
 		{
 			try
 			{
@@ -39,14 +39,28 @@ namespace LogicLayer.Managers
 			}
 		}
 
-		bool IShoppingCartManager.UpdateShoppingCart(ShoppingCart shoppingCart)
-		{
-			throw new NotImplementedException();
-		}
+		bool IShoppingCartManager.UpdateShoppingCartItem(LineItem lineItem)
+        {
+            try
+            {
+                return shoppingCartRepository.UpdateShoppingCartItem(LineItemManager.ConvertToLineItemDTO(lineItem));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-		bool IShoppingCartManager.DeleteShoppingCart(ShoppingCart shoppingCart)
+		bool IShoppingCartManager.DeleteShoppingCart(LineItem lineItem)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return shoppingCartRepository.DeleteShoppingCart(LineItemManager.ConvertToLineItemDTO(lineItem));
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
 		}
 
 		private ShoppingCartDTO ConvertToShoppingCartDTO(ShoppingCart shoppingCart)
