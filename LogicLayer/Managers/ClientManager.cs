@@ -51,7 +51,7 @@ namespace LogicLayer.Managers
 
 		private ClientDTO ConvertToClientDTO(Client client)
 		{
-			return new ClientDTO()
+			ClientDTO clientDTO = new ClientDTO()
 			{
 				Id = client.Id,
 				Firstname = client.Firstname,
@@ -60,6 +60,15 @@ namespace LogicLayer.Managers
 				Password = client.Password,
 				Username = client.Username,
 			};
+			if(client.BonusCard != null)
+			{
+				clientDTO.AmountOfPoints = client.BonusCard.AmountOfPoints;
+			}
+			else
+			{
+				clientDTO.AmountOfPoints = null;
+			}
+			return clientDTO;
 		}
 	}
 }

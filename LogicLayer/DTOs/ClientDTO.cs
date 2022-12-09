@@ -35,12 +35,7 @@ namespace LogicLayer.DTOs
 		{
 			get; set;
 		}
-		public int BonusCardId
-		{
-			get;
-			set;
-		}
-		public int AmountOfPoints
+		public int? AmountOfPoints
 		{
 			get;
 			set;

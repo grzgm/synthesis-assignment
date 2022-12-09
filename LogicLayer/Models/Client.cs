@@ -1,4 +1,5 @@
 using LogicLayer.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace LogicLayer.Models
 {
@@ -6,14 +7,19 @@ namespace LogicLayer.Models
     {
         //private List<Order> previousOrders;
         private string username;
-        private BonusCard bonusCard;
+        private BonusCard? bonusCard;
 
+        public Client()
+        {
+
+        }
         public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email, clientDTO.Password)
         {
-            username= clientDTO.Username;
-            bonusCard = new BonusCard(clientDTO.BonusCardId, clientDTO.AmountOfPoints);
+            username = clientDTO.Username;
+            bonusCard = new BonusCard(clientDTO.Id, clientDTO.AmountOfPoints);
         }
 
+        [Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]
         public string Username
         {
             get
@@ -25,9 +31,10 @@ namespace LogicLayer.Models
                 username = value;
             }
 		}
-		public BonusCard BonusCard
+		public BonusCard? BonusCard
 		{
 			get { return this.bonusCard; }
+            set { this.bonusCard = value; }
 		}
 	}
 }

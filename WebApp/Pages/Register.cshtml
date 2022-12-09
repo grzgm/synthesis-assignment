@@ -1,0 +1,33 @@
+﻿@page
+@model WebApp.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    ViewData["Css"] = "~/css/login.css";
+}
+<form method="post" autocomplete="on" class="login">
+    <label asp-for="Client.Username">Username: </label>
+    <input asp-for="Client.Username" type="text">
+    <label asp-for="Client.Firstname">Firstname:</label>
+    <input asp-for="Client.Firstname" type="text">
+    <label asp-for="Client.Lastname">Lastname:</label>
+    <input asp-for="Client.Lastname" type="text">
+    <label asp-for="Client.Email">Email:</label>
+    <input asp-for="Client.Email" type="email">
+    <label asp-for="Client.Password">Password:</label>
+    <input asp-for="Client.Password" type="password">
+    <label asp-for="BonusCard" >Bonus Card:</label>
+    <input asp-for="BonusCard" type="checkbox" /> 
+    <button type="submit">Register</button>
+    <div class="validation">
+        @Model.mess
+        <span class="feedback" asp-validation-for="Client.Username"></span>
+        <span class="feedback" asp-validation-for="Client.Firstname"></span>
+        <span class="feedback" asp-validation-for="Client.Lastname"></span>
+        <span class="feedback" asp-validation-for="Client.Email"></span>
+        <span class="feedback" asp-validation-for="Client.Password"></span>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

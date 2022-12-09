@@ -44,7 +44,6 @@ CREATE TABLE Client
 (
 	id int NOT NULL FOREIGN KEY REFERENCES [Account]([id]) ON DELETE CASCADE UNIQUE,
 	[username] nvarchar(20) NOT NULL UNIQUE,
-	bonusCardId int UNIQUE,
 	amountOfPoints int,
 );
 
@@ -106,8 +105,8 @@ INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '12345');
 INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '12345');
 
-INSERT INTO Client VALUES (1, 'jan', 1, 100);
-INSERT INTO Client VALUES (2, 'martin2', NULL, NULL);
+INSERT INTO Client VALUES (1, 'jan', 100);
+INSERT INTO Client VALUES (2, 'martin2', NULL);
 
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-01', '2022-12-04', 1);
 INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-02', '2022-12-04', 1);
