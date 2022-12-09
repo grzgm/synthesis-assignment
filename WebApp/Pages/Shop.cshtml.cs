@@ -5,6 +5,7 @@ using LogicLayer.Managers;
 using LogicLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Principal;
 using System.Text.Json;
 
@@ -21,7 +22,6 @@ namespace WebApp.Pages
 
 		public List<Item> items;
 
-		//TESTING
 		[BindProperty]
 		public int ItemId { get; set; }
 		[BindProperty]
@@ -52,21 +52,23 @@ namespace WebApp.Pages
 		}
 		public void OnPostAddItem()
 		{
-			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
-
-            Item addedItem = items.Find(item => item.Id == ItemId);
-
-			LineItem addedLineItem = new LineItem(addedItem, Amount);
-
-            if (shoppingCart.IsAddedLineItemNew(addedLineItem))
-            {
-                shoppingCartManager.CreateShoppingCartItem(int.Parse(User.FindFirst("Id").Value), addedLineItem);
-            }
-			else
+			if(Amount > 0 && Amount < items.Find(x => x.Id == ItemId).StockAmount)
 			{
-				shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
-			}
+				shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
 
+				Item addedItem = items.Find(item => item.Id == ItemId);
+
+				LineItem addedLineItem = new LineItem(addedItem, Amount);
+
+				if (shoppingCart.IsAddedLineItemNew(addedLineItem))
+				{
+					shoppingCartManager.CreateShoppingCartItem(int.Parse(User.FindFirst("Id").Value), addedLineItem);
+				}
+				else
+				{
+					shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
+				}
+			}
 		}
 	}
 }
