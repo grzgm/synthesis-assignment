@@ -12,4 +12,16 @@
         }
     </h1>
     <p>Online Shop RobertHeijn B.V.</p>
+
+    @if(Model.OrderSuccess.HasValue)
+    {
+        @if (Model.OrderSuccess.Value)
+        {
+                <h1>Order was placed successfully</h1>
+        }
+        else
+        {
+                <h1>Order couldn't be placed</h1>
+        }
+    }
 </div>

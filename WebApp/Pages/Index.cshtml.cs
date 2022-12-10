@@ -10,6 +10,9 @@ namespace WebApp.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty(SupportsGet = true)]
+        public bool? OrderSuccess { get; set; }
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
