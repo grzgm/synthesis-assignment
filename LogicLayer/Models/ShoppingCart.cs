@@ -30,7 +30,7 @@ namespace LogicLayer.Models
 
 		public bool IsEmpty()
 		{
-			throw new NotImplementedException();
+            return addedItems.Count <= 0;
         }
         public bool IsAddedLineItemNew(LineItem newLineItem)
         {

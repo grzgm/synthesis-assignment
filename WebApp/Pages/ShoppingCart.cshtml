@@ -31,8 +31,15 @@
 	}
 }
 </div>
-<form method="post" class="buy">
-	<button asp-page-handler="PlaceOrder">
-		BUY
-	</button>
-</form>
+@if(!Model.shoppingCart.IsEmpty())
+{
+	<form method="post" class="buy">
+		<button asp-page-handler="PlaceOrder">
+			BUY
+		</button>
+	</form>
+}
+else
+{
+	<div>Nothing in the shopping cart</div>
+}
