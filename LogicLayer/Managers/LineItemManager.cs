@@ -62,15 +62,15 @@ namespace LogicLayer.Managers
         }
 
 		public static LineItemDTO ConvertToLineItemDTO(LineItem lineItem)
-        {
-            LineItemDTO lineItemDTO = new LineItemDTO()
-            {
-                Id = lineItem.Id,
-                ItemDTO = ItemManager.ConvertToItemDTO(lineItem.Item),
-                PurchasePrice = lineItem.PurchasePrice,
-                Amount = lineItem.Amount,
-            };
-            return lineItemDTO;
-        }
-    }
+		{
+			LineItemDTO lineItemDTO = new LineItemDTO()
+			{
+				Id = lineItem.Id,
+				ItemDTO = ItemManager.ConvertToItemDTO(lineItem.Item),
+				PurchasePrice = lineItem.PurchasePrice,
+				Amount = lineItem.Amount,
+			};
+			return lineItemDTO;
+		}
+	}
 }

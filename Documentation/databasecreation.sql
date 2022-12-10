@@ -113,8 +113,8 @@ INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
 INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
-INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '12345');
-INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '12345');
+INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '12345', 'salt');
+INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '12345', 'salt');
 
 INSERT INTO Client VALUES (1, 'jan', 100);
 INSERT INTO Client VALUES (2, 'martin2', NULL);

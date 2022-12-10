@@ -6,7 +6,8 @@ namespace LogicLayer.InterfacesManagers
 	{
 		bool CreateOrder(Order order);
 
-		Order ReadOrder(string name, string password);
+		Order ReadOrder(int clientId, int orderId);
+		List<Order> ReadOrders(int clientId);
 
 		bool UpdateOrder(Order order);
 

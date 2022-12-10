@@ -1,3 +1,5 @@
+using LogicLayer.DTOs;
+
 namespace LogicLayer.Models
 {
 	public class Address
@@ -12,9 +14,16 @@ namespace LogicLayer.Models
 			throw new System.NotImplementedException();
 		}
 
-		public Address(string country, string city, string street, string postalCode, Client client)
+		public Address(string country, string city, string street, string postalCode)
 		{
 			throw new System.NotImplementedException();
+		}
+		public Address(AddressDTO addressDTO)
+		{
+			this.country = addressDTO.Country; 
+			this.city = addressDTO.City;
+			this.street = addressDTO.Street;
+			this.postalCode = addressDTO.PostalCode;
 		}
 
 		public string Country { get => country; set => country = value; }

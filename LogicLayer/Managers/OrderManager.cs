@@ -1,3 +1,4 @@
+using LogicLayer.DTOs;
 using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Models;
@@ -19,9 +20,33 @@ namespace LogicLayer.Managers
 			throw new NotImplementedException();
 		}
 
-		Order IOrderManager.ReadOrder(string name, string password)
+		Order IOrderManager.ReadOrder(int clientId, int orderId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return new Order(orderRepository.ReadOrder(clientId, orderId));
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+		List<Order> IOrderManager.ReadOrders(int clientId)
+		{
+			try
+			{
+				List<Order> orders = new List<Order>();
+				List<OrderDTO> ordersDTO = orderRepository.ReadOrders(clientId);
+				foreach (OrderDTO orderDTO in ordersDTO)
+				{
+					orders.Add(new Order(orderDTO));
+				}
+				return orders;
+			}
+			catch (Exception ex)
+			{
+				return new List<Order>();
+			}
 		}
 
 		bool IOrderManager.UpdateOrder(Order order)

@@ -28,9 +28,13 @@ namespace LogicLayer.Models
 			this.orderBonusPoints = orderDTO.OrderBonusPoints;
 			this.orderDate = orderDTO.OrderDate;
 			this.deliveryDate = orderDTO.DeliveryDate;
-			this.orderStatus = orderDTO.OrderStatus;
-			this.purchasedItems = orderDTO.PurchasedItems;
-			this.address = orderDTO.Address;
+			this.orderStatus = (OrderStatus)orderDTO.OrderStatus;
+			this.purchasedItems = new List<LineItem>();
+			foreach (LineItemDTO lineItemDTO in orderDTO.PurchasedItems)
+			{
+				this.purchasedItems.Add(new LineItem(lineItemDTO));
+			}
+			this.address = new Address(orderDTO.Address);
 		}
 
 		public decimal TotalPrice()
