@@ -63,9 +63,16 @@ namespace LogicLayer.Managers
 			}
 		}
 
-		private ShoppingCartDTO ConvertToShoppingCartDTO(ShoppingCart shoppingCart)
+		public static ShoppingCartDTO ConvertToShoppingCartDTO(ShoppingCart shoppingCart)
 		{
-			throw new System.NotImplementedException();
+			ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+			shoppingCartDTO.AddedItems = new List<LineItemDTO>();
+			foreach (LineItem lineItem in shoppingCart.AddedItems)
+			{
+				shoppingCartDTO.AddedItems.Add(LineItemManager.ConvertToLineItemDTO(lineItem));
+			};
+
+			return shoppingCartDTO;
 		}
 	}
 }

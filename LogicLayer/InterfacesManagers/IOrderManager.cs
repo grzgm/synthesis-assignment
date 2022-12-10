@@ -4,7 +4,7 @@ namespace LogicLayer.InterfacesManagers
 {
 	public interface IOrderManager
 	{
-		bool CreateOrder(Order order);
+		bool CreateOrder(int clientId, ShoppingCart shoppingCart, Order order);
 
 		Order ReadOrder(int clientId, int orderId);
 		List<Order> ReadOrders(int clientId);

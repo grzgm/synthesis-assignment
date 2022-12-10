@@ -11,7 +11,7 @@ CREATE TABLE Category
 -- OrderStatus Table
 CREATE TABLE OrderStatus
 (
-	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	id int NOT NULL PRIMARY KEY IDENTITY (0, 1),
 	orderStatus nvarchar(20) NOT NULL UNIQUE,
 );
 

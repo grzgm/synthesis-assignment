@@ -10,9 +10,6 @@ namespace LogicLayer.InterfacesRepository
 
 		bool UpdateShoppingCartItem(LineItemDTO lineItemDTO);
 
-		bool PlaceOrder(ShoppingCartDTO shoppingCartDTO);
-
-
         bool DeleteShoppingCart(LineItemDTO lineItemDTO);
 	}
 }

@@ -15,6 +15,8 @@ namespace WebApp.Pages
 
 		IShoppingCartManager shoppingCartManager;
 		IShoppingCartRepository shoppingCartRepository;
+		IOrderRepository orderRepository;
+		IOrderManager orderManager;
 
 		public ShoppingCart shoppingCart;
 
@@ -29,8 +31,15 @@ namespace WebApp.Pages
 		}
 
         public void OnPost()
-        {
+		{
+			orderRepository = new OrderRepository();
+			orderManager = new OrderManager(orderRepository);
 
-        }
-    }
+			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+
+			Order order = new Order(null, 999, 999, 9999, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.Packed, shoppingCart.AddedItems, Address);
+
+			orderManager.CreateOrder(int.Parse(User.FindFirst("Id").Value), shoppingCart, order);
+		}
+	}
 }

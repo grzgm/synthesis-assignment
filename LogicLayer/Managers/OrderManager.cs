@@ -15,9 +15,16 @@ namespace LogicLayer.Managers
 				?? throw new ArgumentNullException(nameof(orderRepository));
 		}
 
-		bool IOrderManager.CreateOrder(Order order)
+		bool IOrderManager.CreateOrder(int clientId, ShoppingCart shoppingCart, Order order)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return orderRepository.CreateOrder(clientId, ShoppingCartManager.ConvertToShoppingCartDTO(shoppingCart), ConvertToOrderDTO(order));
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
 		}
 
 		Order IOrderManager.ReadOrder(int clientId, int orderId)
@@ -57,6 +64,36 @@ namespace LogicLayer.Managers
 		bool IOrderManager.DeleteOrder(Order order)
 		{
 			throw new NotImplementedException();
+		}
+
+		public static OrderDTO ConvertToOrderDTO(Order order)
+		{
+			OrderDTO orderDTO = new OrderDTO()
+			{
+				Id = order.Id,
+				BonusCard = order.BonusCard,
+				TotalBonusPointsBeforeOrder = order.TotalBonusPointsBeforeOrder,
+				TotalBonusPointsAfterOrder = order.TotalBonusPointsAfterOrder,
+				OrderBonusPoints = order.OrderBonusPoints,
+				OrderDate = order.OrderDate,
+				DeliveryDate = order.DeliveryDate,
+				OrderStatus = (int)order.OrderStatus,
+			};
+			orderDTO.PurchasedItems = new List<LineItemDTO>();
+			orderDTO.AddressDTO = new AddressDTO()
+			{
+				Country = order.Address.Country,
+				City = order.Address.City,
+				Street = order.Address.Street,
+				PostalCode = order.Address.PostalCode,
+			};
+
+			foreach (LineItem lineItem in order.PurchasedItems)
+			{
+				orderDTO.PurchasedItems.Add(LineItemManager.ConvertToLineItemDTO(lineItem));
+			};
+
+			return orderDTO;
 		}
 	}
 }

@@ -34,7 +34,20 @@ namespace LogicLayer.Models
 			{
 				this.purchasedItems.Add(new LineItem(lineItemDTO));
 			}
-			this.address = new Address(orderDTO.Address);
+			this.address = new Address(orderDTO.AddressDTO);
+		}
+
+		public Order(BonusCard? bonusCard, int? totalBonusPointsBeforeOrder, int? totalBonusPointsAfterOrder, int? orderBonusPoints, DateOnly orderDate, DateOnly deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
+		{
+			this.bonusCard = bonusCard;
+			this.totalBonusPointsBeforeOrder = totalBonusPointsBeforeOrder;
+			this.totalBonusPointsAfterOrder = totalBonusPointsAfterOrder;
+			this.orderBonusPoints = orderBonusPoints;
+			this.orderDate = orderDate;
+			this.deliveryDate = deliveryDate;
+			this.orderStatus = orderStatus;
+			this.purchasedItems = purchasedItems;
+			this.address = address;
 		}
 
 		public decimal TotalPrice()

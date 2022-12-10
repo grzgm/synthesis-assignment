@@ -172,12 +172,6 @@ namespace DataAccessLayer
             return true;
         }
 
-        bool IShoppingCartRepository.PlaceOrder(ShoppingCartDTO shoppingCartDTO)
-        {
-            string sql = "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;";
-            throw new NotImplementedException();
-        }
-
         bool IShoppingCartRepository.DeleteShoppingCart(LineItemDTO lineItemDTO)
         {
             GetConnection();

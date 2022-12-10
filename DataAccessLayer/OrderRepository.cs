@@ -47,7 +47,7 @@ namespace DataAccessLayer
 							addressDTO.Street = reader.GetString(reader.GetOrdinal("street"));
 							addressDTO.PostalCode = reader.GetString(reader.GetOrdinal("postalCode"));
 
-							orderDTO.Address = addressDTO;
+							orderDTO.AddressDTO = addressDTO;
 							orderDTO.PurchasedItems = new List<LineItemDTO>();
 
 							ordersDict.Add(orderDTO.Id, orderDTO);
@@ -99,9 +99,53 @@ namespace DataAccessLayer
 
 			return orders;
 		}
-		bool IOrderRepository.CreateOrder(OrderDTO orderDTO)
+		bool IOrderRepository.CreateOrder(int clientId, ShoppingCartDTO shoppingCartDTO, OrderDTO orderDTO)
 		{
-			throw new NotImplementedException();
+			GetConnection();
+			conn.Open();
+			SqlCommand cmd;
+			SqlDataReader dreader;
+
+			string sql = "BEGIN TRANSACTION;" +
+						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @totalBonusPointsAfterOrder, @orderBonusPoints, @orderDate, @deliveryDate, @orderStatus);" +
+						 "DECLARE @orderId INT;" +
+						 "SET @orderId = IDENT_CURRENT('Order')" +
+						 "INSERT INTO Address VALUES (@orderId, @country, @city, @street, @postalCode);" +
+						 "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;" +
+						 "DELETE FROM ShoppingCart WHERE clientId = @clientId;" +
+						 "COMMIT;"; 
+
+			cmd = new SqlCommand(sql, conn);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientId });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@totalBonusPointsBeforeOrder", Value = orderDTO.TotalBonusPointsBeforeOrder });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@totalBonusPointsAfterOrder", Value = orderDTO.TotalBonusPointsBeforeOrder });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderBonusPoints", Value = orderDTO.OrderBonusPoints });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderDate", Value = orderDTO.OrderDate.ToDateTime(TimeOnly.MinValue) });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@deliveryDate", Value = orderDTO.DeliveryDate.ToDateTime(TimeOnly.MinValue) });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderStatus", Value = orderDTO.OrderStatus });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@country", Value = orderDTO.AddressDTO.Country });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = orderDTO.AddressDTO.City });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@street", Value = orderDTO.AddressDTO.Street });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@postalCode", Value = orderDTO.AddressDTO.PostalCode });
+
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+				throw new Exception("Database error");
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Application error");
+			}
+			finally
+			{
+				cmd.Dispose();
+				conn.Close();
+			}
+			return true;
 		}
 
 		OrderDTO IOrderRepository.ReadOrder(int clientId, int orderId)
