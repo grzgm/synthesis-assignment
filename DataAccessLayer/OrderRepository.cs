@@ -180,6 +180,7 @@ namespace DataAccessLayer
 		List<OrderDTO> IOrderRepository.ReadOrders(int clientId)
 		{
 			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,totalBonusPointsAfterOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
 				"Cat.id AS catId, cat.name AS catName, " +

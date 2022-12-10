@@ -3,12 +3,14 @@ using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApp.Pages
 {
-    public class ShippingModel : PageModel
+	[Authorize]
+	public class ShippingModel : PageModel
     {
         [BindProperty]
         public Address Address { get; set; }
@@ -42,7 +44,7 @@ namespace WebApp.Pages
 
 			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
 
-			Order order = new Order(null, 999, 999, 9999, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.Packed, shoppingCart.AddedItems, Address);
+			Order order = new Order(null, 999, 999, 9999, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
 
 			bool orderSuccess = orderManager.CreateOrder(int.Parse(User.FindFirst("Id").Value), order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});

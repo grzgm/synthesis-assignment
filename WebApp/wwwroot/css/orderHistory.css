@@ -1,0 +1,28 @@
+main {
+    display: grid;
+    overflow-y: auto;
+}
+
+.orders {
+    display: grid;
+    grid-auto-rows: auto;
+    place-content: center;
+    gap: 20px;
+    padding: 40px;
+}
+
+.order {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 35px;
+    padding: 40px;
+    background-color: #111;
+    text-align: left;
+    cursor: pointer;
+}
+
+.details {
+    grid-column: 1/ span 2;
+    text-align: center;
+    text-decoration: underline;
+}

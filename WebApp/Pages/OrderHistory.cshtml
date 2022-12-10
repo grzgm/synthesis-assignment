@@ -7,3 +7,46 @@
 }
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
+@if (Model.orders.Count > 0)
+{
+	<div class="orders">
+		@{
+			foreach (Order order in Model.orders)
+			{
+				<a asp-page="/" asp-route-OrderId="@order.Id" class="order">
+					<div>
+						Order id: @order.Id
+					</div>
+					<div>
+						Bonus Card ID
+					</div>
+					<div>
+						Total Bonus Points Before Order: @order.TotalBonusPointsBeforeOrder
+					</div>
+					<div>
+						Total Bonus Points After Order: @order.TotalBonusPointsAfterOrder
+					</div>
+					<div>
+						Total Bonus Points: @order.OrderBonusPoints
+					</div>
+					<div>
+						Order Date: @order.OrderDate.ToString()
+					</div>
+					<div>
+						Delivery Date: @order.DeliveryDate.ToString()
+					</div>
+					<div>
+						Order Status: @order.OrderStatus.ToString()
+					</div>
+					<div class="details">
+						More Details
+					</div>
+				</a>
+			}
+		}
+	</div>
+}
+else
+{
+	<div class="nothingInfo">No previous orders</div>
+}
