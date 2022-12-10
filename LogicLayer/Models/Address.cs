@@ -11,24 +11,24 @@ namespace LogicLayer.Models
 
 		public Address()
 		{
-			throw new System.NotImplementedException();
+
 		}
 
 		public Address(string country, string city, string street, string postalCode)
 		{
-			throw new System.NotImplementedException();
-		}
-		public Address(AddressDTO addressDTO)
-		{
-			this.country = addressDTO.Country; 
-			this.city = addressDTO.City;
-			this.street = addressDTO.Street;
-			this.postalCode = addressDTO.PostalCode;
+			this.country = country;
+			this.city = city;
+			this.street = street;
+			this.postalCode = postalCode;
 		}
 
+		[Required]
 		public string Country { get => country; set => country = value; }
+		[Required]
 		public string City { get => city; set => city = value; }
+		[Required]
 		public string Street { get => street; set => street = value; }
+		[Required, DataType(DataType.PostalCode)]
 		public string PostalCode { get => postalCode; set => postalCode = value; }
 	}
 }

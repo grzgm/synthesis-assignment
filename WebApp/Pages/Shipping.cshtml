@@ -1,0 +1,44 @@
+﻿@page
+@using LogicLayer.Models;
+@model WebApp.Pages.ShippingModel
+@{
+	ViewData["Title"] = "Shipping";
+	ViewData["Css"] = "~/css/shipping.css";
+}
+
+<div class="items">
+	@{
+		foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
+		{
+			<div class="item">
+				<div class="name">
+					@lineItem.Item.Name
+				</div>
+				<div class="category">
+					@lineItem.Item.Category @lineItem.Item.SubCategory
+				</div>
+				<div class="price">
+					@lineItem.Amount x @lineItem.PurchasePrice
+				</div>
+			</div>
+		}
+	}
+</div>
+
+<div class="totalPrice">
+	Total Price: @Model.shoppingCart.GetTotalPrice()
+</div>
+
+<form method="post" class="data">
+	<label asp-for="Address.Country">Country: </label>
+	<input asp-for="Address.Country" type="text">
+	<label asp-for="Address.City">City: </label>
+	<input asp-for="Address.City" type="text">
+	<label asp-for="Address.Street">Street: </label>
+	<input asp-for="Address.Street" type="text">
+	<label asp-for="Address.PostalCode">PostalCode: </label>
+	<input asp-for="Address.PostalCode" type="text">
+	<button type="submit">
+		BUY
+	</button>
+</form>
