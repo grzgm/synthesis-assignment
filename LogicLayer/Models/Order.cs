@@ -50,9 +50,14 @@ namespace LogicLayer.Models
 			this.address = address;
 		}
 
-		public decimal TotalPrice()
+		public decimal GetTotalPrice()
 		{
-			throw new System.NotImplementedException();
+			decimal totalPrice = 0;
+			foreach (LineItem lineItem in purchasedItems)
+			{
+				totalPrice += (lineItem.PurchasePrice * lineItem.Amount);
+			}
+			return totalPrice;
 		}
 		public int Id { get => id; set => id = value; }
 		public BonusCard? BonusCard { get => bonusCard; set => bonusCard = value; }

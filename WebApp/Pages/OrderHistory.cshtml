@@ -13,7 +13,7 @@
 		@{
 			foreach (Order order in Model.orders)
 			{
-				<a asp-page="/" asp-route-OrderId="@order.Id" class="order">
+				<a asp-page="/OrderDetails" asp-route-OrderId="@order.Id" class="order">
 					<div>
 						Order id: @order.Id
 					</div>

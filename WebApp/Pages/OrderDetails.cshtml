@@ -1,0 +1,67 @@
+﻿@page
+@using LogicLayer.Models;
+@model WebApp.Pages.OrderDetailsModel
+@{
+	ViewData["Title"] = "Order Nr " + Model.OrderId.ToString();
+	ViewData["Css"] = "~/css/orderDetails.css";
+}
+
+<div class="order">
+	<div>
+		Order id: @Model.order.Id
+	</div>
+	<div>
+		Bonus Card ID
+	</div>
+	<div>
+		Total Bonus Points Before Order: @Model.order.TotalBonusPointsBeforeOrder
+	</div>
+	<div>
+		Total Bonus Points After Order: @Model.order.TotalBonusPointsAfterOrder
+	</div>
+	<div>
+		Total Bonus Points: @Model.order.OrderBonusPoints
+	</div>
+	<div>
+		Order Date: @Model.order.OrderDate.ToString()
+	</div>
+	<div>
+		Delivery Date: @Model.order.DeliveryDate.ToString()
+	</div>
+	<div>
+		Order Status: @Model.order.OrderStatus.ToString()
+	</div>
+	<div>
+		Country: @Model.order.Address.Country
+	</div>
+	<div>
+		City: @Model.order.Address.City
+	</div>
+	<div>
+		Street: @Model.order.Address.Street
+	</div>
+	<div>
+		Postal Code: @Model.order.Address.PostalCode
+	</div>
+	<div class="items">
+		@{
+			foreach (LineItem lineItem in Model.order.PurchasedItems)
+			{
+				<div class="item">
+					<div class="name">
+					@lineItem.Item.Name
+					</div>
+					<div class="category">
+					@lineItem.Item.Category @lineItem.Item.SubCategory
+					</div>
+					<div class="price">
+					@lineItem.Amount x @lineItem.PurchasePrice
+					</div>
+				</div>
+			}
+		}
+	</div>
+	<div class="totalPrice">
+		Total Price: @Model.order.GetTotalPrice()
+	</div>
+</div>

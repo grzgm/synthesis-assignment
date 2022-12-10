@@ -1,0 +1,47 @@
+main {
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
+    padding: 40px;
+}
+
+.order {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 35px;
+    padding: 40px;
+    background-color: #111;
+    text-align: left;
+}
+
+.details {
+    grid-column: 1/ span 2;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    grid-column: 1 / span 2;
+}
+
+.item {
+    width: 100%;
+    height: 75px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-content: space-evenly;
+    background-color: #222;
+    text-align: center;
+}
+
+.totalPrice {
+    height: 75px;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    grid-column: 1 / span 2;
+    background-color: #222;
+}
