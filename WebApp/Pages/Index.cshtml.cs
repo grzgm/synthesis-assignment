@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer;
+using LogicLayer.InterfacesManagers;
+using LogicLayer.InterfacesRepository;
+using LogicLayer.Managers;
+using LogicLayer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApp.Pages
@@ -14,7 +19,13 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
+            IOrderRepository orderRepository;
+            IOrderManager orderManager;
 
+            orderRepository = new OrderRepository();
+            orderManager = new OrderManager(orderRepository);
+
+            Order order = orderManager.ReadOrder(2, 4);
         }
     }
 }

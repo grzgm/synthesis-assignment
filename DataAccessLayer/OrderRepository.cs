@@ -11,7 +11,6 @@ namespace DataAccessLayer
 		{
 			List<OrderDTO> orders = new List<OrderDTO>();
 			Dictionary<int, OrderDTO> ordersDict = new Dictionary<int, OrderDTO>();
-			Dictionary<int, LineItemDTO> lineItemsDict = new Dictionary<int, LineItemDTO>();
 
 			try
 			{
@@ -26,25 +25,33 @@ namespace DataAccessLayer
 					var reader = command.ExecuteReader();
 					while (reader.Read())
 					{
-						OrderDTO orderDTO = new OrderDTO();
-						AddressDTO addressDTO = new AddressDTO();
 						LineItemDTO lineItemDTO = new LineItemDTO();
 						ItemDTO itemDTO = new ItemDTO();
 						ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
 						ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
-						orderDTO.Id = reader.GetInt32(reader.GetOrdinal("id"));
-						orderDTO.TotalBonusPointsBeforeOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsBeforeOrder"));
-						orderDTO.TotalBonusPointsAfterOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsAfterOrder"));
-						orderDTO.OrderBonusPoints = reader.GetInt32(reader.GetOrdinal("orderBonusPoints"));
-						orderDTO.OrderDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("orderDate")));
-						orderDTO.DeliveryDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("deliveryDate")));
-						orderDTO.OrderStatus = reader.GetInt32(reader.GetOrdinal("orderStatus"));
+						if(!ordersDict.ContainsKey(reader.GetInt32(reader.GetOrdinal("id"))))
+						{
+							OrderDTO orderDTO = new OrderDTO();
+							AddressDTO addressDTO = new AddressDTO();
+							orderDTO.Id = reader.GetInt32(reader.GetOrdinal("id"));
+							orderDTO.TotalBonusPointsBeforeOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsBeforeOrder"));
+							orderDTO.TotalBonusPointsAfterOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsAfterOrder"));
+							orderDTO.OrderBonusPoints = reader.GetInt32(reader.GetOrdinal("orderBonusPoints"));
+							orderDTO.OrderDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("orderDate")));
+							orderDTO.DeliveryDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("deliveryDate")));
+							orderDTO.OrderStatus = reader.GetInt32(reader.GetOrdinal("orderStatus"));
 
-						addressDTO.Country = reader.GetString(reader.GetOrdinal("country"));
-						addressDTO.City = reader.GetString(reader.GetOrdinal("city"));
-						addressDTO.Street = reader.GetString(reader.GetOrdinal("street"));
-						addressDTO.PostalCode = reader.GetString(reader.GetOrdinal("postalCode"));
+							addressDTO.Country = reader.GetString(reader.GetOrdinal("country"));
+							addressDTO.City = reader.GetString(reader.GetOrdinal("city"));
+							addressDTO.Street = reader.GetString(reader.GetOrdinal("street"));
+							addressDTO.PostalCode = reader.GetString(reader.GetOrdinal("postalCode"));
+
+							orderDTO.Address = addressDTO;
+							orderDTO.PurchasedItems = new List<LineItemDTO>();
+
+							ordersDict.Add(orderDTO.Id, orderDTO);
+						}
 
 						lineItemDTO.Id = reader.GetInt32(reader.GetOrdinal("lineItemId"));
 						lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("purchasePrice"));
@@ -72,11 +79,10 @@ namespace DataAccessLayer
 
 						//lineItems.Add(lineItemDTO);
 
-						orderDTO.Address = addressDTO;
-
-						orders.Add(orderDTO);
+						ordersDict[reader.GetInt32(reader.GetOrdinal("id"))].PurchasedItems.Add(lineItemDTO);
 					}
 				}
+				orders = ordersDict.Values.ToList();
 			}
 			catch (SqlException ex)
 			{
@@ -101,11 +107,14 @@ namespace DataAccessLayer
 		OrderDTO IOrderRepository.ReadOrder(int clientId, int orderId)
 		{
 			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,totalBonusPointsAfterOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
 				"Cat.id AS catId, cat.name AS catName, " +
 				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
-				"FROM [Order] LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
+				"FROM [Order] " +
+				"LEFT JOIN Address ON Address.orderId = [Order].id " +
+				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
@@ -131,7 +140,9 @@ namespace DataAccessLayer
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
 				"Cat.id AS catId, cat.name AS catName, " +
 				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
-				"FROM [Order] LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
+				"FROM [Order] " +
+				"LEFT JOIN Address ON Address.orderId = [Order].id " +
+				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +

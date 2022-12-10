@@ -1,4 +1,5 @@
 using LogicLayer.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace LogicLayer.Models
 {
@@ -12,6 +13,13 @@ namespace LogicLayer.Models
 		public Address()
 		{
 
+		}
+		public Address(AddressDTO addressDTO)
+		{
+			this.country = addressDTO.Country;
+			this.city = addressDTO.City;
+			this.street = addressDTO.Street;
+			this.postalCode = addressDTO.PostalCode;
 		}
 
 		public Address(string country, string city, string street, string postalCode)
