@@ -85,6 +85,16 @@ CREATE TABLE ShoppingCart
 	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE UNIQUE,
 );
 
+-- Address Table
+CREATE TABLE Address
+(
+	orderId int FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE UNIQUE,
+	country nvarchar(20) NOT NULL,
+	city nvarchar(20) NOT NULL,
+	street nvarchar(20) NOT NULL,
+	postalCode nvarchar(20) NOT NULL,
+);
+
 
 
 -- Mock Data

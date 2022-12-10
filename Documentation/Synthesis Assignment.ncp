@@ -23,7 +23,7 @@
         <Name>Order</Name>
         <Access>Public</Access>
         <Location left="1282" top="816" />
-        <Size width="196" height="264" />
+        <Size width="196" height="281" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private BonusCard bonusCard</Member>
@@ -34,6 +34,7 @@
         <Member type="Field">private DateOnly deliveryDate</Member>
         <Member type="Field">private OrderStatus orderStatus</Member>
         <Member type="Field">private List&lt;LineItem&gt; purchasedItems</Member>
+        <Member type="Field">private Address address</Member>
         <Member type="Constructor">public Order()</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
         <Modifier>None</Modifier>
@@ -409,20 +410,19 @@
       <Entity type="Class">
         <Name>Address</Name>
         <Access>Public</Access>
-        <Location left="1026" top="972" />
-        <Size width="209" height="264" />
+        <Location left="1632" top="906" />
+        <Size width="209" height="281" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string country</Member>
         <Member type="Field">private string city</Member>
         <Member type="Field">private string street</Member>
         <Member type="Field">private string postalCode</Member>
-        <Member type="Field">private Client client</Member>
-        <Member type="Constructor">protected Address(string country, string city, string street, string postalCode, Client client)</Member>
+        <Member type="Constructor">public Address()</Member>
+        <Member type="Constructor">public Address(string country, string city, string street, string postalCode, Client client)</Member>
         <Member type="Property">public string Country { get; set; }</Member>
         <Member type="Property">public string City { get; set; }</Member>
         <Member type="Property">public string Street { get; set; }</Member>
         <Member type="Property">public string PostalCode { get; set; }</Member>
-        <Member type="Property">public Client Client { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -551,6 +551,15 @@
         <Member type="Method">List&lt;ShoppingCart&gt; ReadShoppingCarts(Item shoppingCart, decimal purchasePrice, int amount)</Member>
         <Member type="Method">bool UpdateShoppingCart(ShoppingCart shoppingCart)</Member>
         <Member type="Method">bool DeleteShoppingCart(ShoppingCart shoppingCart)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>OrderDTO</Name>
+        <Access>Public</Access>
+        <Location left="1543" top="1879" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public List&lt;LineItemDTO&gt; addedItems { get; set; }</Member>
+        <Modifier>None</Modifier>
       </Entity>
     </Entities>
     <Relationships>
@@ -780,6 +789,13 @@
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="1" second="33">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
     </Relationships>
   </ProjectItem>
