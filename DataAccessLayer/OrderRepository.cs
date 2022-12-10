@@ -99,7 +99,7 @@ namespace DataAccessLayer
 
 			return orders;
 		}
-		bool IOrderRepository.CreateOrder(int clientId, ShoppingCartDTO shoppingCartDTO, OrderDTO orderDTO)
+		bool IOrderRepository.CreateOrder(int clientId, OrderDTO orderDTO)
 		{
 			GetConnection();
 			conn.Open();

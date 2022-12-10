@@ -6,6 +6,9 @@
 	ViewData["Css"] = "~/css/shoppingCart.css";
 }
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+@if(!Model.shoppingCart.IsEmpty())
+{
 <div class="items">
 @{
 	foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
@@ -31,13 +34,11 @@
 	}
 }
 </div>
-@if(!Model.shoppingCart.IsEmpty())
-{
-	<form method="post" class="buy">
-		<button asp-page-handler="PlaceOrder">
-			BUY
-		</button>
-	</form>
+<form method="post" class="formBuy">
+	<button class="buy" asp-page-handler="PlaceOrder">
+			BUY @Model.shoppingCart.GetTotalPrice()
+	</button>
+</form>
 }
 else
 {

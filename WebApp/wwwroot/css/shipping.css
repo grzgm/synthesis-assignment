@@ -37,7 +37,7 @@ main {
     margin-bottom: 50px;
 }
 
-.data{
+.shippingData{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -46,7 +46,7 @@ main {
     margin-bottom: 0;
 }
 
-    .data button {
+    .shippingData button {
         width: 100%;
         grid-column: 2/ span 2;
     }

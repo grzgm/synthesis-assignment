@@ -4,7 +4,7 @@ namespace LogicLayer.InterfacesRepository
 {
 	public interface IOrderRepository
 	{
-		bool CreateOrder(int clientId, ShoppingCartDTO shoppingCartDTO, OrderDTO orderDTO);
+		bool CreateOrder(int clientId, OrderDTO orderDTO);
 
 		OrderDTO ReadOrder(int clientId, int orderId);
 		List<OrderDTO> ReadOrders(int clientId);

@@ -25,9 +25,14 @@ namespace WebApp.Pages
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
 		}
-		public void OnGet()
+		public IActionResult OnGet()
 		{
 			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+			if(shoppingCart.IsEmpty())
+			{
+				return RedirectToPage("/Shop");
+			}
+			return Page();
 		}
 
         public IActionResult OnPost()
@@ -39,7 +44,7 @@ namespace WebApp.Pages
 
 			Order order = new Order(null, 999, 999, 9999, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.Packed, shoppingCart.AddedItems, Address);
 
-			bool orderSuccess = orderManager.CreateOrder(int.Parse(User.FindFirst("Id").Value), shoppingCart, order);
+			bool orderSuccess = orderManager.CreateOrder(int.Parse(User.FindFirst("Id").Value), order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});
 		}
 	}

@@ -34,20 +34,11 @@
     place-items: center;
 }
 
-.name{
-}
-
 .discount {
     position: absolute;
     top: 20px;
     left: 20px;
     font-size: 25px;
-}
-
-.category {
-}
-
-.price {
 }
 
 .addToCart {

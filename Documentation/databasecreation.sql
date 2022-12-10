@@ -60,9 +60,9 @@ CREATE TABLE [Order]
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
-	totalBonusPointsBeforeOrder int NOT NULL,
-	totalBonusPointsAfterOrder int NOT NULL,
-	orderBonusPoints int NOT NULL,
+	totalBonusPointsBeforeOrder int,
+	totalBonusPointsAfterOrder int,
+	orderBonusPoints int,
 	orderDate Date NOT NULL,
 	deliveryDate Date NOT NULL,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
@@ -104,17 +104,18 @@ INSERT INTO Category VALUES ('fruit1', 1);
 INSERT INTO Category VALUES ('fruit2', 1);
 INSERT INTO Category VALUES ('meat1', 2);
 
-INSERT INTO OrderStatus VALUES ('Start');
-INSERT INTO OrderStatus VALUES ('Middle');
-INSERT INTO OrderStatus VALUES ('Finish');
+INSERT INTO OrderStatus VALUES ('OrderPlaced');
+INSERT INTO OrderStatus VALUES ('Packed');
+INSERT INTO OrderStatus VALUES ('Shipped');
+INSERT INTO OrderStatus VALUES ('Delivered');
 
 INSERT INTO Item VALUES ('apple', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
 INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
-INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '12345', 'salt');
-INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '12345', 'salt');
+INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
+INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
 
 INSERT INTO Client VALUES (1, 'jan', 100);
 INSERT INTO Client VALUES (2, 'martin2', NULL);
