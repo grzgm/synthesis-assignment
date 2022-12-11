@@ -28,7 +28,6 @@ namespace WebApp.Pages
         public void OnGet()
         {
             shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
-            shoppingCart.SortAddedItems();
         }
 
         public void OnPostDeleteItem()

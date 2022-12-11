@@ -29,11 +29,11 @@ namespace DataAccessLayer
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        string name = reader.GetString(1);
+                        int id = reader.GetInt32(reader.GetOrdinal("id"));
+                        string name = reader.GetString(reader.GetOrdinal("name"));
                         int? parentId = null;
-                        if (!DBNull.Value.Equals(reader.GetValue(2)))
-                            parentId = reader.GetInt32(2);
+                        if (!DBNull.Value.Equals(reader.GetValue(reader.GetOrdinal("parentCategory"))))
+                            parentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
 
                         itemCategories.Add(new ItemCategoryDTO
                         {

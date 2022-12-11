@@ -102,7 +102,6 @@ namespace DataAccessLayer
 					Firstname = dreader.GetString(dreader.GetOrdinal("firstname")),
 					Lastname = dreader.GetString(dreader.GetOrdinal("lastname")),
 					Email = dreader.GetString(dreader.GetOrdinal("email")),
-					Password = dreader.GetString(dreader.GetOrdinal("password")),
 					Username = dreader.GetString(dreader.GetOrdinal("username")),
 				};
                 if(!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))

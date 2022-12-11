@@ -34,12 +34,14 @@ namespace LogicLayer.Models
         }
         public bool IsAddedLineItemNew(LineItem newLineItem)
         {
-            this.SortAddedItems();
+            //this.SortAddedItems();
 
-            if (this.addedItems.Find(x => x.Item.Name == newLineItem.Item.Name) != null)
+            LineItem existingLineItem = this.addedItems.Find(x => x.Item.Name == newLineItem.Item.Name);
+
+            if (existingLineItem != null)
             {
-                this.addedItems.Find(x => x.Item.Name == newLineItem.Item.Name).Amount += newLineItem.Amount;
-                this.lastUpdatedLineItem = this.addedItems.Find(x => x.Item.Name == newLineItem.Item.Name);
+				existingLineItem.Amount += newLineItem.Amount;
+                this.lastUpdatedLineItem = existingLineItem;
                 return false;
             }
             else
@@ -49,6 +51,8 @@ namespace LogicLayer.Models
                 return true;
             }
         }
+
+        // Method just in case, as items are already sorted when adding new ones
         public void SortAddedItems()
         {
             ShoppingCart sortedShoppingCart = new ShoppingCart();
@@ -65,10 +69,11 @@ namespace LogicLayer.Models
                 //{
                 //    sortingLineItems.Add(lineItem.Item.Name, lineItem.Amount);
                 //}
+                LineItem searchLineItem = sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name);
 
-                if (sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name) != null)
+				if (searchLineItem != null)
                 {
-                    sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name).Amount += lineItem.Amount;
+                    searchLineItem.Amount += lineItem.Amount;
                 }
                 else
                 {

@@ -28,27 +28,20 @@ namespace DataAccessLayer
                         ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
 
-                   /*     itemDTO.Id = reader.GetInt32(reader.GetOrdinal("id"));
+                        itemDTO.Id = reader.GetInt32(reader.GetOrdinal("id"));
                         itemDTO.Name = reader.GetString(reader.GetOrdinal("name"));
                         itemDTO.Price = reader.GetDecimal(reader.GetOrdinal("price"));
                         itemDTO.UnitType = reader.GetString(reader.GetOrdinal("unitType"));
                         itemDTO.Available = reader.GetBoolean(reader.GetOrdinal("available"));
-                        itemDTO.StockAmount = reader.GetInt32(reader.GetOrdinal("stockAmount"));*/
+                        itemDTO.StockAmount = reader.GetInt32(reader.GetOrdinal("stockAmount"));
 
-                        itemDTO.Id = reader.GetInt32(0);
-                        itemDTO.Name = reader.GetString(1);
-                        itemDTO.Price = reader.GetDecimal(2);
-                        itemDTO.UnitType = reader.GetString(3);
-                        itemDTO.Available = reader.GetBoolean(4);
-                        itemDTO.StockAmount = reader.GetInt32(5);
-
-                        itemCategoryDTO.Id = reader.GetInt32(6);
-                        itemCategoryDTO.Name = reader.GetString(7);
+                        itemCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("catId"));
+                        itemCategoryDTO.Name = reader.GetString(reader.GetOrdinal("catName"));
                         itemCategoryDTO.ParentId = null;
 
-                        itemSubCategoryDTO.Id = reader.GetInt32(8);
-                        itemSubCategoryDTO.Name = reader.GetString(9);
-                        itemSubCategoryDTO.ParentId = reader.GetInt32(10);
+                        itemSubCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("subCatId"));
+                        itemSubCategoryDTO.Name = reader.GetString(reader.GetOrdinal("subCatName"));
+                        itemSubCategoryDTO.ParentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
 
                         itemDTO.Category = itemCategoryDTO;
                         itemDTO.SubCategory = itemSubCategoryDTO;
@@ -113,9 +106,11 @@ namespace DataAccessLayer
 
         public ItemDTO ReadItem(int id)
         {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], cat.[id], cat.[name], subCat.[id], subCat.[name], subCat.[parentCategory] " +
-                "FROM Item LEFT JOIN Category subCat ON Item.subCategory = subCat.id LEFT JOIN Category cat ON subCat.parentCategory = cat.id " +
-                "WHERE Item.id = @id;";
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
+				"Cat.[id] AS catId, Cat.[name] AS catName, " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"FROM Item LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
+				"WHERE Item.id = @id;";
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
             try
@@ -130,8 +125,10 @@ namespace DataAccessLayer
         }
         public List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available)
         {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], cat.[id], cat.[name], subCat.[id], subCat.[name], subCat.[parentCategory] " +
-                "FROM Item LEFT JOIN Category subCat ON Item.subCategory = subCat.id LEFT JOIN Category cat ON subCat.parentCategory = cat.id " +
+            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
+				"Cat.[id] AS catId, Cat.[name] AS catName, " +
+                "SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"FROM Item LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
                 "WHERE Item.available = @available";
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
@@ -152,12 +149,12 @@ namespace DataAccessLayer
 
                 if (categoryId != 0)
                 {
-                    Query += " AND subCat.id = @categoryId";
+                    Query += " AND SubCat.id = @categoryId";
                     sqlParameters.Add(new SqlParameter("@categoryId", categoryId));
                 }
                 if (subCategoryId != 0)
                 {
-                    Query += " AND cat.id = @subCategoryId";
+                    Query += " AND Cat.id = @subCategoryId";
                     sqlParameters.Add(new SqlParameter("@subCategoryId", subCategoryId));
                 }
                 return GetItems(Query, sqlParameters).ToList();

@@ -52,11 +52,11 @@ namespace WebApp.Pages
 		}
 		public void OnPostAddItem()
 		{
-			if(Amount > 0 && Amount < items.Find(x => x.Id == ItemId).StockAmount)
+			Item addedItem = items.Find(x => x.Id == ItemId);
+
+			if (Amount > 0 && Amount < addedItem.StockAmount)
 			{
 				shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
-
-				Item addedItem = items.Find(item => item.Id == ItemId);
 
 				LineItem addedLineItem = new LineItem(addedItem, Amount);
 
