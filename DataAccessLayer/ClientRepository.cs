@@ -131,21 +131,5 @@ namespace DataAccessLayer
 		{
 			throw new NotImplementedException();
 		}
-
-		private string GenerateSalt(int length = 10)
-		{
-			return BCrypt.Net.BCrypt.GenerateSalt(10);
-        }
-
-        private string HashPassword(string password, string salt)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password, salt);
-        }
-
-        private bool ValidatePassword(string password, string hashedPassword)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-        }
-
     }
 }
