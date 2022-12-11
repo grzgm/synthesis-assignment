@@ -112,8 +112,14 @@ namespace DataAccessLayer
 						 "SET @orderId = IDENT_CURRENT('Order')" +
 						 "INSERT INTO Address VALUES (@orderId, @country, @city, @street, @postalCode);" +
 						 "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;" +
-						 "DELETE FROM ShoppingCart WHERE clientId = @clientId;" +
-						 "COMMIT;"; 
+						 "DELETE FROM ShoppingCart WHERE clientId = @clientId;";
+
+			for (int i = 0; i < orderDTO.PurchasedItems.Count; i++)
+			{
+				sql += $"UPDATE Item SET Item.stockAmount = @newStockAmount{i} WHERE Item.id = @itemId{i};";
+			}
+
+			sql += "COMMIT;";
 
 			cmd = new SqlCommand(sql, conn);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientId });
@@ -127,6 +133,13 @@ namespace DataAccessLayer
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = orderDTO.AddressDTO.City });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@street", Value = orderDTO.AddressDTO.Street });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@postalCode", Value = orderDTO.AddressDTO.PostalCode });
+
+			for (int i = 0; i < orderDTO.PurchasedItems.Count; i++)
+			{
+				cmd.Parameters.Add(new SqlParameter { ParameterName = $"@newStockAmount{i}", Value = (orderDTO.PurchasedItems[i].ItemDTO.StockAmount - orderDTO.PurchasedItems[i].Amount) });
+				cmd.Parameters.Add(new SqlParameter { ParameterName = $"@itemId{i}", Value = orderDTO.PurchasedItems[i].ItemDTO.Id });
+			}
+
 
 			try
 			{
