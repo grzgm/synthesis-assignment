@@ -9,6 +9,7 @@ namespace LogicLayer.InterfacesRepository
 		ShoppingCartDTO ReadShoppingCart(int id);
 
 		bool UpdateShoppingCartItem(LineItemDTO lineItemDTO);
+		bool UpdateShoppingCartItems(int clientId, ShoppingCartDTO shoppingCartDTO);
 
         bool DeleteShoppingCart(LineItemDTO lineItemDTO);
 	}

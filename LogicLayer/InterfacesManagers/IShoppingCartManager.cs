@@ -9,6 +9,7 @@ namespace LogicLayer.InterfacesManagers
 		ShoppingCart ReadShoppingCart(int clientId);
 
 		bool UpdateShoppingCartItem(LineItem lineItem);
+		bool UpdateShoppingCartItems(int clientId, ShoppingCart shoppingCart);
 
 		bool DeleteShoppingCart(LineItem lineItem);
 	}

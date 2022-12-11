@@ -52,38 +52,59 @@ namespace LogicLayer.Models
             }
         }
 
-        // Method just in case, as items are already sorted when adding new ones
-        public void SortAddedItems()
-        {
-            ShoppingCart sortedShoppingCart = new ShoppingCart();
+		// Method just in case, as items are already sorted when adding new ones
+		public void SortAddedItems()
+		{
+			ShoppingCart sortedShoppingCart = new ShoppingCart();
 
-            //Dictionary<string, int> sortingLineItems = new Dictionary<string, int>();
+			//Dictionary<string, int> sortingLineItems = new Dictionary<string, int>();
 
-            foreach (LineItem lineItem in this.addedItems)
-            {
-                //if (sortingLineItems.ContainsKey(lineItem.Item.Name))
-                //{
-                //    sortingLineItems[lineItem.Item.Name] += lineItem.Amount;
-                //}
-                //else
-                //{
-                //    sortingLineItems.Add(lineItem.Item.Name, lineItem.Amount);
-                //}
-                LineItem searchLineItem = sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name);
+			foreach (LineItem lineItem in this.addedItems)
+			{
+				//if (sortingLineItems.ContainsKey(lineItem.Item.Name))
+				//{
+				//    sortingLineItems[lineItem.Item.Name] += lineItem.Amount;
+				//}
+				//else
+				//{
+				//    sortingLineItems.Add(lineItem.Item.Name, lineItem.Amount);
+				//}
+				LineItem searchLineItem = sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name);
 
 				if (searchLineItem != null)
-                {
-                    searchLineItem.Amount += lineItem.Amount;
-                }
-                else
-                {
-                    sortedShoppingCart.AddedItems.Add(lineItem);
-                }
-            }
-            this.addedItems = new List<LineItem>(sortedShoppingCart.AddedItems);
-        }
+				{
+					searchLineItem.Amount += lineItem.Amount;
+				}
+				else
+				{
+					sortedShoppingCart.AddedItems.Add(lineItem);
+				}
+			}
+			this.addedItems = new List<LineItem>(sortedShoppingCart.AddedItems);
+		}
 
-        public decimal GetTotalPrice()
+		public bool AreItemsAvailable()
+		{
+			bool Availability = true;
+			for (int i = 0; i < addedItems.Count; i++)
+			{
+				if (addedItems[i].Item.StockAmount == 0)
+				{
+					Availability = false;
+					addedItems.RemoveAt(i);
+					i--;
+					continue;
+				}
+				else if (addedItems[i].Amount > addedItems[i].Item.StockAmount)
+				{
+					Availability = false;
+					addedItems[i].Amount = addedItems[i].Item.StockAmount;
+				}
+			}
+			return Availability;
+		}
+
+		public decimal GetTotalPrice()
         {
             decimal totalPrice = 0;
             foreach (LineItem lineItem in addedItems)

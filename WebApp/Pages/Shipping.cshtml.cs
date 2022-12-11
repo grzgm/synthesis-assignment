@@ -14,6 +14,7 @@ namespace WebApp.Pages
     {
         [BindProperty]
         public Address Address { get; set; }
+		public string mess { get; private set; }
 
 		IShoppingCartManager shoppingCartManager;
 		IShoppingCartRepository shoppingCartRepository;
@@ -30,6 +31,12 @@ namespace WebApp.Pages
 		public IActionResult OnGet()
 		{
 			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+			if(!shoppingCart.AreItemsAvailable())
+			{
+				shoppingCartManager.UpdateShoppingCartItems(int.Parse(User.FindFirst("Id").Value), shoppingCart);
+				mess = "We don't have some items anymore, your order was adjusted";
+			}
+
 			if(shoppingCart.IsEmpty())
 			{
 				return RedirectToPage("/Shop");

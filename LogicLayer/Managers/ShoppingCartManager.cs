@@ -51,6 +51,18 @@ namespace LogicLayer.Managers
             }
         }
 
+		bool IShoppingCartManager.UpdateShoppingCartItems(int clientId, ShoppingCart shoppingCart)
+        {
+            try
+            {
+                return shoppingCartRepository.UpdateShoppingCartItems(clientId, ConvertToShoppingCartDTO(shoppingCart));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
 		bool IShoppingCartManager.DeleteShoppingCart(LineItem lineItem)
 		{
 			try
