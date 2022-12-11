@@ -6,7 +6,7 @@ namespace DataAccessLayer
 {
     public class ItemRepository : MainRepository, IItemRepository
     {
-        private IEnumerable<ItemDTO> GetItems(string Query, List<SqlParameter>? sqlParameters)
+        private IEnumerable<ItemDTO> GetItems(string Query, List<SqlParameter>? sqlParameters = null)
         {
             List<ItemDTO> items = new List<ItemDTO>();
 
@@ -122,49 +122,66 @@ namespace DataAccessLayer
             {
                 throw new Exception(ex.ToString());
             }
-        }
-        public List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available)
-        {
-            string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
+		}
+		public List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available)
+		{
+			string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
 				"Cat.[id] AS catId, Cat.[name] AS catName, " +
-                "SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
 				"FROM Item LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-                "WHERE Item.available = @available";
-            List<SqlParameter> sqlParameters = new List<SqlParameter>();
+				"WHERE Item.available = @available";
+			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
-            try
-            {
-                if(name != "")
-                {
-                    Query += " AND Item.name = @name";
-                    sqlParameters.Add(new SqlParameter("@name", name));
-                }
-                if (price != 0)
-                {
-                    Query += " AND Item.price = @price";
-                    sqlParameters.Add(new SqlParameter("@price", price));
-                }
+			try
+			{
+				if (name != "")
+				{
+					Query += " AND Item.name = @name";
+					sqlParameters.Add(new SqlParameter("@name", name));
+				}
+				if (price != 0)
+				{
+					Query += " AND Item.price = @price";
+					sqlParameters.Add(new SqlParameter("@price", price));
+				}
 
-                sqlParameters.Add(new SqlParameter("@available", available));
+				sqlParameters.Add(new SqlParameter("@available", available));
 
-                if (categoryId != 0)
-                {
-                    Query += " AND SubCat.id = @categoryId";
-                    sqlParameters.Add(new SqlParameter("@categoryId", categoryId));
-                }
-                if (subCategoryId != 0)
-                {
-                    Query += " AND Cat.id = @subCategoryId";
-                    sqlParameters.Add(new SqlParameter("@subCategoryId", subCategoryId));
-                }
-                return GetItems(Query, sqlParameters).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-        }
-        public bool UpdateItem(ItemDTO itemDTO)
+				if (categoryId != 0)
+				{
+					Query += " AND SubCat.id = @categoryId";
+					sqlParameters.Add(new SqlParameter("@categoryId", categoryId));
+				}
+				if (subCategoryId != 0)
+				{
+					Query += " AND Cat.id = @subCategoryId";
+					sqlParameters.Add(new SqlParameter("@subCategoryId", subCategoryId));
+				}
+				return GetItems(Query, sqlParameters).ToList();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.ToString());
+			}
+		}
+		public List<ItemDTO> ReadAvailableItems()
+		{
+			string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
+				"Cat.[id] AS catId, Cat.[name] AS catName, " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"FROM Item LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
+				"WHERE Item.available = 1 AND Item.stockAmount > 0";
+
+			try
+			{
+				return GetItems(Query).ToList();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception(ex.ToString());
+			}
+		}
+		public bool UpdateItem(ItemDTO itemDTO)
         {
             GetConnection();
             conn.Open();

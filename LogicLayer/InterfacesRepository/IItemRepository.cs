@@ -9,8 +9,10 @@ namespace LogicLayer.InterfacesRepository
 
         ItemDTO ReadItem(int id);
         List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available);
+        List<ItemDTO> ReadAvailableItems();
 
-        bool UpdateItem(ItemDTO itemDTO);
+
+		bool UpdateItem(ItemDTO itemDTO);
 
         bool DeleteItem(ItemDTO itemDTO);
     }

@@ -107,6 +107,25 @@ namespace LogicLayer.Managers
             return items;
         }
 
+        public List<Item> ReadAvailableItems()
+        {
+            List<ItemDTO> itemsDTO;
+            try
+            {
+                itemsDTO = itemRepository.ReadAvailableItems();
+            }
+            catch(Exception ex)
+            {
+                return new List<Item>();
+            }
+            List<Item> items = new List<Item>();
+            foreach (ItemDTO itemDTO in itemsDTO)
+            {
+                items.Add(new Item(itemDTO));
+            }
+            return items;
+        }
+
         public bool UpdateItem(Item item)
         {
             try

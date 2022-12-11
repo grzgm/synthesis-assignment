@@ -39,7 +39,7 @@ namespace WebApp.Pages
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
 
-			items = itemManager.ReadItems("", null, null, 0, true);
+			items = itemManager.ReadAvailableItems();
 		}
 
         public void OnGet()
@@ -54,7 +54,7 @@ namespace WebApp.Pages
 		{
 			Item addedItem = items.Find(x => x.Id == ItemId);
 
-			if (Amount > 0 && Amount < addedItem.StockAmount)
+			if (Amount > 0 && Amount <= addedItem.StockAmount)
 			{
 				shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
 

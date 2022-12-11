@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogicLayer.DTOs;
 using LogicLayer.Models;
 
 namespace LogicLayer.InterfacesManagers
@@ -13,8 +14,10 @@ namespace LogicLayer.InterfacesManagers
 
         Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available);
         List<Item> ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available);
+        List<Item> ReadAvailableItems();
 
-        bool UpdateItem(Item item);
+
+		bool UpdateItem(Item item);
 
         bool DeleteItem(Item item);
     }
