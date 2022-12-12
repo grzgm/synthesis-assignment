@@ -95,6 +95,17 @@ CREATE TABLE Address
 	postalCode nvarchar(20) NOT NULL,
 );
 
+-- Discount Table
+CREATE TABLE Discount
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE,
+	startOfDiscount DATETIME2 NOT NULL,
+	endOfDiscount DATETIME2 NOT NULL,
+	amountForDiscount int NOT NULL,
+	discountValue decimal NOT NULL,
+	--unique constrain for startdate enddate and lineItemId
+);
 
 
 -- Mock Data
