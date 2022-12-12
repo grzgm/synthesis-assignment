@@ -630,7 +630,7 @@
         <Member type="Field">private DateTime startOfDiscount</Member>
         <Member type="Field">private DateTime endOfDiscount</Member>
         <Member type="Field">private int amountForDiscount</Member>
-        <Member type="Field">private static readonly int discountId</Member>
+        <Member type="Field">private static readonly int discountTypeId</Member>
         <Member type="Constructor">protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, int discountId)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
