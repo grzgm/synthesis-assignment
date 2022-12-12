@@ -6,7 +6,7 @@ namespace LogicLayer.InterfacesRepository
     {
         bool CreateLineItem(LineItemDTO lineItemDTO);
 
-        LineItemDTO ReadLineItem(int id);
+        LineItemDTO ReadLineItemById(int id);
 
         List<LineItemDTO> ReadLineItems(LineItemDTO lineItemDTO, decimal purchasePrice, int amount);
 

@@ -6,8 +6,8 @@ namespace LogicLayer.InterfacesRepository
 	{
 		bool CreateOrder(int clientId, OrderDTO orderDTO);
 
-		OrderDTO ReadOrder(int clientId, int orderId);
-		List<OrderDTO> ReadOrders(int clientId);
+		OrderDTO ReadOrderByClientIdOrderId(int clientId, int orderId);
+		List<OrderDTO> ReadOrdersByClientId(int clientId);
 
 		bool UpdateOrder(OrderDTO orderDTO);
 

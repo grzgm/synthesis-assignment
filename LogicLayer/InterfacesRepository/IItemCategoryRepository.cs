@@ -5,8 +5,6 @@ namespace LogicLayer.InterfacesRepository
 	public interface IItemCategoryRepository
 	{
 		bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO);
-
-		ItemCategoryDTO ReadItemCategory(string name, string password);
 		List<ItemCategoryDTO> ReadAllItemCategories();
 		List<ItemCategoryDTO> ReadAllItemSubCategories();
 

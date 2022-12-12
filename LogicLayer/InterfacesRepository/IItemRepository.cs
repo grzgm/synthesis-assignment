@@ -7,7 +7,7 @@ namespace LogicLayer.InterfacesRepository
     {
         bool CreateItem(ItemDTO itemDTO);
 
-        ItemDTO ReadItem(int id);
+        ItemDTO ReadItemById(int id);
         List<ItemDTO> ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available);
         List<ItemDTO> ReadAvailableItems();
 

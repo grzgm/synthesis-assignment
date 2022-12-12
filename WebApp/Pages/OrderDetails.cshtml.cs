@@ -25,7 +25,7 @@ namespace WebApp.Pages
 			orderRepository = new OrderRepository();
 			orderManager = new OrderManager(orderRepository);
 
-			order = orderManager.ReadOrder(int.Parse(User.FindFirst("Id").Value), OrderId);
+			order = orderManager.ReadOrderByClientIdOrderId(int.Parse(User.FindFirst("Id").Value), OrderId);
 
 			if (order == null)
 				return RedirectToPage("/Index");

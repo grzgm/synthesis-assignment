@@ -6,7 +6,7 @@ namespace DataAccessLayer
 {
 	public class EmployeeRepository : MainRepository, IEmployeeRepository
 	{
-		EmployeeDTO IEmployeeRepository.ReadEmployee(string email, string password)
+		EmployeeDTO IEmployeeRepository.ReadEmployeeByEmailPassword(string email, string password)
 		{
 			conn = new SqlConnection(constr);
 			conn.Open();

@@ -27,11 +27,11 @@ namespace LogicLayer.Managers
 			}
 		}
 
-		Client IClientManager.ReadClient(string username, string password)
+		Client IClientManager.ReadClientByUsernamePassword(string username, string password)
 		{
 			try
 			{
-				return new Client(clientRepository.ReadClient(username, password));
+				return new Client(clientRepository.ReadClientByUsernamePassword(username, password));
 			}
 			catch (Exception ex)
 			{

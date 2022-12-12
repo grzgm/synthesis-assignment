@@ -6,7 +6,7 @@ namespace LogicLayer.InterfacesManagers
 	{
 		bool CreateClient(Client client);
 
-		Client ReadClient(string username, string password);
+		Client ReadClientByUsernamePassword(string username, string password);
 
 		bool UpdateClient(Client client);
 

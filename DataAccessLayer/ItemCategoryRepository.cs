@@ -66,20 +66,6 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        public ItemCategoryDTO ReadItemCategory(string name, string password)
-        {
-            string Query = "SELECT [id], [name], [parentCategory] FROM ItemCategory WHERE parentCategory is NULL";
-
-            try
-            {
-                return GetItemCategories(Query, null).First();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-        }
-
         public List<ItemCategoryDTO> ReadAllItemCategories()
         {
             string Query = "SELECT [id], [name], [parentCategory] FROM Category WHERE parentCategory IS NULL;";

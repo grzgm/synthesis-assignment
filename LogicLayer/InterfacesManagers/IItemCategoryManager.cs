@@ -11,7 +11,6 @@ namespace LogicLayer.InterfacesManagers
 	{
 		bool CreateItemCategory(ItemCategory itemCategory);
 
-		ItemCategory ReadItemCategory(string name, string password);
         (List<ItemCategory>, List<ItemCategory>) ReadAllItemCategories();
 
         bool UpdateItemCategory(ItemCategory itemCategory);

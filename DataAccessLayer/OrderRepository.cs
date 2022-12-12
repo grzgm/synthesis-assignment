@@ -161,7 +161,7 @@ namespace DataAccessLayer
 			return true;
 		}
 
-		OrderDTO IOrderRepository.ReadOrder(int clientId, int orderId)
+		OrderDTO IOrderRepository.ReadOrderByClientIdOrderId(int clientId, int orderId)
 		{
 			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,totalBonusPointsAfterOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
 				"country, city, street, postalCode, " +
@@ -190,7 +190,7 @@ namespace DataAccessLayer
 			}
 		}
 
-		List<OrderDTO> IOrderRepository.ReadOrders(int clientId)
+		List<OrderDTO> IOrderRepository.ReadOrdersByClientId(int clientId)
 		{
 			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,totalBonusPointsAfterOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
 				"country, city, street, postalCode, " +

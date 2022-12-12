@@ -4,6 +4,6 @@ namespace LogicLayer.InterfacesManagers
 {
 	public interface IEmployeeManager
 	{
-		Employee ReadEmployee(string email, string password);
+		Employee ReadEmployeeByEmailPassword(string email, string password);
 	}
 }
