@@ -40,7 +40,11 @@ namespace WebApp.Pages
                     {
                         Client.BonusCard = new BonusCard(Client.Id, 15);
                     }
-                    clientManager.CreateClient(Client);
+                    if(!clientManager.CreateClient(Client))
+                    {
+                        mess = "This User already exists.";
+                        return Page();
+                    }
 
                     List<Claim> claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, Client.Firstname));
