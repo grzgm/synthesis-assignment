@@ -35,12 +35,14 @@ namespace LogicLayer.Managers
             List<ItemCategoryDTO> subCategoriesDTO = itemCategoryRepository.ReadAllItemSubCategories();
 
             List<ItemCategory> categories = ConvertToModelParent(categoriesDTO);
-            List<ItemCategory> subCategories = new List<ItemCategory>();
+            List<ItemCategory> subCategories = ConvertToModelChild(categories, subCategoriesDTO);
+
+/*            List<ItemCategory> subCategories = new List<ItemCategory>();
 
             foreach (ItemCategoryDTO subCategoryDTO in subCategoriesDTO)
             {
                 subCategories.Add(new ItemCategory(subCategoryDTO, categories.Find(i => i.Id == subCategoryDTO.ParentId)));
-            }
+            }*/
 
             return (categories, subCategories);
         }
@@ -65,14 +67,16 @@ namespace LogicLayer.Managers
             return itemCategories;
         }
 
-        private List<ItemCategory> ConvertToModelChild(List<ItemCategoryDTO> itemCategoriesDTO)
-        {
-            List<ItemCategory> itemCategories = new List<ItemCategory>();
-            foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
-            {
-                itemCategories.Add(new ItemCategory(itemCategoryDTO));
-            }
-            return itemCategories;
-        }
+        private List<ItemCategory> ConvertToModelChild(List<ItemCategory> categories, List<ItemCategoryDTO> subCategoriesDTO)
+		{
+			List<ItemCategory> subCategories = new List<ItemCategory>();
+
+			foreach (ItemCategoryDTO subCategoryDTO in subCategoriesDTO)
+			{
+				subCategories.Add(new ItemCategory(subCategoryDTO, categories.Find(i => i.Id == subCategoryDTO.ParentId)));
+			}
+
+            return subCategories;
+		}
     }
 }
