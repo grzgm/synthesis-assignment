@@ -21,7 +21,7 @@ namespace WebApp.Pages
 			orderRepository = new OrderRepository();
 			orderManager = new OrderManager(orderRepository);
 
-			orders = orderManager.ReadOrders(int.Parse(User.FindFirst("Id").Value));
+			orders = orderManager.ReadOrdersByClientId(int.Parse(User.FindFirst("Id").Value));
 		}
     }
 }

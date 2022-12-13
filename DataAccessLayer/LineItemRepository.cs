@@ -15,7 +15,7 @@ namespace DataAccessLayer
             throw new NotImplementedException();
         }
 
-        LineItemDTO ILineItemRepository.ReadLineItem(int id)
+        LineItemDTO ILineItemRepository.ReadLineItemById(int id)
         {
             throw new NotImplementedException();
         }

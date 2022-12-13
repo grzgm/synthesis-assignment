@@ -6,7 +6,7 @@ namespace LogicLayer.InterfacesRepository
 	{
 		bool CreateClient(ClientDTO clientDTO);
 
-		ClientDTO ReadClient(string username, string password);
+		ClientDTO ReadClientByUsernamePassword(string username, string password);
 
 		bool UpdateClient(ClientDTO clientDTO);
 

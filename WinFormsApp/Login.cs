@@ -28,7 +28,7 @@ namespace WinFormsApp
 			password = tbPassword.Text;
 			if (email != String.Empty && password != String.Empty)
 			{
-				employee = employeeManager.ReadEmployee(email, password);
+				employee = employeeManager.ReadEmployeeByEmailPassword(email, password);
 				if (employee != null)
 				{
 					this.Hide();

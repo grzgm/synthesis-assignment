@@ -24,10 +24,6 @@ namespace LogicLayer.Managers
         {
             throw new NotImplementedException();
         }
-        public ItemCategory ReadItemCategory(string name, string password)
-        {
-            throw new NotImplementedException();
-        }
 
         public (List<ItemCategory>, List<ItemCategory>) ReadAllItemCategories()
         {

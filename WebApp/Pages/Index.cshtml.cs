@@ -22,13 +22,13 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
-            //IOrderRepository orderRepository;
-            //IOrderManager orderManager;
+			//IOrderRepository orderRepository;
+			//IOrderManager orderManager;
 
-            //orderRepository = new OrderRepository();
-            //orderManager = new OrderManager(orderRepository);
+			//orderRepository = new OrderRepository();
+			//orderManager = new OrderManager(orderRepository);
 
-            //Order order = orderManager.ReadOrder(2, 4);
-        }
-    }
+			//Order order = orderManager.ReadOrderByClientIdOrderId(2, 4);
+		}
+	}
 }

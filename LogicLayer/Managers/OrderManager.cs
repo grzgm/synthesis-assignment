@@ -27,23 +27,23 @@ namespace LogicLayer.Managers
 			}
 		}
 
-		Order IOrderManager.ReadOrder(int clientId, int orderId)
+		Order IOrderManager.ReadOrderByClientIdOrderId(int clientId, int orderId)
 		{
 			try
 			{
-				return new Order(orderRepository.ReadOrder(clientId, orderId));
+				return new Order(orderRepository.ReadOrderByClientIdOrderId(clientId, orderId));
 			}
 			catch (Exception ex)
 			{
 				return null;
 			}
 		}
-		List<Order> IOrderManager.ReadOrders(int clientId)
+		List<Order> IOrderManager.ReadOrdersByClientId(int clientId)
 		{
 			try
 			{
 				List<Order> orders = new List<Order>();
-				List<OrderDTO> ordersDTO = orderRepository.ReadOrders(clientId);
+				List<OrderDTO> ordersDTO = orderRepository.ReadOrdersByClientId(clientId);
 				foreach (OrderDTO orderDTO in ordersDTO)
 				{
 					orders.Add(new Order(orderDTO));

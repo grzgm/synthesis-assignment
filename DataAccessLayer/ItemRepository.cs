@@ -104,7 +104,7 @@ namespace DataAccessLayer
             return true;
         }
 
-        public ItemDTO ReadItem(int id)
+        public ItemDTO ReadItemById(int id)
         {
             string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
 				"Cat.[id] AS catId, Cat.[name] AS catName, " +

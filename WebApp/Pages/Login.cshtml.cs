@@ -43,7 +43,7 @@ namespace WebApp.Pages
                 Client client = null;
                 try
                 {
-                    client = clientManager.ReadClient(Username, Password);
+                    client = clientManager.ReadClientByUsernamePassword(Username, Password);
                 }
                 catch (Exception ex)
                 {

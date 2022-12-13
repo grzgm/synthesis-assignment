@@ -33,7 +33,7 @@ namespace LogicLayer.Managers
             // There is no need to search with name, email, password in database, cuz id is Unique
             try
             {
-                itemDTO = itemRepository.ReadItem(id);
+                itemDTO = itemRepository.ReadItemById(id);
             }
             catch (Exception ex)
             {

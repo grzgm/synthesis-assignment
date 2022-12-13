@@ -14,11 +14,11 @@ namespace LogicLayer.Managers
 				?? throw new ArgumentNullException(nameof(employeeRepository));
 		}
 
-		Employee IEmployeeManager.ReadEmployee(string email, string password)
+		Employee IEmployeeManager.ReadEmployeeByEmailPassword(string email, string password)
 		{
 			try
 			{
-				return new Employee(employeeRepository.ReadEmployee(email, password));
+				return new Employee(employeeRepository.ReadEmployeeByEmailPassword(email, password));
 			}
 			catch (Exception ex)
 			{
