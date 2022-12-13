@@ -12,9 +12,10 @@ namespace LogicLayer.Models
 		{
 		}
 
-		decimal IDiscount.CalculateDiscount(int Amount, decimal Price)
+		decimal IDiscount.CalculateDiscount(int amount, decimal price)
 		{
-			throw new NotImplementedException();
+			int howManyDiscounts = amount % amountForDiscount;
+			return howManyDiscounts * price * discountValue;
 		}
 	}
 }

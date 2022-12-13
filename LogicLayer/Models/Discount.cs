@@ -2,11 +2,11 @@ namespace LogicLayer.Models
 {
 	public abstract class Discount
 	{
-		private DateTime startOfDiscount;
-		private DateTime endOfDiscount;
-		private int amountForDiscount;
-		private decimal discountValue;
-		private string discountMessage;
+		protected DateTime startOfDiscount;
+		protected DateTime endOfDiscount;
+		protected int amountForDiscount;
+		protected decimal discountValue;
+		protected string discountMessage;
 
 		protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, decimal discountValue, string discountMessage)
 		{

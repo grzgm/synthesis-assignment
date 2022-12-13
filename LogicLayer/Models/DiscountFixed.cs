@@ -10,11 +10,13 @@ namespace LogicLayer.Models
 		}
 		public DiscountFixed(DiscountDTO discountDTO) : base(discountDTO.AmountForDiscount, discountDTO.StartOfDiscount, discountDTO.EndOfDiscount, discountDTO.DiscountValue, discountDTO.DiscountMessage)
 		{
+
 		}
 
-		decimal IDiscount.CalculateDiscount(int Amount, decimal Price)
+		decimal IDiscount.CalculateDiscount(int amount, decimal price)
 		{
-			throw new NotImplementedException();
+			int howManyDiscounts = amount % amountForDiscount;
+			return howManyDiscounts * discountValue;
 		}
 	}
 }

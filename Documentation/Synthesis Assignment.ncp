@@ -52,7 +52,7 @@
         <Member type="Field">private decimal price</Member>
         <Member type="Field">private string unitType</Member>
         <Member type="Field">private bool available</Member>
-        <Member type="Field">private List&lt;IDiscount&gt; discount</Member>
+        <Member type="Field">private List&lt;IDiscount&gt; discounts</Member>
         <Member type="Constructor">public Item()</Member>
         <Member type="Constructor">public Item(ItemDTO itemDTO)</Member>
         <Member type="Property">public int Id { get; }</Member>
@@ -62,7 +62,7 @@
         <Member type="Property">public decimal Price { get; set; }</Member>
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
-        <Member type="Property">public IDiscount Discount { get; set; }</Member>
+        <Member type="Property">public IDiscount Discounts { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Enum">
@@ -588,7 +588,8 @@
         <Location left="2617" top="977" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">decimal CalculateDiscount(int Amount, decimal Price)</Member>
+        <Member type="Method">decimal CalculateDiscount(int amount, decimal price)</Member>
+        <Member type="Method">string ToString()</Member>
       </Entity>
       <Entity type="Class">
         <Name>Discount</Name>
@@ -599,6 +600,8 @@
         <Member type="Field">private DateTime startOfDiscount</Member>
         <Member type="Field">private DateTime endOfDiscount</Member>
         <Member type="Field">private int amountForDiscount</Member>
+        <Member type="Field">private decimal discountValue</Member>
+        <Member type="Field">private string discountMessage</Member>
         <Member type="Constructor">protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, int discountId)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
