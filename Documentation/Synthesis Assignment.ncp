@@ -43,7 +43,7 @@
         <Name>Item</Name>
         <Access>Public</Access>
         <Location left="3049" top="689" />
-        <Size width="181" height="366" />
+        <Size width="181" height="400" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
@@ -52,6 +52,7 @@
         <Member type="Field">private decimal price</Member>
         <Member type="Field">private string unitType</Member>
         <Member type="Field">private bool available</Member>
+        <Member type="Field">private List&lt;IDiscount&gt; discount</Member>
         <Member type="Constructor">public Item()</Member>
         <Member type="Constructor">public Item(ItemDTO itemDTO)</Member>
         <Member type="Property">public int Id { get; }</Member>
@@ -61,7 +62,7 @@
         <Member type="Property">public decimal Price { get; set; }</Member>
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
-        <Member type="Method">public decimal BonusCalculator()</Member>
+        <Member type="Property">public IDiscount Discount { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Enum">
@@ -377,7 +378,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="3358" top="1465" />
+        <Location left="3298" top="1465" />
         <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
@@ -564,7 +565,7 @@
       <Entity type="Class">
         <Name>DiscountPercentage</Name>
         <Access>Public</Access>
-        <Location left="2260" top="1213" />
+        <Location left="2438" top="1140" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private decimal percentageDiscount</Member>
@@ -572,41 +573,9 @@
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
-        <Name>Discount</Name>
-        <Access>Public</Access>
-        <Location left="3498" top="1589" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private DateTime startOfDiscount</Member>
-        <Member type="Field">private DateTime endOfDiscount</Member>
-        <Member type="Field">private int amountForDiscount</Member>
-        <Member type="Field">private int percentageDiscount</Member>
-        <Member type="Field">private int fixedDiscount</Member>
-        <Member type="Constructor">public Discount(int amountForDiscount, int percentageForDiscount, DateTime endOfDiscount)</Member>
-        <Member type="Method">public decimal GetPercentageDiscount(int amount)</Member>
-        <Member type="Method">public decimal GetFixedDiscount(int amount)</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>Discount</Name>
-        <Access>Public</Access>
-        <Location left="3498" top="1589" />
-        <Size width="162" height="216" />
-        <Collapsed>False</Collapsed>
-        <Member type="Field">private DateTime startOfDiscount</Member>
-        <Member type="Field">private DateTime endOfDiscount</Member>
-        <Member type="Field">private int amountForDiscount</Member>
-        <Member type="Field">private int percentageDiscount</Member>
-        <Member type="Field">private int fixedDiscount</Member>
-        <Member type="Constructor">public Discount(int amountForDiscount, int percentageForDiscount, DateTime endOfDiscount)</Member>
-        <Member type="Method">public decimal GetPercentageDiscount(int amount)</Member>
-        <Member type="Method">public decimal GetFixedDiscount(int amount)</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
         <Name>DiscountFixed</Name>
         <Access>Public</Access>
-        <Location left="2623" top="1213" />
+        <Location left="2801" top="1140" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private decimal fixedDiscount</Member>
@@ -616,7 +585,7 @@
       <Entity type="Interface">
         <Name>IDiscount</Name>
         <Access>Public</Access>
-        <Location left="2440" top="998" />
+        <Location left="2617" top="977" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Method">decimal CalculateDiscount(int Amount, decimal Price)</Member>
@@ -624,21 +593,18 @@
       <Entity type="Class">
         <Name>Discount</Name>
         <Access>Public</Access>
-        <Location left="2440" top="1378" />
+        <Location left="2617" top="1298" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private DateTime startOfDiscount</Member>
         <Member type="Field">private DateTime endOfDiscount</Member>
         <Member type="Field">private int amountForDiscount</Member>
-        <Member type="Field">private static readonly int discountTypeId</Member>
         <Member type="Constructor">protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, int discountId)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="4">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -646,8 +612,6 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="0" second="1">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -655,6 +619,8 @@
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="0" second="6">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -706,16 +672,12 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="20" second="20">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="1" second="21">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -723,8 +685,6 @@
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="6" second="21">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -732,6 +692,8 @@
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="21" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -747,24 +709,32 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="12" second="23">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="24">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="13" second="26">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="11" second="25">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -787,6 +757,8 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="2" second="20">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -797,6 +769,8 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="31" second="29">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -811,16 +785,12 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="15" second="27">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="27">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -862,36 +832,40 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="1" second="33">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
-      <Relationship type="Realization" first="46" second="50">
+      <Relationship type="Realization" first="46" second="48">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="49" second="50">
+      <Relationship type="Realization" first="47" second="48">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Association" first="21" second="50">
-        <Label>
-        </Label>
+      <Relationship type="Generalization" first="46" second="49">
         <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="47" second="49">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="2" second="48">
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>3024</X>
+          <Y>952</Y>
+        </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
-      </Relationship>
-      <Relationship type="Generalization" first="46" second="51">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="49" second="51">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
     </Relationships>
   </ProjectItem>

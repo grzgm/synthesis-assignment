@@ -14,7 +14,7 @@ namespace LogicLayer.Models
         private string unitType;
         private bool available;
         private int stockAmount;
-
+        private List<IDiscount> discounts;
 		public Item()
 		{
 		}
@@ -28,6 +28,31 @@ namespace LogicLayer.Models
 			this.available = itemDTO.Available;
 			this.unitType = itemDTO.UnitType;
 			this.stockAmount = itemDTO.StockAmount;
+            this.discounts = new List<IDiscount>();
+
+			if (itemDTO.Discounts.Any())
+            {
+                this.discounts= new List<IDiscount>();
+                foreach (DiscountDTO discountDTO in itemDTO.Discounts)
+                {
+                    IDiscount discount;
+                    switch (discountDTO.DiscountTypeId)
+					{
+						case 1:
+							discount = new DiscountFixed(discountDTO);
+                            break;
+						case 2:
+							discount = new DiscountPercentage(discountDTO);
+                            break;
+                        // check it with DiscountTypeId 3
+						default:
+                            continue;
+                            break;
+                    }
+                    this.discounts.Add(discount);
+                }
+
+			}
 		}
 		public Item(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, string unitType, bool available, int stockAmount)
 		{
@@ -87,9 +112,10 @@ namespace LogicLayer.Models
             set { this.stockAmount = value; }
         }
 
-        public int BonusCalculator()
+		public List<IDiscount> Discounts 
         {
-            throw new NotImplementedException();
+            get { return this.discounts; }
+            set { this.discounts = value; } 
         }
 
         public override string ToString()

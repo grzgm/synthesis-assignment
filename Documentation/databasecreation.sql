@@ -99,13 +99,13 @@ CREATE TABLE Address
 CREATE TABLE Discount
 (
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
-	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE,
+	itemId int FOREIGN KEY REFERENCES [Item]([id]) ON DELETE CASCADE,
+	discountTypeId int NOT NULL,
 	startOfDiscount DATETIME2 NOT NULL,
 	endOfDiscount DATETIME2 NOT NULL,
 	amountForDiscount int NOT NULL,
 	discountValue decimal NOT NULL,
-	discountTypeId int NOT NULL,
-	--unique constrain for startdate enddate and lineItemId
+	--unique constrain for startdate enddate and itemId
 );
 
 
@@ -150,3 +150,6 @@ INSERT INTO LineItem VALUES (4, 4, 7, 10);
 INSERT INTO LineItem VALUES (4, 4, 7, 10);
 INSERT INTO LineItem VALUES (4, 5, 7, 10);
 INSERT INTO LineItem VALUES (4, NULL, 7, 10);
+
+INSERT INTO Discount VALUES (1, 1,'2022-12-10 00:00:00.0000000', '2022-12-23 00:00:00.0000000', 5, 10);
+INSERT INTO Discount VALUES (1, 2,'2022-12-09 00:00:00.0000000', '2022-12-23 00:00:00.0000000', 3, 5);
