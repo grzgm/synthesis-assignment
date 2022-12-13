@@ -27,7 +27,13 @@ namespace LogicLayer.Models
 			}
 		}
 
-        [Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]
+		public Client(string username, BonusCard? bonusCard, int id, string firstname, string lastname, string email, string password) : base(id, firstname, lastname, email, password)
+		{
+			this.username = username;
+			this.bonusCard = bonusCard;
+		}
+
+		[Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]
         public string Username
         {
             get
