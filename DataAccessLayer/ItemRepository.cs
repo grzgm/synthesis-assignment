@@ -62,6 +62,8 @@ namespace DataAccessLayer
                             discountDTO.EndOfDiscount = reader.GetDateTime(reader.GetOrdinal("endOfDiscount"));
                             discountDTO.AmountForDiscount = reader.GetInt32(reader.GetOrdinal("amountForDiscount"));
                             discountDTO.DiscountValue = reader.GetDecimal(reader.GetOrdinal("discountValue"));
+                            discountDTO.DiscountMessage = reader.GetString(reader.GetOrdinal("discountMessage"));
+
 							itemsDict[reader.GetInt32(reader.GetOrdinal("id"))].Discounts.Add(discountDTO);
 						}
 					}
@@ -125,10 +127,12 @@ namespace DataAccessLayer
         {
             string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
 				"Cat.[id] AS catId, Cat.[name] AS catName, " +
-				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
+				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM Item " +
                 "LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
                 "LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
+				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
 				"WHERE Item.id = @itemId;";
             List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
@@ -146,10 +150,12 @@ namespace DataAccessLayer
 		{
 			string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
 				"Cat.[id] AS catId, Cat.[name] AS catName, " +
-				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
+				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM Item " +
                 "LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
                 "LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
+				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
 				"WHERE Item.available = @available";
 			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
@@ -190,7 +196,7 @@ namespace DataAccessLayer
 			string Query = "SELECT Item.[id], Item.[name], Item.[price], Item.[unitType], Item.[available], Item.[stockAmount], " +
                 "Cat.[id] AS catId, Cat.[name] AS catName, " +
                 "SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
-                "Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue " +
+				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
                 "FROM Item " +
                 "LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
                 "LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +

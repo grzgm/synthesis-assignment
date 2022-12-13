@@ -4,21 +4,17 @@ namespace LogicLayer.Models
 {
 	public class DiscountPercentage : Discount, IDiscount
 	{
-		private decimal percentageDiscount;
+		public DiscountPercentage(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage) : base(amountForDiscount, startOfDiscount, endOfDiscount, discountValue, discountMessage)
+		{
 
-		public DiscountPercentage(int percentageDiscount, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount) : base(amountForDiscount, startOfDiscount, endOfDiscount)
-		{
-			this.percentageDiscount= percentageDiscount;
 		}
-		public DiscountPercentage(DiscountDTO discountDTO) : base(discountDTO.AmountForDiscount, discountDTO.StartOfDiscount, discountDTO.EndOfDiscount)
+		public DiscountPercentage(DiscountDTO discountDTO) : base(discountDTO.AmountForDiscount, discountDTO.StartOfDiscount, discountDTO.EndOfDiscount, discountDTO.DiscountValue, discountDTO.DiscountMessage)
 		{
-			this.percentageDiscount = discountDTO.DiscountValue;
 		}
 
 		decimal IDiscount.CalculateDiscount(int Amount, decimal Price)
 		{
 			throw new NotImplementedException();
 		}
-		public decimal PercentageDiscount { get => percentageDiscount; set => percentageDiscount = value; }
 	}
 }

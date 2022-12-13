@@ -10,9 +10,17 @@
 	foreach (Item item in Model.items)
 	{
 <form method="post" class="item">
-	<div class="discount">
-		2 for 29,99 Euro
-	</div>
+@{
+	if(item.Discounts.Any())
+	{
+		<div class="discount">
+		@foreach (IDiscount discount in item.Discounts)
+		{
+			@discount.ToString()
+		}
+		</div>
+	}
+}
 	<div class="image">img</div>
 	<div class="details">
 		<div class="name">

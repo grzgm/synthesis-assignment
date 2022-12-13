@@ -4,21 +4,17 @@ namespace LogicLayer.Models
 {
 	public class DiscountFixed : Discount, IDiscount
 	{
-		private decimal fixedDiscount;
+		public DiscountFixed(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage) : base(amountForDiscount, startOfDiscount, endOfDiscount, discountValue, discountMessage)
+		{
 
-		public DiscountFixed(int fixedDiscount, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount) : base(amountForDiscount, startOfDiscount, endOfDiscount)
-		{
-			this.fixedDiscount = fixedDiscount;
 		}
-		public DiscountFixed(DiscountDTO discountDTO) : base(discountDTO.AmountForDiscount, discountDTO.StartOfDiscount, discountDTO.EndOfDiscount)
+		public DiscountFixed(DiscountDTO discountDTO) : base(discountDTO.AmountForDiscount, discountDTO.StartOfDiscount, discountDTO.EndOfDiscount, discountDTO.DiscountValue, discountDTO.DiscountMessage)
 		{
-			this.fixedDiscount = discountDTO.DiscountValue;
 		}
 
 		decimal IDiscount.CalculateDiscount(int Amount, decimal Price)
 		{
 			throw new NotImplementedException();
 		}
-		public decimal FixedDiscount { get => fixedDiscount; set => fixedDiscount = value; }
 	}
 }
