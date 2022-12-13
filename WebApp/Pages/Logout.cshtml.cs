@@ -8,9 +8,9 @@ namespace WebApp.Pages
     [Authorize]
     public class LogoutModel : PageModel
     {
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync();
             return RedirectToPage("Index");
         }
     }

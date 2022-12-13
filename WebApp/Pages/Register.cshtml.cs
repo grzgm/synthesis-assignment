@@ -27,7 +27,7 @@ namespace WebApp.Pages
 		{
 		}
 
-		public IActionResult OnPost()
+		public async Task<IActionResult> OnPost()
 		{
             // here check in database if cerdentials are ok
             if (ModelState.IsValid)
@@ -52,7 +52,7 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Id", Client.Id.ToString()));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                    await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
                     return RedirectToPage("/Index");
                 }

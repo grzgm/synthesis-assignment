@@ -33,7 +33,7 @@ namespace WebApp.Pages
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
 			clientRepository = new ClientRepository();
 			clientManager = new ClientManager(clientRepository);
@@ -58,7 +58,7 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Id", client.Id.ToString()));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+					await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
                     return RedirectToPage("/Index");
                 }
