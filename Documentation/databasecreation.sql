@@ -104,6 +104,7 @@ CREATE TABLE Discount
 	endOfDiscount DATETIME2 NOT NULL,
 	amountForDiscount int NOT NULL,
 	discountValue decimal NOT NULL,
+	discountTypeId int NOT NULL,
 	--unique constrain for startdate enddate and lineItemId
 );
 

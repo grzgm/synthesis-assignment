@@ -27,7 +27,7 @@ namespace WebApp.Pages
 		{
 		}
 
-		public IActionResult OnPost()
+		public async Task<IActionResult> OnPost()
 		{
             // here check in database if cerdentials are ok
             if (ModelState.IsValid)
@@ -40,7 +40,11 @@ namespace WebApp.Pages
                     {
                         Client.BonusCard = new BonusCard(Client.Id, 15);
                     }
-                    clientManager.CreateClient(Client);
+                    if(!clientManager.CreateClient(Client))
+                    {
+                        mess = "This User already exists.";
+                        return Page();
+                    }
 
                     List<Claim> claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, Client.Firstname));
@@ -48,7 +52,7 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Id", Client.Id.ToString()));
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                    await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
                     return RedirectToPage("/Index");
                 }
