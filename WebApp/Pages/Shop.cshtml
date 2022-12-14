@@ -33,7 +33,7 @@
 			@item.Price
 		</div>
 		<div class="amount">
-			<input type="number" asp-for="Amount" max="@item.StockAmount" min="0"/> 
+			<input type="number" asp-for="Amount" max="@item.StockAmount" min="1" value="0"/> 
 			<label asp-for="Amount">/ @item.StockAmount</label>
 		</div>
 	</div>
