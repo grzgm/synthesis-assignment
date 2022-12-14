@@ -6,14 +6,20 @@ main {
     overflow-y: auto;
 }
 
+.shippingData {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 35px;
+    padding: 40px;
+    background-color: #111;
+    text-align: left;
+}
+
 .items {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-flow: row dense;
-    align-items: center;
-    justify-items: center;
     gap: 20px;
-    padding-bottom: 50px;
+    grid-column: 1 / span 2;
 }
 
 .item {
@@ -22,9 +28,15 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-content: space-evenly;
-    place-items: center;
-    background-color: #111;
+    background-color: #222;
     text-align: center;
+}
+
+.discounts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    grid-column: 1 / span 2;
 }
 
 .totalPrice {
@@ -37,7 +49,7 @@ main {
     margin-bottom: 50px;
 }
 
-.shippingData{
+.shippingAddress{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -46,7 +58,7 @@ main {
     margin-bottom: 0;
 }
 
-    .shippingData button {
+    .shippingAddress button {
         width: 100%;
         grid-column: 2/ span 2;
     }

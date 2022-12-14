@@ -106,7 +106,7 @@ namespace LogicLayer.Models
 
 		public decimal TotalPrice()
 		{
-			return PriceWithoutDiscount() - DiscountProfit();
+			return Math.Round(PriceWithoutDiscount() - DiscountProfit(), 2);
 		}
 		public decimal DiscountProfit()
 		{
@@ -115,7 +115,7 @@ namespace LogicLayer.Models
 			{
 				discountProfit += lineItem.DiscountProfit();
 			}
-			return discountProfit;
+			return Math.Round(discountProfit, 2);
 		}
 		public decimal PriceWithoutDiscount()
 		{
@@ -124,7 +124,7 @@ namespace LogicLayer.Models
 			{
 				priceWithoutDiscount += lineItem.PriceWithoutDiscount();
 			}
-			return priceWithoutDiscount;
+			return Math.Round(priceWithoutDiscount, 2);
 		}
 
 		public List<LineItem> AddedItems

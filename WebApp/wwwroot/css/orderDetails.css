@@ -37,6 +37,13 @@ main {
     text-align: center;
 }
 
+.discounts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    grid-column: 1 / span 2;
+}
+
 .totalPrice {
     height: 75px;
     display: grid;
