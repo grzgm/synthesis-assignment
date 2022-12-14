@@ -25,6 +25,10 @@
 				<div class="price">
 					@lineItem.Amount x @lineItem.PurchasePrice
 				</div>
+				@if(lineItem.Item.Discounts.Any())
+				{
+					<div class="discount"> @lineItem.DiscountProfit() </div>
+				}
 			</div>
 			<button asp-page-handler="DeleteItem" asp-route-LineItemId="@lineItem.Id" class="trashIcon">
 				<span class="material-symbols-outlined">delete</span>
@@ -35,8 +39,13 @@
 }
 </div>
 <form method="post" class="formBuy">
+	<div class="shoppingCartPrice">
+			<div>PriceWithoutDiscount: @Model.shoppingCart.PriceWithoutDiscount()</div>
+			<div>DiscountProfit: @Model.shoppingCart.DiscountProfit()</div>
+			<div>TotalPrice: @Model.shoppingCart.TotalPrice()</div>
+	</div>
 	<button class="buy" asp-page-handler="PlaceOrder">
-			BUY @Model.shoppingCart.GetTotalPrice()
+			BUY
 	</button>
 </form>
 }

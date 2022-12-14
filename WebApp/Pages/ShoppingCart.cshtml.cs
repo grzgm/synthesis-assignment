@@ -33,8 +33,11 @@ namespace WebApp.Pages
         public void OnPostDeleteItem()
 		{
 			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
-			shoppingCartManager.DeleteShoppingCart(shoppingCart.AddedItems.Find(x => x.Id == LineItemId));
-            shoppingCart.AddedItems.Remove(shoppingCart.AddedItems.Find(x => x.Id == LineItemId));
+
+            LineItem deletedLineItem = shoppingCart.AddedItems.Find(x => x.Id == LineItemId);
+
+			shoppingCartManager.DeleteShoppingCart(deletedLineItem);
+            shoppingCart.AddedItems.Remove(deletedLineItem);
         }
 
         public IActionResult OnPostPlaceOrder()

@@ -32,9 +32,22 @@ namespace LogicLayer.Models
 
 		public decimal TotalPrice()
 		{
+			return PriceWithoutDiscount() - DiscountProfit();
+		}
+		public decimal DiscountProfit()
+		{
+			decimal discountProfit = 0;
+			foreach (IDiscount discount in Item.Discounts)
+			{
+				discountProfit += discount.CalculateDiscount(amount, purchasePrice);
+			}
+			return discountProfit;
+		}
+		public decimal PriceWithoutDiscount()
+		{
 			return amount * purchasePrice;
-        }
-        public int Id
+		}
+		public int Id
         {
             get { return id; }
             set { id = value; }

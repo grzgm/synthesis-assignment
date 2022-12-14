@@ -203,7 +203,7 @@ namespace DataAccessLayer
                 "LEFT JOIN Discount ON Discount.itemId = Item.id " +
                 "WHERE Item.available = 1 " +
                 "AND Item.stockAmount > 0 " +
-                "AND ( Discount.id is NULL OR (Discount.startOfDiscount <= '2022-12-13' AND Discount.endOfDiscount >= '2022-12-13'));";
+				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= GETDATE() AND Discount.endOfDiscount >= GETDATE()));";
 
 			try
 			{

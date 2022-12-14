@@ -28,9 +28,9 @@ namespace DataAccessLayer
 					{
 						LineItemDTO lineItemDTO = new LineItemDTO();
 						ItemDTO itemDTO = new ItemDTO();
-						DiscountDTO discountDTO = new DiscountDTO();
 						ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
 						ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
+						DiscountDTO discountDTO = new DiscountDTO();
 
 						int loopOrderId = reader.GetInt32(reader.GetOrdinal("id"));
 						int loopLineItemId = reader.GetInt32(reader.GetOrdinal("lineItemId"));
