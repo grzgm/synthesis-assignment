@@ -15,8 +15,8 @@ namespace LogicLayer.Models
 
 		decimal IDiscount.CalculateDiscount(int amount, decimal price)
 		{
-			int howManyDiscounts = amount % amountForDiscount;
-			return howManyDiscounts * discountValue;
+			int howManyDiscounts = amount / amountForDiscount;
+			return howManyDiscounts * discountValue * -1;
 		}
 	}
 }

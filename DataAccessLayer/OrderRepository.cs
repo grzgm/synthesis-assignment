@@ -11,6 +11,7 @@ namespace DataAccessLayer
 		{
 			List<OrderDTO> orders = new List<OrderDTO>();
 			Dictionary<int, OrderDTO> ordersDict = new Dictionary<int, OrderDTO>();
+			Dictionary<int, LineItemDTO> lineItemsDict = new Dictionary<int, LineItemDTO>();
 
 			try
 			{
@@ -27,14 +28,18 @@ namespace DataAccessLayer
 					{
 						LineItemDTO lineItemDTO = new LineItemDTO();
 						ItemDTO itemDTO = new ItemDTO();
+						DiscountDTO discountDTO = new DiscountDTO();
 						ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
 						ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
-						if(!ordersDict.ContainsKey(reader.GetInt32(reader.GetOrdinal("id"))))
+						int loopOrderId = reader.GetInt32(reader.GetOrdinal("id"));
+						int loopLineItemId = reader.GetInt32(reader.GetOrdinal("lineItemId"));
+
+						if (!ordersDict.ContainsKey(loopOrderId))
 						{
 							OrderDTO orderDTO = new OrderDTO();
 							AddressDTO addressDTO = new AddressDTO();
-							orderDTO.Id = reader.GetInt32(reader.GetOrdinal("id"));
+							orderDTO.Id = loopOrderId;
 							orderDTO.TotalBonusPointsBeforeOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsBeforeOrder"));
 							orderDTO.TotalBonusPointsAfterOrder = reader.GetInt32(reader.GetOrdinal("totalBonusPointsAfterOrder"));
 							orderDTO.OrderBonusPoints = reader.GetInt32(reader.GetOrdinal("orderBonusPoints"));
@@ -53,33 +58,64 @@ namespace DataAccessLayer
 							ordersDict.Add(orderDTO.Id, orderDTO);
 						}
 
-						lineItemDTO.Id = reader.GetInt32(reader.GetOrdinal("lineItemId"));
-						lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("purchasePrice"));
-						lineItemDTO.Amount = reader.GetInt32(reader.GetOrdinal("amount"));
+						if (!lineItemsDict.ContainsKey(loopLineItemId))
+						{
+							lineItemDTO.Id = loopLineItemId;
+							lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("purchasePrice"));
+							lineItemDTO.Amount = reader.GetInt32(reader.GetOrdinal("amount"));
 
-						itemDTO.Id = reader.GetInt32(reader.GetOrdinal("itemId"));
-						itemDTO.Name = reader.GetString(reader.GetOrdinal("itemName"));
-						itemDTO.Price = reader.GetDecimal(reader.GetOrdinal("price"));
-						itemDTO.UnitType = reader.GetString(reader.GetOrdinal("unitType"));
-						itemDTO.Available = reader.GetBoolean(reader.GetOrdinal("available"));
-						itemDTO.StockAmount = reader.GetInt32(reader.GetOrdinal("stockAmount"));
+							itemDTO.Id = reader.GetInt32(reader.GetOrdinal("itemId"));
+							itemDTO.Name = reader.GetString(reader.GetOrdinal("itemName"));
+							itemDTO.Price = reader.GetDecimal(reader.GetOrdinal("price"));
+							itemDTO.UnitType = reader.GetString(reader.GetOrdinal("unitType"));
+							itemDTO.Available = reader.GetBoolean(reader.GetOrdinal("available"));
+							itemDTO.StockAmount = reader.GetInt32(reader.GetOrdinal("stockAmount"));
+							itemDTO.Discounts = new List<DiscountDTO>();
 
-						itemCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("catId"));
-						itemCategoryDTO.Name = reader.GetString(reader.GetOrdinal("catName"));
-						itemCategoryDTO.ParentId = null;
+							itemCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("catId"));
+							itemCategoryDTO.Name = reader.GetString(reader.GetOrdinal("catName"));
+							itemCategoryDTO.ParentId = null;
 
-						itemSubCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("subCatId"));
-						itemSubCategoryDTO.Name = reader.GetString(reader.GetOrdinal("subCatName"));
-						itemSubCategoryDTO.ParentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
+							itemSubCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("subCatId"));
+							itemSubCategoryDTO.Name = reader.GetString(reader.GetOrdinal("subCatName"));
+							itemSubCategoryDTO.ParentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
 
-						itemDTO.Category = itemCategoryDTO;
-						itemDTO.SubCategory = itemSubCategoryDTO;
+							itemDTO.Category = itemCategoryDTO;
+							itemDTO.SubCategory = itemSubCategoryDTO;
 
-						lineItemDTO.ItemDTO = itemDTO;
+							lineItemDTO.ItemDTO = itemDTO;
 
-						//lineItems.Add(lineItemDTO);
+							if (!DBNull.Value.Equals(reader.GetValue(reader.GetOrdinal("discountTypeId"))))
+							{
+								discountDTO.DiscountTypeId = reader.GetInt32(reader.GetOrdinal("discountTypeId"));
+								discountDTO.StartOfDiscount = reader.GetDateTime(reader.GetOrdinal("startOfDiscount"));
+								discountDTO.EndOfDiscount = reader.GetDateTime(reader.GetOrdinal("endOfDiscount"));
+								discountDTO.AmountForDiscount = reader.GetInt32(reader.GetOrdinal("amountForDiscount"));
+								discountDTO.DiscountValue = reader.GetDecimal(reader.GetOrdinal("discountValue"));
+								discountDTO.DiscountMessage = reader.GetString(reader.GetOrdinal("discountMessage"));
 
-						ordersDict[reader.GetInt32(reader.GetOrdinal("id"))].PurchasedItems.Add(lineItemDTO);
+								itemDTO.Discounts.Add(discountDTO);
+							}
+
+							lineItemsDict.Add(lineItemDTO.Id, lineItemDTO);
+							ordersDict[loopOrderId].PurchasedItems.Add(lineItemDTO);
+						}
+						else
+						{
+
+							if (!DBNull.Value.Equals(reader.GetValue(reader.GetOrdinal("discountTypeId"))))
+							{
+								discountDTO.DiscountTypeId = reader.GetInt32(reader.GetOrdinal("discountTypeId"));
+								discountDTO.StartOfDiscount = reader.GetDateTime(reader.GetOrdinal("startOfDiscount"));
+								discountDTO.EndOfDiscount = reader.GetDateTime(reader.GetOrdinal("endOfDiscount"));
+								discountDTO.AmountForDiscount = reader.GetInt32(reader.GetOrdinal("amountForDiscount"));
+								discountDTO.DiscountValue = reader.GetDecimal(reader.GetOrdinal("discountValue"));
+								discountDTO.DiscountMessage = reader.GetString(reader.GetOrdinal("discountMessage"));
+
+								ordersDict[loopOrderId].PurchasedItems.Find(x => x.Id == loopLineItemId).ItemDTO.Discounts.Add(discountDTO);
+							}
+						}
+
 					}
 				}
 				orders = ordersDict.Values.ToList();
@@ -168,14 +204,17 @@ namespace DataAccessLayer
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
 				"Cat.id AS catId, cat.name AS catName, " +
-				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
+				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM [Order] " +
 				"LEFT JOIN Address ON Address.orderId = [Order].id " +
 				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-				"WHERE [Order].clientId = @clientId AND [Order].id = @orderId";
+				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
+				"WHERE [Order].clientId = @clientId AND [Order].id = @orderId " +
+				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate));";
 			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
 			try
@@ -197,14 +236,17 @@ namespace DataAccessLayer
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
 				"Cat.id AS catId, cat.name AS catName, " +
-				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory " +
+				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
+				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM [Order] " +
 				"LEFT JOIN Address ON Address.orderId = [Order].id " +
 				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-				"WHERE [Order].clientId = @clientId";
+				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
+				"WHERE [Order].clientId = @clientId " +
+				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate));";
 			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
 			try

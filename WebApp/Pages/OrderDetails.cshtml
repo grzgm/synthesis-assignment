@@ -49,15 +49,33 @@
 			{
 				<div class="item">
 					<div class="name">
-					@lineItem.Item.Name
+						@lineItem.Item.Name
 					</div>
 					<div class="category">
-					@lineItem.Item.Category @lineItem.Item.SubCategory
+						@lineItem.Item.Category @lineItem.Item.SubCategory
 					</div>
 					<div class="price">
-					@lineItem.Amount x @lineItem.PurchasePrice
+						@lineItem.Amount x @lineItem.PurchasePrice
 					</div>
 				</div>
+			}
+		}
+	</div>
+	<div class="items discounts">
+		@{
+			foreach (LineItem lineItem in Model.order.PurchasedItems)
+			{
+				foreach (IDiscount discount in lineItem.Item.Discounts)
+				{
+				<div class="item">
+					<div class="name">
+						@lineItem.Item.Name
+					</div>
+					<div class="category">
+						@discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
+					</div>
+				</div>
+				}
 			}
 		}
 	</div>
