@@ -13,7 +13,7 @@ main {
 
 .order {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     gap: 35px;
     padding: 40px;
     background-color: #111;

@@ -63,7 +63,7 @@ namespace WebApp.Pages
 
 			client.Id = int.Parse(User.FindFirst("Id").Value);
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
-			Order order = new Order(client, null, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
+			Order order = new Order(client, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
 			if (User.FindFirst("AmountOfPoints") != null)
 			{
 				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);

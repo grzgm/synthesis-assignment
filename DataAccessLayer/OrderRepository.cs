@@ -53,7 +53,14 @@ namespace DataAccessLayer
 							orderDTO.clientDTO = clientDTO;
 
 							orderDTO.OrderDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("orderDate")));
-							orderDTO.DeliveryDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("deliveryDate")));
+							if (!DBNull.Value.Equals(reader.GetValue(reader.GetOrdinal("deliveryDate"))))
+							{
+								orderDTO.DeliveryDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("deliveryDate")));
+							}
+							else
+							{
+								orderDTO.DeliveryDate = null;
+							}
 							orderDTO.OrderStatus = reader.GetInt32(reader.GetOrdinal("orderStatus"));
 
 							addressDTO.Country = reader.GetString(reader.GetOrdinal("country"));
@@ -179,7 +186,14 @@ namespace DataAccessLayer
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderBonusPoints", Value = DBNull.Value });
 			}
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderDate", Value = orderDTO.OrderDate.ToDateTime(TimeOnly.MinValue) });
-			cmd.Parameters.Add(new SqlParameter { ParameterName = "@deliveryDate", Value = orderDTO.DeliveryDate.ToDateTime(TimeOnly.MinValue) });
+			if (orderDTO.DeliveryDate != null)
+			{
+				cmd.Parameters.Add(new SqlParameter { ParameterName = "@deliveryDate", Value = orderDTO.DeliveryDate.Value.ToDateTime(TimeOnly.MinValue) });
+			}
+			else
+			{
+				cmd.Parameters.Add(new SqlParameter { ParameterName = "@deliveryDate", Value = DBNull.Value });
+			}
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderStatus", Value = orderDTO.OrderStatus });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@country", Value = orderDTO.AddressDTO.Country });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = orderDTO.AddressDTO.City });

@@ -29,7 +29,15 @@
 		Order Date: @Model.order.OrderDate.ToString()
 	</div>
 	<div>
-		Delivery Date: @Model.order.DeliveryDate.ToString()
+		Delivery Date: 
+		@if(Model.order.DeliveryDate.HasValue)
+		{
+			<span>@Model.order.DeliveryDate</span>
+		}
+		else
+		{
+			<span>--/--/----</span>
+		}
 	</div>
 	<div>
 		Order Status: @Model.order.OrderStatus.ToString()

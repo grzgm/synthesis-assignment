@@ -8,7 +8,7 @@ namespace LogicLayer.Models
 		private Client client;
 		private int? orderBonusPoints;
 		private DateOnly orderDate;
-		private DateOnly deliveryDate;
+		private DateOnly? deliveryDate;
 		private OrderStatus orderStatus;
 		private List<LineItem> purchasedItems;
 		private Address address;
@@ -33,7 +33,7 @@ namespace LogicLayer.Models
 			this.address = new Address(orderDTO.AddressDTO);
 		}
 
-		public Order(Client client, int? orderBonusPoints, DateOnly orderDate, DateOnly deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
+		public Order(Client client, int? orderBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
 		{
 			this.client = client;
 			this.orderBonusPoints = orderBonusPoints;
@@ -76,7 +76,7 @@ namespace LogicLayer.Models
 		}
 		public int? OrderBonusPoints { get => orderBonusPoints; set => orderBonusPoints = value; }
 		public DateOnly OrderDate { get => orderDate; set => orderDate = value; }
-		public DateOnly DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
+		public DateOnly? DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
 		public OrderStatus OrderStatus { get => orderStatus; set => orderStatus = value; }
 		public List<LineItem> PurchasedItems { get => purchasedItems; set => purchasedItems = value; }
 		public Address Address { get => address; set => address = value; }
