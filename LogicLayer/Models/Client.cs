@@ -16,41 +16,10 @@ namespace LogicLayer.Models
         public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email, clientDTO.Password)
         {
             username = clientDTO.Username;
-
-
-
-
-
-
-
-            //
-
-
-
-            //
-
-
-
             if(clientDTO.AmountOfPoints != null)
 			{
-				bonusCard = new BonusCard(clientDTO.Id, clientDTO.AmountOfPoints);
+				bonusCard = new BonusCard(clientDTO.Id, clientDTO.AmountOfPoints.Value);
 			}
-
-
-
-
-            //
-
-
-
-
-
-            //
-
-
-
-
-
         }
 
         [Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]

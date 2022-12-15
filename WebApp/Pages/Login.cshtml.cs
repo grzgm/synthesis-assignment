@@ -60,7 +60,7 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Username", client.Username));
                     if(client.BonusCard!= null)
 					{
-						claims.Add(new Claim("AmountOfPoints", client.BonusCard.AmountOfPoints));
+						claims.Add(new Claim("AmountOfPoints", client.BonusCard.AmountOfPoints.ToString()));
 					}
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

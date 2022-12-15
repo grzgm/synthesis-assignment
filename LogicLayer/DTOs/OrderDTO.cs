@@ -6,9 +6,7 @@ namespace LogicLayer.DTOs
 	public class OrderDTO
 	{
 		public int Id { get; set; }
-		public BonusCard? BonusCard { get; set; }
-		public int? TotalBonusPointsBeforeOrder { get; set; }
-		public int? TotalBonusPointsAfterOrder { get; set; }
+		public ClientDTO clientDTO { get; set; }
 		public int? OrderBonusPoints { get; set; }
 		public DateOnly OrderDate { get; set; }
 		public DateOnly DeliveryDate { get; set; }
