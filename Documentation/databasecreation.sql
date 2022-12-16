@@ -72,10 +72,9 @@ CREATE TABLE [Order]
 	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
 	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]) ON DELETE CASCADE,
 	totalBonusPointsBeforeOrder int,
-	totalBonusPointsAfterOrder int,
 	orderBonusPoints int,
 	orderDate Date NOT NULL,
-	deliveryDate Date NOT NULL,
+	deliveryDate Date,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
 	addressId int FOREIGN KEY REFERENCES [Address]([id]),
 );

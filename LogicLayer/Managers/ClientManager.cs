@@ -49,7 +49,7 @@ namespace LogicLayer.Managers
 			throw new NotImplementedException();
 		}
 
-		private ClientDTO ConvertToClientDTO(Client client)
+		public static ClientDTO ConvertToClientDTO(Client client)
 		{
 			ClientDTO clientDTO = new ClientDTO()
 			{

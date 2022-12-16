@@ -53,9 +53,15 @@ namespace WebApp.Pages
                 if (client != null)
                 {
                     List<Claim> claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.Name, client.Firstname));
+					claims.Add(new Claim("Id", client.Id.ToString()));
+					claims.Add(new Claim(ClaimTypes.Name, client.Firstname));
                     claims.Add(new Claim("Lastname", client.Lastname));
-                    claims.Add(new Claim("Id", client.Id.ToString()));
+                    claims.Add(new Claim("Email", client.Email));
+                    claims.Add(new Claim("Username", client.Username));
+                    if(client.BonusCard!= null)
+					{
+						claims.Add(new Claim("AmountOfPoints", client.BonusCard.AmountOfPoints.ToString()));
+					}
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 					await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));

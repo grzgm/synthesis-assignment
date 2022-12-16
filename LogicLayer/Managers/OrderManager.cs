@@ -71,9 +71,7 @@ namespace LogicLayer.Managers
 			OrderDTO orderDTO = new OrderDTO()
 			{
 				Id = order.Id,
-				BonusCard = order.BonusCard,
-				TotalBonusPointsBeforeOrder = order.TotalBonusPointsBeforeOrder,
-				TotalBonusPointsAfterOrder = order.TotalBonusPointsAfterOrder,
+				clientDTO = ClientManager.ConvertToClientDTO(order.Client),
 				OrderBonusPoints = order.OrderBonusPoints,
 				OrderDate = order.OrderDate,
 				DeliveryDate = order.DeliveryDate,

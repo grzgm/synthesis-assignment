@@ -47,11 +47,17 @@ namespace WebApp.Pages
                     }
 
                     List<Claim> claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.Name, Client.Firstname));
-                    claims.Add(new Claim("Lastname", Client.Lastname));
-                    claims.Add(new Claim("Id", Client.Id.ToString()));
+					claims.Add(new Claim("Id", Client.Id.ToString()));
+					claims.Add(new Claim(ClaimTypes.Name, Client.Firstname));
+					claims.Add(new Claim("Lastname", Client.Lastname));
+					claims.Add(new Claim("Email", Client.Email));
+					claims.Add(new Claim("Username", Client.Username));
+					if (Client.BonusCard != null)
+					{
+						claims.Add(new Claim("AmountOfPoints", Client.BonusCard.AmountOfPoints.ToString()));
+					}
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+					var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
 
                     return RedirectToPage("/Index");

@@ -11,9 +11,13 @@ namespace WebApp.Pages
 {
 	[Authorize]
 	public class ShippingModel : PageModel
-    {
-        [BindProperty]
-        public Address Address { get; set; }
+	{
+		[BindProperty]
+		public Address Address { get; set; }
+		public int clientAmountOfPoints { get; set; }
+		[BindProperty]
+		public int orderBonusPoints { get; set; }
+		public Client client { get; set; }
 		public string mess { get; private set; }
 
 		IShoppingCartManager shoppingCartManager;
@@ -27,6 +31,8 @@ namespace WebApp.Pages
 		{
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
+
+			client = new Client();
 		}
 		public IActionResult OnGet()
 		{
@@ -41,6 +47,12 @@ namespace WebApp.Pages
 			{
 				return RedirectToPage("/Shop");
 			}
+
+			if (User.FindFirst("AmountOfPoints") != null)
+			{
+				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
+			}
+
 			return Page();
 		}
 
@@ -49,11 +61,17 @@ namespace WebApp.Pages
 			orderRepository = new OrderRepository();
 			orderManager = new OrderManager(orderRepository);
 
-			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+			client.Id = int.Parse(User.FindFirst("Id").Value);
+			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
+			Order order = new Order(client, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
+			if (User.FindFirst("AmountOfPoints") != null)
+			{
+				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
+				order.Client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints);
+				order.OrderBonusPoints = orderBonusPoints;
+			}
 
-			Order order = new Order(null, 999, 999, 9999, DateOnly.FromDateTime(DateTime.Now), DateOnly.FromDateTime(DateTime.Now), OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
-
-			bool orderSuccess = orderManager.CreateOrder(int.Parse(User.FindFirst("Id").Value), order);
+			bool orderSuccess = orderManager.CreateOrder(client.Id, order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});
 		}
 	}

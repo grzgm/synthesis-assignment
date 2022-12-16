@@ -3,8 +3,8 @@ namespace LogicLayer.Models
 	public class BonusCard
 	{
 		private int id;
-		private int? amountOfPoints;
-        public BonusCard(int id, int? amountOfPoints)
+		private int amountOfPoints;
+        public BonusCard(int id, int amountOfPoints)
         {
             this.id = id;
             this.amountOfPoints = amountOfPoints;
@@ -29,7 +29,7 @@ namespace LogicLayer.Models
 			get { return this.id; }
 		}
 
-		public int? AmountOfPoints
+		public int AmountOfPoints
 		{
 			get { return this.amountOfPoints; }
 			set { this.amountOfPoints = value; }

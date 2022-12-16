@@ -33,6 +33,7 @@ namespace LogicLayer.Models
 			if (itemDTO.Discounts.Any())
             {
                 this.discounts= new List<IDiscount>();
+                // choosing strategy how to count bounus
                 foreach (DiscountDTO discountDTO in itemDTO.Discounts)
                 {
                     IDiscount discount;
@@ -44,7 +45,8 @@ namespace LogicLayer.Models
 						case 2:
 							discount = new DiscountPercentage(discountDTO);
                             break;
-                        // check it with DiscountTypeId 3
+                        // case when someone made a mistake with discount type.
+                        // If it is not implemented it will not be displayed and will not affect application
 						default:
                             continue;
                             break;

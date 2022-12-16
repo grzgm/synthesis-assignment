@@ -10,23 +10,34 @@
 	<div>
 		Order id: @Model.order.Id
 	</div>
-	<div>
-		Bonus Card ID
-	</div>
-	<div>
-		Total Bonus Points Before Order: @Model.order.TotalBonusPointsBeforeOrder
-	</div>
-	<div>
-		Total Bonus Points After Order: @Model.order.TotalBonusPointsAfterOrder
-	</div>
-	<div>
-		Total Bonus Points: @Model.order.OrderBonusPoints
-	</div>
+	@if (Model.order.Client.BonusCard != null)
+	{
+		<div>
+			Bonus Card ID
+		</div>
+		<div>
+			Total Bonus Points Before Order: @Model.order.Client.BonusCard.AmountOfPoints
+		</div>
+		<div>
+			Total Bonus Points After Order: @Model.order.TotalBonusPointsAfterOrder()
+		</div>
+		<div>
+			Total Bonus Points: @Model.order.OrderBonusPoints
+		</div>
+	}
 	<div>
 		Order Date: @Model.order.OrderDate.ToString()
 	</div>
 	<div>
-		Delivery Date: @Model.order.DeliveryDate.ToString()
+		Delivery Date: 
+		@if(Model.order.DeliveryDate.HasValue)
+		{
+			<span>@Model.order.DeliveryDate</span>
+		}
+		else
+		{
+			<span>--/--/----</span>
+		}
 	</div>
 	<div>
 		Order Status: @Model.order.OrderStatus.ToString()

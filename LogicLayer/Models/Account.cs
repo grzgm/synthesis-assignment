@@ -25,6 +25,7 @@ namespace LogicLayer.Models
 
         public int Id
 		{
+			set { this.id = value; }
 			get { return this.id; }
 		}
 
