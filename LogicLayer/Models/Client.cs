@@ -8,6 +8,7 @@ namespace LogicLayer.Models
         //private List<Order> previousOrders;
         private string username;
         private BonusCard? bonusCard;
+        private Address? address;
 
         public Client()
         {
@@ -16,11 +17,15 @@ namespace LogicLayer.Models
         public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email, clientDTO.Password)
         {
             username = clientDTO.Username;
-            if(clientDTO.AmountOfPoints != null)
+			if (clientDTO.AmountOfPoints != null)
 			{
 				bonusCard = new BonusCard(clientDTO.Id, clientDTO.AmountOfPoints.Value);
 			}
-        }
+			if (clientDTO.AddressDTO != null)
+			{
+				address = new Address(clientDTO.AddressDTO);
+			}
+		}
 
         [Required, MinLength(3), MaxLength(20), RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Username must consist only of letters and numbers")]
         public string Username
@@ -39,5 +44,7 @@ namespace LogicLayer.Models
 			get { return this.bonusCard; }
             set { this.bonusCard = value; }
 		}
+
+		public Address? Address { get => address; set => address = value; }
 	}
 }

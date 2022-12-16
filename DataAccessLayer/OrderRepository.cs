@@ -237,7 +237,7 @@ namespace DataAccessLayer
 				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
 				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM [Order] " +
-				"LEFT JOIN Address ON Address.orderId = [Order].id " +
+				"LEFT JOIN Address ON Address.id = [Order].addressId " +
 				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
@@ -269,7 +269,7 @@ namespace DataAccessLayer
 				"SubCat.id AS subCatId, SubCat.name AS subCatName, SubCat.parentCategory, " +
 				"Discount.discountTypeId, Discount.startOfDiscount, Discount.endOfDiscount, Discount.amountForDiscount, Discount.discountValue, Discount.discountMessage " +
 				"FROM [Order] " +
-				"LEFT JOIN Address ON Address.orderId = [Order].id " +
+				"LEFT JOIN Address ON Address.id = [Order].addressId " +
 				"LEFT JOIN LineItem ON LineItem.orderId = [Order].id " +
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +

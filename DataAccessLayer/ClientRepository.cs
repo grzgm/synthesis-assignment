@@ -70,8 +70,11 @@ namespace DataAccessLayer
 			SqlDataReader dreader;
 
 			string sql = "SELECT [Account].[id], [Account].[firstname], [Account].[lastname], [Account].[email], [Account].[password], [Account].[salt], " +
-				"[Client].[username], [Client].[amountOfPoints] " +
-				"FROM [Account] LEFT JOIN [Client] ON [Account].id = [Client].id " +
+				"[Client].[username], [Client].[amountOfPoints], Client.addressId, " +
+				"Address.country, Address.city, Address.street, Address.postalCode " +
+				"FROM [Account] " +
+				"LEFT JOIN [Client] ON [Account].id = [Client].id " +
+				"LEFT JOIN Address ON Address.id = Client.addressId " +
 				"WHERE [Client].username = @username";
 
 			cmd = new SqlCommand(sql, conn);
@@ -104,8 +107,16 @@ namespace DataAccessLayer
 					Email = dreader.GetString(dreader.GetOrdinal("email")),
 					Username = dreader.GetString(dreader.GetOrdinal("username")),
 				};
-                if(!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
-                    clientDTO.AmountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
+				if (!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
+					clientDTO.AmountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
+				if (!dreader.IsDBNull(dreader.GetOrdinal("addressId")))
+				{
+					clientDTO.AddressDTO = new AddressDTO();
+					clientDTO.AddressDTO.Country = dreader.GetString(dreader.GetOrdinal("country"));
+					clientDTO.AddressDTO.City = dreader.GetString(dreader.GetOrdinal("city"));
+					clientDTO.AddressDTO.Street = dreader.GetString(dreader.GetOrdinal("street"));
+					clientDTO.AddressDTO.PostalCode = dreader.GetString(dreader.GetOrdinal("postalCode"));
+				}
 
 				dreader.Close();
 			}

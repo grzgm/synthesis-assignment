@@ -40,5 +40,11 @@ namespace LogicLayer.DTOs
 			get;
 			set;
 		}
+
+		public AddressDTO? AddressDTO
+		{
+			get;
+			set;
+		}
 	}
 }

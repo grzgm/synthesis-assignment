@@ -76,7 +76,7 @@ CREATE TABLE [Order]
 	orderDate Date NOT NULL,
 	deliveryDate Date,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
-	addressId int FOREIGN KEY REFERENCES [Address]([id]),
+	addressId int NOT NULL FOREIGN KEY REFERENCES [Address]([id]),
 );
 
 -- LineItem Table
@@ -141,10 +141,10 @@ INSERT INTO Client VALUES (1, 'jan', 100, 4);
 INSERT INTO Client VALUES (2, 'martin2', NULL, 5);
 
 INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-02', '2022-12-04', 1, 1);
-INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-03', '2022-12-05', 1, NULL);
+INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-03', '2022-12-05', 1, 4);
 INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-01', '2022-12-04', 1, 2);
 INSERT INTO [Order] VALUES (2, NULL, NULL, '2022-12-01', '2022-12-05', 1, 3);
-INSERT INTO [Order] VALUES (2, NULL, NULL, '2022-12-03', '2022-12-05', 1, NULL);
+INSERT INTO [Order] VALUES (2, NULL, NULL, '2022-12-03', '2022-12-05', 1, 5);
 
 INSERT INTO LineItem VALUES (1, 1, 10, 10);
 INSERT INTO LineItem VALUES (2, 1, 11, 1);
