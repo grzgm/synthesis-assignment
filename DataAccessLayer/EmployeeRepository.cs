@@ -29,17 +29,6 @@ namespace DataAccessLayer
 
 				dreader.Read();
 
-				//Password Validation
-
-				string hashedPassword = dreader.GetString(dreader.GetOrdinal("password"));
-				string salt = dreader.GetString(dreader.GetOrdinal("salt"));
-
-				//if(!ValidatePassword(hashedPassword, HashPassword(password, salt)))
-				//if (!ValidatePassword(password, hashedPassword))
-				//{
-				//	throw new Exception();
-				//}
-
 				employeeDTO = new EmployeeDTO
 				{
 					Id = dreader.GetInt32(dreader.GetOrdinal("id")),
@@ -47,6 +36,8 @@ namespace DataAccessLayer
 					Lastname = dreader.GetString(dreader.GetOrdinal("lastname")),
 					Email = dreader.GetString(dreader.GetOrdinal("email")),
 					EmployeeRole = dreader.GetString(dreader.GetOrdinal("role")),
+					Password = dreader.GetString(dreader.GetOrdinal("password")),
+					Salt = dreader.GetString(dreader.GetOrdinal("salt")),
 				};
 
 				dreader.Close();

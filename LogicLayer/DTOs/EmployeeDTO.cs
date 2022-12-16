@@ -36,6 +36,10 @@ namespace LogicLayer.DTOs
 		{
 			get; set;
 		}
+		public string Salt
+		{
+			get; set;
+		}
 		public string EmployeeRole { get; set; }
 	}
 }

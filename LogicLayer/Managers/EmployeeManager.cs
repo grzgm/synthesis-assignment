@@ -1,3 +1,4 @@
+using LogicLayer.DTOs;
 using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Models;
@@ -18,7 +19,14 @@ namespace LogicLayer.Managers
 		{
 			try
 			{
-				return new Employee(employeeRepository.ReadEmployeeByEmailPassword(email, password));
+				EmployeeDTO employeeDTO = employeeRepository.ReadEmployeeByEmailPassword(email, password);
+
+				if (!AccountManager.ValidatePassword(password, employeeDTO.Password))
+				{
+					throw new Exception();
+				}
+
+				return new Employee(employeeDTO);
 			}
 			catch (Exception ex)
 			{
