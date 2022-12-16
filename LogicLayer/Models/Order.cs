@@ -71,8 +71,10 @@ namespace LogicLayer.Models
 		public Client Client { get => client; set => client = value; }
 		public int? TotalBonusPointsAfterOrder()
 		{
-			// check for adding null values
-			return orderBonusPoints + client.BonusCard.AmountOfPoints;
+			if (orderBonusPoints != null && client.BonusCard != null)
+				return orderBonusPoints + client.BonusCard.AmountOfPoints;
+			else
+				return null;
 		}
 		public int? OrderBonusPoints { get => orderBonusPoints; set => orderBonusPoints = value; }
 		public DateOnly OrderDate { get => orderDate; set => orderDate = value; }
