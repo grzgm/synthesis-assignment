@@ -62,3 +62,11 @@ main {
         width: 100%;
         grid-column: 2/ span 2;
     }
+
+    .shippingAddress .defaultAddress {
+        display: grid;
+        place-content: start center;
+        grid-auto-flow: column;
+        width: 100%;
+        grid-column: 1/ span 4;
+    }

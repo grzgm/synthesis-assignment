@@ -17,6 +17,8 @@ namespace WebApp.Pages
 		public int clientAmountOfPoints { get; set; }
 		[BindProperty]
 		public int orderBonusPoints { get; set; }
+		[BindProperty]
+		public bool useDefaultAddress { get; set; }
 		public Client client { get; set; }
 		public string mess { get; private set; }
 
@@ -63,6 +65,16 @@ namespace WebApp.Pages
 
 			client.Id = int.Parse(User.FindFirst("Id").Value);
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
+
+			if(useDefaultAddress)
+			{
+				Address.Country = User.FindFirst("Country").Value;
+				Address.City = User.FindFirst("City").Value;
+				Address.Street = User.FindFirst("Street").Value;
+				Address.PostalCode = User.FindFirst("PostalCode").Value;
+			}
+
+
 			Order order = new Order(client, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
 			if (User.FindFirst("AmountOfPoints") != null)
 			{
