@@ -159,10 +159,12 @@ namespace DataAccessLayer
 			SqlDataReader dreader;
 
 			string sql = "BEGIN TRANSACTION;" +
-						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderDate, @deliveryDate, @orderStatus);" +
+						 "INSERT INTO Address VALUES (@country, @city, @street, @postalCode);" +
+						 "DECLARE @addressId INT;" +
+						 "SET @addressId = IDENT_CURRENT('Address')" +
+						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderDate, @deliveryDate, @orderStatus, @addressId);" +
 						 "DECLARE @orderId INT;" +
 						 "SET @orderId = IDENT_CURRENT('Order')" +
-						 "INSERT INTO Address VALUES (@orderId, @country, @city, @street, @postalCode);" +
 						 "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;" +
 						 "DELETE FROM ShoppingCart WHERE clientId = @clientId;";
 
