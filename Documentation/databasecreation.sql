@@ -29,6 +29,16 @@ CREATE TABLE Item
 	stockAmount int NOT NULL,
 );
 
+-- Address Table
+CREATE TABLE Address
+(
+	id int NOT NULL PRIMARY KEY IDENTITY (1, 1),
+	country nvarchar(20) NOT NULL,
+	city nvarchar(20) NOT NULL,
+	street nvarchar(20) NOT NULL,
+	postalCode nvarchar(20) NOT NULL,
+);
+
 -- Account Table
 CREATE TABLE Account
 (
@@ -46,6 +56,7 @@ CREATE TABLE Client
 	id int NOT NULL FOREIGN KEY REFERENCES [Account]([id]) ON DELETE CASCADE UNIQUE,
 	[username] nvarchar(20) NOT NULL UNIQUE,
 	amountOfPoints int,
+	addressId int FOREIGN KEY REFERENCES [Address]([id]),
 );
 
 -- Employee Table
@@ -66,6 +77,7 @@ CREATE TABLE [Order]
 	orderDate Date NOT NULL,
 	deliveryDate Date NOT NULL,
 	orderStatus int NOT NULL FOREIGN KEY REFERENCES [OrderStatus]([id]),
+	addressId int FOREIGN KEY REFERENCES [Address]([id]),
 );
 
 -- LineItem Table
@@ -83,16 +95,6 @@ CREATE TABLE ShoppingCart
 (
 	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]),
 	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE UNIQUE,
-);
-
--- Address Table
-CREATE TABLE Address
-(
-	orderId int FOREIGN KEY REFERENCES [Order]([id]) ON DELETE CASCADE UNIQUE,
-	country nvarchar(20) NOT NULL,
-	city nvarchar(20) NOT NULL,
-	street nvarchar(20) NOT NULL,
-	postalCode nvarchar(20) NOT NULL,
 );
 
 -- Discount Table
@@ -126,17 +128,23 @@ INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
 INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
+INSERT INTO [Address] VALUES ('1', 'adressnumber', 'j@j', 'aa');
+INSERT INTO [Address] VALUES ('2', 'adressnumber', 'j@j', 'aa');
+INSERT INTO [Address] VALUES ('3', 'adressnumber', 'j@j', 'aa');
+INSERT INTO [Address] VALUES ('4', 'adressnumber', 'j@j', 'aa');
+INSERT INTO [Address] VALUES ('5', 'adressnumber', 'j@j', 'aa');
+
 INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
 INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
 
-INSERT INTO Client VALUES (1, 'jan', 100);
-INSERT INTO Client VALUES (2, 'martin2', NULL);
+INSERT INTO Client VALUES (1, 'jan', 100, 4);
+INSERT INTO Client VALUES (2, 'martin2', NULL, 5);
 
-INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-01', '2022-12-04', 1);
-INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-02', '2022-12-04', 1);
-INSERT INTO [Order] VALUES (1, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
-INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-01', '2022-12-05', 1);
-INSERT INTO [Order] VALUES (2, 1, 1, 10, '2022-12-03', '2022-12-05', 1);
+INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-02', '2022-12-04', 1, 1);
+INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-03', '2022-12-05', 1, NULL);
+INSERT INTO [Order] VALUES (1, 1, 10, '2022-12-01', '2022-12-04', 1, 2);
+INSERT INTO [Order] VALUES (2, NULL, NULL, '2022-12-01', '2022-12-05', 1, 3);
+INSERT INTO [Order] VALUES (2, NULL, NULL, '2022-12-03', '2022-12-05', 1, NULL);
 
 INSERT INTO LineItem VALUES (1, 1, 10, 10);
 INSERT INTO LineItem VALUES (2, 1, 11, 1);
