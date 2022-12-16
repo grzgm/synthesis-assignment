@@ -45,6 +45,10 @@ namespace WebApp.Pages
                         mess = "This User already exists.";
                         return Page();
                     }
+                    else
+					{
+						Client = clientManager.ReadClientByUsernamePassword(Client.Username, Client.Password);
+					}
 
                     List<Claim> claims = new List<Claim>();
 					claims.Add(new Claim("Id", Client.Id.ToString()));
