@@ -50,14 +50,28 @@ namespace LogicLayer.Models
 			this.address = address;
 		}
 
-		public decimal GetTotalPrice()
+
+		public decimal TotalPrice()
 		{
-			decimal totalPrice = 0;
+			return Math.Round(PriceWithoutDiscount() - DiscountProfit(), 2);
+		}
+		public decimal DiscountProfit()
+		{
+			decimal discountProfit = 0;
 			foreach (LineItem lineItem in purchasedItems)
 			{
-				totalPrice += (lineItem.PurchasePrice * lineItem.Amount);
+				discountProfit += lineItem.DiscountProfit();
 			}
-			return totalPrice;
+			return Math.Round(discountProfit, 2);
+		}
+		public decimal PriceWithoutDiscount()
+		{
+			decimal priceWithoutDiscount = 0;
+			foreach (LineItem lineItem in purchasedItems)
+			{
+				priceWithoutDiscount += lineItem.PriceWithoutDiscount();
+			}
+			return Math.Round(priceWithoutDiscount, 2);
 		}
 		public int Id { get => id; set => id = value; }
 		public BonusCard? BonusCard { get => bonusCard; set => bonusCard = value; }

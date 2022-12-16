@@ -35,7 +35,7 @@ namespace LogicLayer.Managers
 			}
 			catch (Exception ex)
 			{
-				return null;
+				return new ShoppingCart();
 			}
 		}
 

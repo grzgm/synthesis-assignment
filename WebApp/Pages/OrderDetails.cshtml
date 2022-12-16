@@ -44,24 +44,47 @@
 		Postal Code: @Model.order.Address.PostalCode
 	</div>
 	<div class="items">
+		Products:
 		@{
 			foreach (LineItem lineItem in Model.order.PurchasedItems)
 			{
 				<div class="item">
 					<div class="name">
-					@lineItem.Item.Name
+						@lineItem.Item.Name
 					</div>
 					<div class="category">
-					@lineItem.Item.Category @lineItem.Item.SubCategory
+						@lineItem.Item.Category @lineItem.Item.SubCategory
 					</div>
 					<div class="price">
-					@lineItem.Amount x @lineItem.PurchasePrice
+						@lineItem.Amount x @lineItem.PurchasePrice
 					</div>
 				</div>
 			}
 		}
+		Product Price: @Model.order.PriceWithoutDiscount()
+	</div>
+	<div class="discounts">
+		Discounts:
+		@{
+			foreach (LineItem lineItem in Model.order.PurchasedItems)
+			{
+				foreach (IDiscount discount in lineItem.Item.Discounts)
+				{
+				<div class="item">
+					<div class="name">
+						@lineItem.Item.Name
+					</div>
+					<div></div>
+					<div>
+						- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
+					</div>
+				</div>
+				}
+			}
+		}
+		Discounts Profit: - @Model.order.DiscountProfit()
 	</div>
 	<div class="totalPrice">
-		Total Price: @Model.order.GetTotalPrice()
+		Total Price: @Model.order.TotalPrice()
 	</div>
 </div>

@@ -104,17 +104,30 @@ namespace LogicLayer.Models
 			return Availability;
 		}
 
-		public decimal GetTotalPrice()
-        {
-            decimal totalPrice = 0;
-            foreach (LineItem lineItem in addedItems)
-            {
-                totalPrice += (lineItem.PurchasePrice * lineItem.Amount);
-            }
-            return totalPrice;
-        }
+		public decimal TotalPrice()
+		{
+			return Math.Round(PriceWithoutDiscount() - DiscountProfit(), 2);
+		}
+		public decimal DiscountProfit()
+		{
+			decimal discountProfit = 0;
+			foreach (LineItem lineItem in addedItems)
+			{
+				discountProfit += lineItem.DiscountProfit();
+			}
+			return Math.Round(discountProfit, 2);
+		}
+		public decimal PriceWithoutDiscount()
+		{
+			decimal priceWithoutDiscount = 0;
+			foreach (LineItem lineItem in addedItems)
+			{
+				priceWithoutDiscount += lineItem.PriceWithoutDiscount();
+			}
+			return Math.Round(priceWithoutDiscount, 2);
+		}
 
-        public List<LineItem> AddedItems
+		public List<LineItem> AddedItems
         {
             get { return this.addedItems; }
             set { this.addedItems = value; }
