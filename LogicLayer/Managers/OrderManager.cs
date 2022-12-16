@@ -15,11 +15,11 @@ namespace LogicLayer.Managers
 				?? throw new ArgumentNullException(nameof(orderRepository));
 		}
 
-		bool IOrderManager.CreateOrder(int clientId, Order order)
+		bool IOrderManager.CreateOrder(Order order)
 		{
 			try
 			{
-				return orderRepository.CreateOrder(clientId, ConvertToOrderDTO(order));
+				return orderRepository.CreateOrder(ConvertToOrderDTO(order));
 			}
 			catch (Exception ex)
 			{

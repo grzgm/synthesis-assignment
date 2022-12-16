@@ -151,7 +151,7 @@ namespace DataAccessLayer
 
 			return orders;
 		}
-		bool IOrderRepository.CreateOrder(int clientId, OrderDTO orderDTO)
+		bool IOrderRepository.CreateOrder(OrderDTO orderDTO)
 		{
 			GetConnection();
 			conn.Open();

@@ -83,7 +83,7 @@ namespace WebApp.Pages
 				order.OrderBonusPoints = orderBonusPoints;
 			}
 
-			bool orderSuccess = orderManager.CreateOrder(client.Id, order);
+			bool orderSuccess = orderManager.CreateOrder(order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});
 		}
 	}
