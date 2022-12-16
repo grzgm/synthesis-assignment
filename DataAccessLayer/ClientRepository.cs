@@ -19,7 +19,7 @@ namespace DataAccessLayer
                         "INSERT INTO Account VALUES (@firstname, @lastname, @email, @password, @salt);" +
                         "DECLARE @id INT;" +
                         "SET @id = IDENT_CURRENT('Account')" +
-                        "INSERT INTO Client VALUES (@id, @username, @amountOfPoints);" +
+                        "INSERT INTO Client VALUES (@id, @username, @amountOfPoints, NULL);" +
                         "COMMIT;";
 
             cmd = new SqlCommand(sql, conn);
@@ -28,11 +28,8 @@ namespace DataAccessLayer
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@email", Value =  clientDTO.Email});
             cmd.Parameters.Add(new SqlParameter { ParameterName = "@username", Value = clientDTO.Username });
 
-			string salt = GenerateSalt();
-			string hashedPassword = HashPassword(clientDTO.Password, salt);
-
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@password", Value =  hashedPassword });
-            cmd.Parameters.Add(new SqlParameter { ParameterName = "@salt", Value = salt });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@password", Value =  clientDTO.Password });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@salt", Value = clientDTO.Salt });
 			if(clientDTO.AmountOfPoints == null)
 			{
 				cmd.Parameters.AddWithValue("@amountOfPoints", DBNull.Value);
@@ -88,17 +85,6 @@ namespace DataAccessLayer
 
 				dreader.Read();
 
-				//Password Validation
-
-				string hashedPassword = dreader.GetString(dreader.GetOrdinal("password"));
-				string salt = dreader.GetString(dreader.GetOrdinal("salt"));
-
-				//if(!ValidatePassword(hashedPassword, HashPassword(password, salt)))
-				if(!ValidatePassword(password, hashedPassword))
-				{
-					throw new Exception();
-				}
-
 				clientDTO = new ClientDTO
 				{
 					Id = dreader.GetInt32(dreader.GetOrdinal("id")),
@@ -106,9 +92,13 @@ namespace DataAccessLayer
 					Lastname = dreader.GetString(dreader.GetOrdinal("lastname")),
 					Email = dreader.GetString(dreader.GetOrdinal("email")),
 					Username = dreader.GetString(dreader.GetOrdinal("username")),
+					Password = dreader.GetString(dreader.GetOrdinal("password")),
+					Salt = dreader.GetString(dreader.GetOrdinal("salt")),
 				};
+
 				if (!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
 					clientDTO.AmountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
+
 				if (!dreader.IsDBNull(dreader.GetOrdinal("addressId")))
 				{
 					clientDTO.AddressDTO = new AddressDTO();

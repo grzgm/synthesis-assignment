@@ -14,7 +14,7 @@ namespace LogicLayer.Models
         {
 
         }
-        public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email, clientDTO.Password)
+        public Client(ClientDTO clientDTO) : base(clientDTO.Id, clientDTO.Firstname, clientDTO.Lastname, clientDTO.Email)
         {
             username = clientDTO.Username;
 			if (clientDTO.AmountOfPoints != null)

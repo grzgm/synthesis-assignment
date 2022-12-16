@@ -19,7 +19,11 @@ namespace LogicLayer.Managers
 		{
 			try
 			{
-				return clientRepository.CreateClient(ConvertToClientDTO(client));
+				ClientDTO clientDTO= ConvertToClientDTO(client);
+				clientDTO.Salt = AccountManager.GenerateSalt();
+				clientDTO.Password = AccountManager.HashPassword(client.Password, clientDTO.Salt);
+
+				return clientRepository.CreateClient(clientDTO);
 			}
 			catch (Exception ex)
 			{
@@ -31,7 +35,15 @@ namespace LogicLayer.Managers
 		{
 			try
 			{
-				return new Client(clientRepository.ReadClientByUsernamePassword(username, password));
+				ClientDTO clientDTO = clientRepository.ReadClientByUsernamePassword(username, password);
+
+				//if(!ValidatePassword(hashedPassword, HashPassword(password, salt)))
+				if (!AccountManager.ValidatePassword(password, clientDTO.Password))
+				{
+					throw new Exception();
+				}
+
+				return new Client(clientDTO);
 			}
 			catch (Exception ex)
 			{

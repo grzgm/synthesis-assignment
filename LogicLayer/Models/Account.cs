@@ -13,8 +13,15 @@ namespace LogicLayer.Models
         public Account()
         {
 
-        }
-        protected Account(int id, string firstname, string lastname, string email, string password)
+		}
+		protected Account(int id, string firstname, string lastname, string email)
+		{
+			this.id = id;
+			this.firstname = firstname;
+			this.lastname = lastname;
+			this.email = email;
+		}
+		protected Account(int id, string firstname, string lastname, string email, string password)
         {
             this.id = id;
             this.firstname = firstname;

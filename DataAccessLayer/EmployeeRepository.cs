@@ -35,10 +35,10 @@ namespace DataAccessLayer
 				string salt = dreader.GetString(dreader.GetOrdinal("salt"));
 
 				//if(!ValidatePassword(hashedPassword, HashPassword(password, salt)))
-				if (!ValidatePassword(password, hashedPassword))
-				{
-					throw new Exception();
-				}
+				//if (!ValidatePassword(password, hashedPassword))
+				//{
+				//	throw new Exception();
+				//}
 
 				employeeDTO = new EmployeeDTO
 				{
