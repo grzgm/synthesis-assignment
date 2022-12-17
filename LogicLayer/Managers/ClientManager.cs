@@ -54,6 +54,17 @@ namespace LogicLayer.Managers
 		{
 			throw new NotImplementedException();
 		}
+		bool IClientManager.UpdateClientBonusPoints(int clientId, int amountOfPoints)
+		{
+			try
+			{
+				return clientRepository.UpdateClientBonusPoints(clientId, amountOfPoints);
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
 
 		bool IClientManager.DeleteClient(Client client)
 		{

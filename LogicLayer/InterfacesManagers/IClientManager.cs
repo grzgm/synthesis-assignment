@@ -8,7 +8,8 @@ namespace LogicLayer.InterfacesManagers
 
 		Client ReadClientByUsernamePassword(string username, string password);
 
-		bool UpdateClient(Client client);
+		bool UpdateClient(Client client); 
+		bool UpdateClientBonusPoints(int clientId, int amountOfPoints);
 
 		bool DeleteClient(Client client);
 	}

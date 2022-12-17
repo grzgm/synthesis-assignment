@@ -6,13 +6,14 @@ main {
     overflow-y: auto;
 }
 
-.shippingData {
+.orderData {
     display: grid;
     grid-template-columns: auto auto;
     gap: 35px;
     padding: 40px;
     background-color: #111;
     text-align: left;
+    margin-bottom: 50px;
 }
 
 .items {
@@ -39,14 +40,12 @@ main {
     grid-column: 1 / span 2;
 }
 
-.totalPrice {
-    height: 75px;
+.cell {
     align-self: center;
     display: grid;
     place-content: center;
     place-items: center;
-    background-color: #111;
-    margin-bottom: 50px;
+    grid-column: 1 / span 2;
 }
 
 .shippingAddress{

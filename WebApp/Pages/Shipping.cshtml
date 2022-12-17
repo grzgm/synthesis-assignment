@@ -7,7 +7,7 @@
 }
 @Model.clientAmountOfPoints;
 @Model.client.Id
-<div class="shippingData">
+<div class="orderData">
 	<div class="items">
 		Products:
 		@{
@@ -50,10 +50,17 @@
 	}
 		Discounts Profit: - @Model.shoppingCart.DiscountProfit()
 	</div>
-</div>
 
-<div class="totalPrice">
-	Total Price: @Model.shoppingCart.TotalPrice()
+	@if (@User.FindFirst("AmountOfPoints") != null)
+	{
+		<div class="bonusPoints cell">
+			New Bonus Points: @Math.Floor(Model.shoppingCart.TotalPrice())
+		</div>
+	}
+
+	<div class="totalPrice cell">
+		Total Price: @Model.shoppingCart.TotalPrice()
+	</div>
 </div>
 
 <form method="post" class="shippingAddress">

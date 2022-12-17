@@ -67,8 +67,6 @@ namespace LogicLayer.Models
 			}
 			return Math.Round(priceWithoutDiscount, 2);
 		}
-		public int Id { get => id; set => id = value; }
-		public Client Client { get => client; set => client = value; }
 		public int? TotalBonusPointsAfterOrder()
 		{
 			if (orderBonusPoints != null && client.BonusCard != null)
@@ -76,6 +74,8 @@ namespace LogicLayer.Models
 			else
 				return null;
 		}
+		public int Id { get => id; set => id = value; }
+		public Client Client { get => client; set => client = value; }
 		public int? OrderBonusPoints { get => orderBonusPoints; set => orderBonusPoints = value; }
 		public DateOnly OrderDate { get => orderDate; set => orderDate = value; }
 		public DateOnly? DeliveryDate { get => deliveryDate; set => deliveryDate = value; }

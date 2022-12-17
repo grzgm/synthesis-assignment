@@ -6,6 +6,7 @@ using LogicLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Reflection;
 
 namespace WebApp.Pages
 {
@@ -15,8 +16,7 @@ namespace WebApp.Pages
 		[BindProperty]
 		public Address Address { get; set; }
 		public int clientAmountOfPoints { get; set; }
-		[BindProperty]
-		public int orderBonusPoints { get; set; }
+
 		[BindProperty]
 		public bool useDefaultAddress { get; set; }
 		public Client client { get; set; }
@@ -26,6 +26,8 @@ namespace WebApp.Pages
 		IShoppingCartRepository shoppingCartRepository;
 		IOrderRepository orderRepository;
 		IOrderManager orderManager;
+		IClientRepository clientRepository;
+		IClientManager clientManager;
 
 		public ShoppingCart shoppingCart;
 
@@ -62,6 +64,8 @@ namespace WebApp.Pages
 		{
 			orderRepository = new OrderRepository();
 			orderManager = new OrderManager(orderRepository);
+			clientRepository = new ClientRepository();
+			clientManager = new ClientManager(clientRepository);
 
 			client.Id = int.Parse(User.FindFirst("Id").Value);
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
@@ -80,10 +84,13 @@ namespace WebApp.Pages
 			{
 				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
 				order.Client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints);
-				order.OrderBonusPoints = orderBonusPoints;
+				order.OrderBonusPoints = Decimal.ToInt32(Math.Floor(order.TotalPrice()));
 			}
-
-			bool orderSuccess = orderManager.CreateOrder(order);
+			bool orderSuccess;
+			if (order.Client.BonusCard != null)
+				orderSuccess = (orderManager.CreateOrder(order) && clientManager.UpdateClientBonusPoints(client.Id, order.TotalBonusPointsAfterOrder().Value));
+			else
+				orderSuccess = orderManager.CreateOrder(order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});
 		}
 	}

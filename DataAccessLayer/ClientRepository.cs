@@ -127,6 +127,37 @@ namespace DataAccessLayer
 		{
 			throw new NotImplementedException();
 		}
+		bool IClientRepository.UpdateClientBonusPoints(int clientId, int amountOfPoints)
+		{
+			GetConnection();
+			conn.Open();
+			SqlCommand cmd;
+
+			string sql = "UPDATE Client SET amountOfPoints = @amountOfPoints WHERE id = @id;";
+
+			cmd = new SqlCommand(sql, conn);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = clientId });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@amountOfPoints", Value = amountOfPoints });
+
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+				throw new Exception("Database error");
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Application error");
+			}
+			finally
+			{
+				cmd.Dispose();
+				conn.Close();
+			}
+			return true;
+		}
 
 		bool IClientRepository.DeleteClient(ClientDTO clientDTO)
 		{
