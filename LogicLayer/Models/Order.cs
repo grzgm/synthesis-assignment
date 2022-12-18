@@ -7,6 +7,7 @@ namespace LogicLayer.Models
 		private int id;
 		private Client client;
 		private int? orderBonusPoints;
+		private int? orderSpentBonusPoints;
 		private DateOnly orderDate;
 		private DateOnly? deliveryDate;
 		private OrderStatus orderStatus;
@@ -22,6 +23,7 @@ namespace LogicLayer.Models
 			this.id = orderDTO.Id;
 			this.client = new Client(orderDTO.clientDTO);
 			this.orderBonusPoints = orderDTO.OrderBonusPoints;
+			this.orderSpentBonusPoints = orderDTO.OrderSpentBonusPoints;
 			this.orderDate = orderDTO.OrderDate;
 			this.deliveryDate = orderDTO.DeliveryDate;
 			this.orderStatus = (OrderStatus)orderDTO.OrderStatus;
@@ -33,10 +35,11 @@ namespace LogicLayer.Models
 			this.address = new Address(orderDTO.AddressDTO);
 		}
 
-		public Order(Client client, int? orderBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
+		public Order(Client client, int? orderBonusPoints, int? orderSpentBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
 		{
 			this.client = client;
 			this.orderBonusPoints = orderBonusPoints;
+			this.orderSpentBonusPoints = orderSpentBonusPoints;
 			this.orderDate = orderDate;
 			this.deliveryDate = deliveryDate;
 			this.orderStatus = orderStatus;
@@ -69,14 +72,15 @@ namespace LogicLayer.Models
 		}
 		public int? TotalBonusPointsAfterOrder()
 		{
-			if (orderBonusPoints != null && client.BonusCard != null)
-				return orderBonusPoints + client.BonusCard.AmountOfPoints;
+			if (orderBonusPoints != null&& client.BonusCard != null && orderSpentBonusPoints != null )
+				return orderBonusPoints + client.BonusCard.AmountOfPoints - orderSpentBonusPoints;
 			else
 				return null;
 		}
 		public int Id { get => id; set => id = value; }
 		public Client Client { get => client; set => client = value; }
 		public int? OrderBonusPoints { get => orderBonusPoints; set => orderBonusPoints = value; }
+		public int? OrderSpentBonusPoints { get => orderSpentBonusPoints; set => orderSpentBonusPoints = value; }
 		public DateOnly OrderDate { get => orderDate; set => orderDate = value; }
 		public DateOnly? DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
 		public OrderStatus OrderStatus { get => orderStatus; set => orderStatus = value; }

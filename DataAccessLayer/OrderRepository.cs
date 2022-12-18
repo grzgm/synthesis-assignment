@@ -48,6 +48,7 @@ namespace DataAccessLayer
 							{
 								clientDTO.AmountOfPoints = reader.GetInt32(reader.GetOrdinal("totalBonusPointsBeforeOrder"));
 								orderDTO.OrderBonusPoints = reader.GetInt32(reader.GetOrdinal("orderBonusPoints"));
+								orderDTO.OrderSpentBonusPoints = reader.GetInt32(reader.GetOrdinal("orderSpentBonusPoints"));
 							}
 
 							orderDTO.clientDTO = clientDTO;
@@ -162,7 +163,7 @@ namespace DataAccessLayer
 						 "INSERT INTO Address VALUES (@country, @city, @street, @postalCode);" +
 						 "DECLARE @addressId INT;" +
 						 "SET @addressId = IDENT_CURRENT('Address')" +
-						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderDate, @deliveryDate, @orderStatus, @addressId);" +
+						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderSpentBonusPoints, @orderDate, @deliveryDate, @orderStatus, @addressId);" +
 						 "DECLARE @orderId INT;" +
 						 "SET @orderId = IDENT_CURRENT('Order')" +
 						 "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;" +
@@ -181,6 +182,7 @@ namespace DataAccessLayer
 			{
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@totalBonusPointsBeforeOrder", Value = orderDTO.clientDTO.AmountOfPoints });
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderBonusPoints", Value = orderDTO.OrderBonusPoints });
+				cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderSpentBonusPoints", Value = orderDTO.OrderSpentBonusPoints });
 			}
 			else
 			{
@@ -231,7 +233,7 @@ namespace DataAccessLayer
 
 		OrderDTO IOrderRepository.ReadOrderByClientIdOrderId(int clientId, int orderId)
 		{
-			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
 				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
@@ -263,7 +265,7 @@ namespace DataAccessLayer
 
 		List<OrderDTO> IOrderRepository.ReadOrdersByClientId(int clientId)
 		{
-			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
 				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +

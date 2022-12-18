@@ -8,6 +8,7 @@ namespace LogicLayer.DTOs
 		public int Id { get; set; }
 		public ClientDTO clientDTO { get; set; }
 		public int? OrderBonusPoints { get; set; }
+		public int? OrderSpentBonusPoints { get; set; }
 		public DateOnly OrderDate { get; set; }
 		public DateOnly? DeliveryDate { get; set; }
 		public int OrderStatus { get; set; }

@@ -73,6 +73,7 @@ namespace LogicLayer.Managers
 				Id = order.Id,
 				clientDTO = ClientManager.ConvertToClientDTO(order.Client),
 				OrderBonusPoints = order.OrderBonusPoints,
+				OrderSpentBonusPoints = order.OrderSpentBonusPoints,
 				OrderDate = order.OrderDate,
 				DeliveryDate = order.DeliveryDate,
 				OrderStatus = (int)order.OrderStatus,

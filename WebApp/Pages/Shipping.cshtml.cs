@@ -15,10 +15,11 @@ namespace WebApp.Pages
 	{
 		[BindProperty]
 		public Address Address { get; set; }
-		public int clientAmountOfPoints { get; set; }
-
 		[BindProperty]
 		public bool useDefaultAddress { get; set; }
+		[BindProperty]
+		public int amountOfSpentPoints { get; set; }
+		public int clientAmountOfPoints { get; set; }
 		public Client client { get; set; }
 		public string mess { get; private set; }
 
@@ -35,8 +36,6 @@ namespace WebApp.Pages
 		{
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
-
-			client = new Client();
 		}
 		public IActionResult OnGet()
 		{
@@ -67,6 +66,8 @@ namespace WebApp.Pages
 			clientRepository = new ClientRepository();
 			clientManager = new ClientManager(clientRepository);
 
+			client = new Client();
+
 			client.Id = int.Parse(User.FindFirst("Id").Value);
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
 
@@ -79,12 +80,14 @@ namespace WebApp.Pages
 			}
 
 
-			Order order = new Order(client, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
+			Order order = new Order(client, null, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
 			if (User.FindFirst("AmountOfPoints") != null)
 			{
 				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
-				order.Client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints);
+				client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints);
+				order.Client.BonusCard = client.BonusCard;
 				order.OrderBonusPoints = Decimal.ToInt32(Math.Floor(order.TotalPrice()));
+				order.OrderSpentBonusPoints = amountOfSpentPoints;
 			}
 			bool orderSuccess;
 			if (order.Client.BonusCard != null)

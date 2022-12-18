@@ -56,7 +56,7 @@ a {
     text-decoration: none;
 }
 
-input {
+input, select {
     border: none;
     background-color: #444;
     padding: 5px 15px;
