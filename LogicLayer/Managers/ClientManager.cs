@@ -50,6 +50,18 @@ namespace LogicLayer.Managers
 			}
 		}
 
+		int? IClientManager.ReadClientBonusPointsById(int clientId)
+		{
+			try
+			{
+				return clientRepository.ReadClientBonusPointsById(clientId);
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+
 		bool IClientManager.UpdateClient(Client client)
 		{
 			throw new NotImplementedException();

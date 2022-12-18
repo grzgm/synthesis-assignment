@@ -3,10 +3,14 @@ using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Reflection;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace WebApp.Pages
 {
@@ -19,7 +23,6 @@ namespace WebApp.Pages
 		public bool useDefaultAddress { get; set; }
 		[BindProperty]
 		public int amountOfSpentPoints { get; set; }
-		public int clientAmountOfPoints { get; set; }
 		public Client client { get; set; }
 		public string mess { get; private set; }
 
@@ -36,24 +39,25 @@ namespace WebApp.Pages
 		{
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
+			clientRepository = new ClientRepository();
+			clientManager = new ClientManager(clientRepository);
+
+			client = new Client();
 		}
 		public IActionResult OnGet()
 		{
-			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+			GetClient();
+
+			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
 			if(!shoppingCart.AreItemsAvailable())
 			{
-				shoppingCartManager.UpdateShoppingCartItems(int.Parse(User.FindFirst("Id").Value), shoppingCart);
+				shoppingCartManager.UpdateShoppingCartItems(client.Id, shoppingCart);
 				mess = "We don't have some items anymore, your order was adjusted";
 			}
 
 			if(shoppingCart.IsEmpty())
 			{
 				return RedirectToPage("/Shop");
-			}
-
-			if (User.FindFirst("AmountOfPoints") != null)
-			{
-				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
 			}
 
 			return Page();
@@ -63,12 +67,9 @@ namespace WebApp.Pages
 		{
 			orderRepository = new OrderRepository();
 			orderManager = new OrderManager(orderRepository);
-			clientRepository = new ClientRepository();
-			clientManager = new ClientManager(clientRepository);
 
-			client = new Client();
+			GetClient();
 
-			client.Id = int.Parse(User.FindFirst("Id").Value);
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
 
 			if(useDefaultAddress)
@@ -81,10 +82,8 @@ namespace WebApp.Pages
 
 
 			Order order = new Order(client, null, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
-			if (User.FindFirst("AmountOfPoints") != null)
+			if (client.BonusCard != null)
 			{
-				clientAmountOfPoints = int.Parse(User.FindFirst("AmountOfPoints").Value);
-				client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints);
 				order.Client.BonusCard = client.BonusCard;
 				order.OrderBonusPoints = Decimal.ToInt32(Math.Floor(order.TotalPrice()));
 				order.OrderSpentBonusPoints = amountOfSpentPoints;
@@ -95,6 +94,15 @@ namespace WebApp.Pages
 			else
 				orderSuccess = orderManager.CreateOrder(order);
 			return RedirectToPage("/Index", new { OrderSuccess = orderSuccess});
+		}
+		public void GetClient()
+		{
+			client.Id = int.Parse(User.FindFirst("Id").Value);
+			int? clientAmountOfPoints = clientManager.ReadClientBonusPointsById(client.Id);
+			if (clientAmountOfPoints != null)
+			{
+				client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints.Value);
+			}
 		}
 	}
 }

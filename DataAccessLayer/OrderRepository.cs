@@ -188,6 +188,7 @@ namespace DataAccessLayer
 			{
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@totalBonusPointsBeforeOrder", Value = DBNull.Value });
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderBonusPoints", Value = DBNull.Value });
+				cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderSpentBonusPoints", Value = DBNull.Value });
 			}
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderDate", Value = orderDTO.OrderDate.ToDateTime(TimeOnly.MinValue) });
 			if (orderDTO.DeliveryDate != null)

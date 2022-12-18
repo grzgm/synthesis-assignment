@@ -58,10 +58,6 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Lastname", client.Lastname));
                     claims.Add(new Claim("Email", client.Email));
                     claims.Add(new Claim("Username", client.Username));
-					if (client.BonusCard != null)
-					{
-						claims.Add(new Claim("AmountOfPoints", client.BonusCard.AmountOfPoints.ToString()));
-					}
 					if (client.Address != null)
 					{
 						claims.Add(new Claim("Country", client.Address.Country));

@@ -122,6 +122,44 @@ namespace DataAccessLayer
 
 			return clientDTO;
 		}
+		int? IClientRepository.ReadClientBonusPointsById(int clientId)
+		{
+			conn = new SqlConnection(constr);
+			conn.Open();
+			SqlCommand cmd;
+			SqlDataReader dreader;
+
+			string sql = "SELECT [Client].[id], [Client].[username], [Client].[amountOfPoints], Client.addressId " +
+				"FROM [Client] " +
+				"WHERE [Client].id = @id";
+
+			cmd = new SqlCommand(sql, conn);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = clientId });
+
+			int? amountOfPoints = null;
+
+			try
+			{
+				dreader = cmd.ExecuteReader();
+
+				dreader.Read();
+				if (!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
+					amountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
+
+				dreader.Close();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("There is no such user.");
+			}
+			finally
+			{
+				cmd.Dispose();
+				conn.Close();
+			}
+
+			return amountOfPoints;
+		}
 
 		bool IClientRepository.UpdateClient(ClientDTO clientDTO)
 		{

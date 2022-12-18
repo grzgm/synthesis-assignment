@@ -7,6 +7,7 @@ namespace LogicLayer.InterfacesManagers
 		bool CreateClient(Client client);
 
 		Client ReadClientByUsernamePassword(string username, string password);
+		int? ReadClientBonusPointsById(int clientId);
 
 		bool UpdateClient(Client client); 
 		bool UpdateClientBonusPoints(int clientId, int amountOfPoints);

@@ -56,10 +56,6 @@ namespace WebApp.Pages
 					claims.Add(new Claim("Lastname", Client.Lastname));
 					claims.Add(new Claim("Email", Client.Email));
 					claims.Add(new Claim("Username", Client.Username));
-					if (Client.BonusCard != null)
-					{
-						claims.Add(new Claim("AmountOfPoints", Client.BonusCard.AmountOfPoints.ToString()));
-					}
 
 					var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));

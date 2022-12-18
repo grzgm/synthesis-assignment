@@ -7,6 +7,7 @@ namespace LogicLayer.InterfacesRepository
 		bool CreateClient(ClientDTO clientDTO);
 
 		ClientDTO ReadClientByUsernamePassword(string username, string password);
+		int? ReadClientBonusPointsById(int clientId);
 
 		bool UpdateClient(ClientDTO clientDTO);
 		bool UpdateClientBonusPoints(int clientId, int amountOfPoints);
