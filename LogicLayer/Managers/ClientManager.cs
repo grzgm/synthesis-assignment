@@ -31,6 +31,18 @@ namespace LogicLayer.Managers
 			}
 		}
 
+		bool IClientManager.CreateAddress(Client client)
+		{
+			try
+			{
+				return clientRepository.CreateAddress(ConvertToClientDTO(client));
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
 		Client IClientManager.ReadClientByUsernamePassword(string username, string password)
 		{
 			try
@@ -50,7 +62,20 @@ namespace LogicLayer.Managers
 			}
 		}
 
-		int? IClientManager.ReadClientBonusPointsById(int clientId)
+        Client IClientManager.ReadClientById(int clientId)
+        {
+            try
+            {
+                return new Client(clientRepository.ReadClientById(clientId));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        int? IClientManager.ReadClientBonusPointsById(int clientId)
 		{
 			try
 			{
@@ -66,11 +91,33 @@ namespace LogicLayer.Managers
 		{
 			throw new NotImplementedException();
 		}
+		bool IClientManager.UpdateClientAddBonusCardByClientId(int clientId)
+        {
+			try
+			{
+				return clientRepository.UpdateClientAddBonusCardByClientId(clientId);
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
 		bool IClientManager.UpdateClientBonusPoints(int clientId, int amountOfPoints)
 		{
 			try
 			{
 				return clientRepository.UpdateClientBonusPoints(clientId, amountOfPoints);
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+		bool IClientManager.UpdateClientAddress(Client client)
+        {
+			try
+			{
+				return clientRepository.UpdateClientAddress(ConvertToClientDTO(client));
 			}
 			catch (Exception ex)
 			{
@@ -101,8 +148,18 @@ namespace LogicLayer.Managers
 			else
 			{
 				clientDTO.AmountOfPoints = null;
-			}
-			return clientDTO;
+            }
+            if (client.Address != null)
+            {
+				clientDTO.AddressDTO = new AddressDTO()
+                {
+                    Country = client.Address.Country,
+                    City = client.Address.City,
+                    Street = client.Address.Street,
+                    PostalCode = client.Address.PostalCode,
+                };
+            }
+            return clientDTO;
 		}
 	}
 }

@@ -58,13 +58,6 @@ namespace WebApp.Pages
                     claims.Add(new Claim("Lastname", client.Lastname));
                     claims.Add(new Claim("Email", client.Email));
                     claims.Add(new Claim("Username", client.Username));
-					if (client.Address != null)
-					{
-						claims.Add(new Claim("Country", client.Address.Country));
-						claims.Add(new Claim("City", client.Address.City));
-						claims.Add(new Claim("Street", client.Address.Street));
-						claims.Add(new Claim("PostalCode", client.Address.PostalCode));
-					}
 
 					var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 					await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));

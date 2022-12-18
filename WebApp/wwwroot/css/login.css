@@ -1,7 +1,8 @@
 main {
     display: grid;
     place-items: center;
-    place-content: center;
+    overflow-y: auto;
+    padding: 40px;
 }
 
 .login {

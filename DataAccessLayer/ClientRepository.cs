@@ -58,6 +58,46 @@ namespace DataAccessLayer
             }
             return true;
         }
+		bool IClientRepository.CreateAddress(ClientDTO clientDTO)
+        {
+            GetConnection();
+            conn.Open();
+            SqlCommand cmd;
+            SqlDataReader dreader;
+
+            string sql = "BEGIN TRANSACTION;" +
+                         "INSERT INTO Address VALUES (@country, @city, @street, @postalCode);" +
+                         "DECLARE @addressId INT;" +
+                         "SET @addressId = IDENT_CURRENT('Address')" +
+                         "UPDATE Client SET addressId = @addressId WHERE id = @clientId;" +
+                         "COMMIT;";
+
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientDTO.Id });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@country", Value = clientDTO.AddressDTO.Country });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = clientDTO.AddressDTO.City });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@street", Value = clientDTO.AddressDTO.Street });
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@postalCode", Value = clientDTO.AddressDTO.PostalCode });
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Database error");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Application error");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+            return true;
+        }
 
 		ClientDTO IClientRepository.ReadClientByUsernamePassword(string username, string password)
 		{
@@ -160,10 +200,104 @@ namespace DataAccessLayer
 
 			return amountOfPoints;
 		}
+        ClientDTO IClientRepository.ReadClientById(int clientId)
+        {
+            conn = new SqlConnection(constr);
+            conn.Open();
+            SqlCommand cmd;
+            SqlDataReader dreader;
 
-		bool IClientRepository.UpdateClient(ClientDTO clientDTO)
+            string sql = "SELECT [Account].[id], [Account].[firstname], [Account].[lastname], [Account].[email], [Account].[password], [Account].[salt], " +
+                "[Client].[username], [Client].[amountOfPoints], Client.addressId, " +
+                "Address.country, Address.city, Address.street, Address.postalCode " +
+                "FROM [Account] " +
+                "LEFT JOIN [Client] ON [Account].id = [Client].id " +
+                "LEFT JOIN Address ON Address.id = Client.addressId " +
+                "WHERE [Client].id = @clientId";
+
+            cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientId });
+
+            ClientDTO clientDTO;
+
+            try
+            {
+                dreader = cmd.ExecuteReader();
+
+                dreader.Read();
+
+                clientDTO = new ClientDTO
+                {
+                    Id = dreader.GetInt32(dreader.GetOrdinal("id")),
+                    Firstname = dreader.GetString(dreader.GetOrdinal("firstname")),
+                    Lastname = dreader.GetString(dreader.GetOrdinal("lastname")),
+                    Email = dreader.GetString(dreader.GetOrdinal("email")),
+                    Username = dreader.GetString(dreader.GetOrdinal("username")),
+                    Password = dreader.GetString(dreader.GetOrdinal("password")),
+                    Salt = dreader.GetString(dreader.GetOrdinal("salt")),
+                };
+
+                if (!dreader.IsDBNull(dreader.GetOrdinal("amountOfPoints")))
+                    clientDTO.AmountOfPoints = dreader.GetInt32(dreader.GetOrdinal("amountOfPoints"));
+
+                if (!dreader.IsDBNull(dreader.GetOrdinal("addressId")))
+                {
+                    clientDTO.AddressDTO = new AddressDTO();
+                    clientDTO.AddressDTO.Country = dreader.GetString(dreader.GetOrdinal("country"));
+                    clientDTO.AddressDTO.City = dreader.GetString(dreader.GetOrdinal("city"));
+                    clientDTO.AddressDTO.Street = dreader.GetString(dreader.GetOrdinal("street"));
+                    clientDTO.AddressDTO.PostalCode = dreader.GetString(dreader.GetOrdinal("postalCode"));
+                }
+
+                dreader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("There is no such user.");
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return clientDTO;
+        }
+
+
+        bool IClientRepository.UpdateClient(ClientDTO clientDTO)
 		{
 			throw new NotImplementedException();
+		}
+		bool IClientRepository.UpdateClientAddBonusCardByClientId(int clientId)
+        {
+			GetConnection();
+			conn.Open();
+			SqlCommand cmd;
+
+			string sql = "UPDATE Client SET amountOfPoints = 0 WHERE id = @id;";
+
+			cmd = new SqlCommand(sql, conn);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = clientId });
+
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+				throw new Exception("Database error");
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Application error");
+			}
+			finally
+			{
+				cmd.Dispose();
+				conn.Close();
+			}
+			return true;
 		}
 		bool IClientRepository.UpdateClientBonusPoints(int clientId, int amountOfPoints)
 		{
@@ -176,6 +310,44 @@ namespace DataAccessLayer
 			cmd = new SqlCommand(sql, conn);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@id", Value = clientId });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@amountOfPoints", Value = amountOfPoints });
+
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+				throw new Exception("Database error");
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Application error");
+			}
+			finally
+			{
+				cmd.Dispose();
+				conn.Close();
+			}
+			return true;
+		}
+		bool IClientRepository.UpdateClientAddress(ClientDTO clientDTO)
+        {
+			GetConnection();
+			conn.Open();
+			SqlCommand cmd;
+
+			string sql = "UPDATE Address " +
+				"SET country = @country, city = @city, street = @street, postalCode = @postalCode " +
+				"FROM Address " +
+				"LEFT JOIN Client ON Address.id = Client.addressId " +
+				"WHERE Client.id = @clientId;";
+
+			cmd = new SqlCommand(sql, conn);
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@clientId", Value = clientDTO.Id });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@country", Value = clientDTO.AddressDTO.Country });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = clientDTO.AddressDTO.City });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@street", Value = clientDTO.AddressDTO.Street });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@postalCode", Value = clientDTO.AddressDTO.PostalCode });
 
 			try
 			{

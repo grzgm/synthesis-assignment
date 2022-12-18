@@ -1,0 +1,30 @@
+﻿@page
+@model WebApp.Pages.ClientDetailsModel
+@{
+    ViewData["Title"] = "Client Details";
+    ViewData["Css"] = "~/css/login.css";
+}
+
+<form method="post" autocomplete="on" class="login">
+    <label asp-for="client.Address.Country">Country: </label>
+    <input asp-for="client.Address.Country" type="text">
+    <label asp-for="client.Address.City">City: </label>
+    <input asp-for="client.Address.City" type="text">
+    <label asp-for="client.Address.Street">Street: </label>
+    <input asp-for="client.Address.Street" type="text">
+    <label asp-for="client.Address.PostalCode">PostalCode: </label>
+    <input asp-for="client.Address.PostalCode" type="text">
+    @if(Model.client.BonusCard == null)
+    {
+        <label asp-for="NewBonusCard">Bonus Card:</label>
+        <input asp-for="NewBonusCard" type="checkbox" />
+    }
+    <button type="submit">Update Account</button>
+    <div class="validation">
+        @Model.mess
+        <span class="feedback" asp-validation-for="client.Address.Country"></span>
+        <span class="feedback" asp-validation-for="client.Address.City"></span>
+        <span class="feedback" asp-validation-for="client.Address.Street"></span>
+        <span class="feedback" asp-validation-for="client.Address.PostalCode"></span>
+    </div>
+</form>
