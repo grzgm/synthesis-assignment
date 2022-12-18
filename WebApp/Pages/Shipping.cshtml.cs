@@ -74,10 +74,7 @@ namespace WebApp.Pages
 
 			if(useDefaultAddress)
 			{
-				Address.Country = User.FindFirst("Country").Value;
-				Address.City = User.FindFirst("City").Value;
-				Address.Street = User.FindFirst("Street").Value;
-				Address.PostalCode = User.FindFirst("PostalCode").Value;
+				Address = client.Address;
 			}
 
 
@@ -97,12 +94,7 @@ namespace WebApp.Pages
 		}
 		public void GetClient()
 		{
-			client.Id = int.Parse(User.FindFirst("Id").Value);
-			int? clientAmountOfPoints = clientManager.ReadClientBonusPointsById(client.Id);
-			if (clientAmountOfPoints != null)
-			{
-				client.BonusCard = new BonusCard(client.Id, clientAmountOfPoints.Value);
-			}
+			client = clientManager.ReadClientById(int.Parse(User.FindFirst("Id").Value));
 		}
 	}
 }

@@ -85,11 +85,11 @@
 </div>
 
 <form method="post" class="shippingAddress" id="mainForm">
-	@if (User.FindFirst("Country") != null)
+	@if (Model.client.Address != null)
 	{
 		<div class="defaultAddress">
 			<input asp-for="useDefaultAddress" type="checkbox">
-			<label asp-for="useDefaultAddress">Default Address: @User.FindFirst("Country") @User.FindFirst("City") @User.FindFirst("Street") @User.FindFirst("PostalCode")</label>
+			<label asp-for="useDefaultAddress">Default Address: @Model.client.Address.Country @Model.client.Address.City @Model.client.Address.Street @Model.client.Address.PostalCode</label>
 		</div>
 	}
 	<label asp-for="Address.Country">Country: </label>

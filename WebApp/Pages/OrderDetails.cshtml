@@ -74,28 +74,38 @@
 		}
 		Product Price: @Model.order.PriceWithoutDiscount()
 	</div>
-	<div class="discounts">
-		Discounts:
-		@{
-			foreach (LineItem lineItem in Model.order.PurchasedItems)
-			{
-				foreach (IDiscount discount in lineItem.Item.Discounts)
+	
+	@if (Model.order.Client.BonusCard != null)
+	{
+		<div class="discounts">
+			Discounts:
+			@{
+				foreach (LineItem lineItem in Model.order.PurchasedItems)
 				{
-				<div class="item">
-					<div class="name">
-						@lineItem.Item.Name
-					</div>
-					<div></div>
-					<div>
-						- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
-					</div>
-				</div>
+					foreach (IDiscount discount in lineItem.Item.Discounts)
+					{
+						<div class="item">
+							<div class="name">
+								@lineItem.Item.Name
+							</div>
+							<div></div>
+							<div>
+								- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
+							</div>
+						</div>
+					}
 				}
 			}
-		}
-		Discounts Profit: - @Model.order.DiscountProfit()
-	</div>
-	<div class="totalPrice">
-		Total Price: @Model.order.TotalPrice()
-	</div>
+			Discounts Profit: - @Model.order.DiscountProfit()
+		</div>
+		<div class="totalPrice">
+			Total Price: @Model.order.TotalPrice()
+		</div>
+	}
+	else
+	{
+		<div class="totalPrice">
+			Total Price: @Model.order.PriceWithoutDiscount()
+		</div>
+	}
 </div>

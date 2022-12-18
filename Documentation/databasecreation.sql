@@ -56,7 +56,7 @@ CREATE TABLE Client
 	id int NOT NULL FOREIGN KEY REFERENCES [Account]([id]) ON DELETE CASCADE UNIQUE,
 	[username] nvarchar(20) NOT NULL UNIQUE,
 	amountOfPoints int,
-	addressId int FOREIGN KEY REFERENCES [Address]([id]),
+	addressId int FOREIGN KEY REFERENCES [Address]([id]) ON DELETE SET NULL UNIQUE,
 );
 
 -- Employee Table
