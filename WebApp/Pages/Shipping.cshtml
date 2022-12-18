@@ -27,34 +27,37 @@
 		Product Price: @Model.shoppingCart.PriceWithoutDiscount()
 	</div>
 @Model.mess
-	<div class="discounts">
-		Discounts:
-	@{
-		foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
-		{
-			foreach (IDiscount discount in lineItem.Item.Discounts)
-			{
-				<div class="item">
-					<div class="name">
-						@lineItem.Item.Name
-					</div>
-					<div></div>
-					<div>
-						- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
-					</div>
-				</div>
+	@if (Model.client.BonusCard != null)
+	{
+		<div class="discounts">
+			Discounts:
+			@{
+				foreach (LineItem lineItem in Model.shoppingCart.AddedItems)
+				{
+					foreach (IDiscount discount in lineItem.Item.Discounts)
+					{
+						<div class="item">
+							<div class="name">
+								@lineItem.Item.Name
+							</div>
+							<div></div>
+							<div>
+								- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
+							</div>
+						</div>
+					}
+				}
 			}
-		}
+			Discounts Profit: - @Model.shoppingCart.DiscountProfit()
+		</div>
 	}
-		Discounts Profit: - @Model.shoppingCart.DiscountProfit()
-	</div>
 
 	<div class="totalPrice cell">
-		<div>
-			Total Price: @Model.shoppingCart.TotalPrice()
-		</div>
 		@if (Model.client.BonusCard != null)
 		{
+			<div>
+				Total Price: @Model.shoppingCart.TotalPrice()
+			</div>
 			<label asp-for="amountOfSpentPoints">
 				Pay with bonus points: 
 			</label>
@@ -64,6 +67,12 @@
 					<option value="@(i*100)">@i Euro</option>
 				}
 			</select>
+		}
+		else
+		{
+			<div>
+				Total Price: @Model.shoppingCart.PriceWithoutDiscount()
+			</div>
 		}
 	</div>
 
