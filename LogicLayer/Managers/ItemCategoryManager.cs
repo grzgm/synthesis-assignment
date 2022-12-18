@@ -25,20 +25,15 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        public (List<ItemCategory>, List<ItemCategory>) ReadAllItemCategories()
+        public List<ItemCategory> ReadAllItemCategories()
         {
-            List<ItemCategoryDTO> categoriesDTO = itemCategoryRepository.ReadAllItemCategories();
-            List<ItemCategoryDTO> subCategoriesDTO = itemCategoryRepository.ReadAllItemSubCategories();
-
-            List<ItemCategory> categories = ConvertToModelParent(categoriesDTO);
-            List<ItemCategory> subCategories = new List<ItemCategory>();
-
-            foreach (ItemCategoryDTO subCategoryDTO in subCategoriesDTO)
-            {
-                subCategories.Add(new ItemCategory(subCategoryDTO, categories.Find(i => i.Id == subCategoryDTO.ParentId)));
+            try
+			{
+				return ConvertToModel(itemCategoryRepository.ReadAllItemCategories());
+			}
+            catch (Exception ex) {
+                return new List<ItemCategory>();
             }
-
-            return (categories, subCategories);
         }
 
         public bool DeleteItemCategory(int Id)
@@ -51,17 +46,19 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        private List<ItemCategory> ConvertToModelParent(List<ItemCategoryDTO> itemCategoriesDTO)
+        private List<ItemCategory> ConvertToModel(List<ItemCategoryDTO> itemCategoriesDTO)
         {
             List<ItemCategory> itemCategories = new List<ItemCategory>();
             foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
-            {
-                itemCategories.Add(new ItemCategory(itemCategoryDTO));
+			{
+				List<ItemCategory> itemSubCategories = new List<ItemCategory>();
+                itemSubCategories = ConvertToModelChildren(itemCategoryDTO.SubCategories);
+				itemCategories.Add(new ItemCategory(itemCategoryDTO, itemSubCategories));
             }
             return itemCategories;
         }
 
-        private List<ItemCategory> ConvertToModelChild(List<ItemCategoryDTO> itemCategoriesDTO)
+        private List<ItemCategory> ConvertToModelChildren(List<ItemCategoryDTO> itemCategoriesDTO)
         {
             List<ItemCategory> itemCategories = new List<ItemCategory>();
             foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)

@@ -6,7 +6,6 @@ namespace LogicLayer.InterfacesRepository
 	{
 		bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO);
 		List<ItemCategoryDTO> ReadAllItemCategories();
-		List<ItemCategoryDTO> ReadAllItemSubCategories();
 
         bool UpdateItemCategory(ItemCategoryDTO itemCategoryDTO);
 

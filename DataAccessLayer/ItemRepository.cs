@@ -176,12 +176,12 @@ namespace DataAccessLayer
 
 				if (categoryId != 0)
 				{
-					Query += " AND SubCat.id = @categoryId";
+					Query += " AND Cat.id = @categoryId";
 					sqlParameters.Add(new SqlParameter("@categoryId", categoryId));
 				}
 				if (subCategoryId != 0)
 				{
-					Query += " AND Cat.id = @subCategoryId";
+					Query += " AND SubCat.id = @subCategoryId";
 					sqlParameters.Add(new SqlParameter("@subCategoryId", subCategoryId));
 				}
 				return GetItems(Query, sqlParameters).ToList();

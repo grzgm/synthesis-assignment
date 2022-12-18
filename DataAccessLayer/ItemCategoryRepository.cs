@@ -16,7 +16,8 @@ namespace DataAccessLayer
         private IEnumerable<ItemCategoryDTO> GetItemCategories(string Query, List<SqlParameter>? sqlParameters)
         {
             List<ItemCategoryDTO> itemCategories = new List<ItemCategoryDTO>();
-            try
+			Dictionary<int, ItemCategoryDTO> itemCategoryDict = new Dictionary<int, ItemCategoryDTO>();
+			try
             {
                 SqlConnection conn = GetConnection();
                 using (SqlCommand command = new SqlCommand(Query, conn))
@@ -29,20 +30,33 @@ namespace DataAccessLayer
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(reader.GetOrdinal("id"));
-                        string name = reader.GetString(reader.GetOrdinal("name"));
-                        int? parentId = null;
-                        if (!DBNull.Value.Equals(reader.GetValue(reader.GetOrdinal("parentCategory"))))
-                            parentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
+                        ItemCategoryDTO itemCategoryDTO = new ItemCategoryDTO();
+                        ItemCategoryDTO itemSubCategoryDTO = new ItemCategoryDTO();
 
-                        itemCategories.Add(new ItemCategoryDTO
-                        {
-                            Id= id,
-                            Name= name,
-                            ParentId = parentId,
-                        });
+                        int parentId = reader.GetInt32(reader.GetOrdinal("catId"));
+
+
+						if (!itemCategoryDict.ContainsKey(parentId))
+						{
+							itemCategoryDTO.Id = parentId;
+							itemCategoryDTO.Name = reader.GetString(reader.GetOrdinal("catName"));
+							itemSubCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("subCatId"));
+							itemSubCategoryDTO.Name = reader.GetString(reader.GetOrdinal("subCatName"));
+							itemSubCategoryDTO.ParentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
+
+							itemCategoryDTO.SubCategories = new List<ItemCategoryDTO> { itemSubCategoryDTO };
+							itemCategoryDict.Add(itemCategoryDTO.Id, itemCategoryDTO);
+						}
+                        else
+						{
+							itemSubCategoryDTO.Id = reader.GetInt32(reader.GetOrdinal("subCatId"));
+							itemSubCategoryDTO.Name = reader.GetString(reader.GetOrdinal("subCatName"));
+							itemSubCategoryDTO.ParentId = reader.GetInt32(reader.GetOrdinal("parentCategory"));
+							itemCategoryDict[parentId].SubCategories.Add(itemSubCategoryDTO);
+                        }
 
                     }
+                    itemCategories = itemCategoryDict.Values.ToList();
                 }
             }
             catch (SqlException ex)
@@ -68,24 +82,11 @@ namespace DataAccessLayer
 
         public List<ItemCategoryDTO> ReadAllItemCategories()
         {
-            string Query = "SELECT [id], [name], [parentCategory] FROM Category WHERE parentCategory IS NULL;";
-            //Query = "SELECT t1.[id], t1.[name], t2.[id], t2.[name], t2.[parentCategory] FROM " +
-            //    "Category t1 LEFT JOIN Category t2 ON t1.id = t2.parentCategory " +
-            //    "WHERE t1.parentCategory IS NULL;";
-
-            try
-            {
-                return GetItemCategories(Query, null).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-        }
-
-        public List<ItemCategoryDTO> ReadAllItemSubCategories()
-        {
-            string Query = "SELECT [id], [name], [parentCategory] FROM Category WHERE parentCategory IS NOT NULL;";
+            string Query = "SELECT t1.[id] AS catId, t1.[name] as catName, " +
+                "t2.[id] AS subCatId, t2.[name] AS subCatName, t2.[parentCategory] " +
+                "FROM Category t1 " +
+                "LEFT JOIN Category t2 ON t1.id = t2.parentCategory " +
+                "WHERE t1.parentCategory IS NULL;";
 
             try
             {

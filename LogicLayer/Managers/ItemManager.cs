@@ -157,7 +157,7 @@ namespace LogicLayer.Managers
                 Id = item.Id,
                 Name = item.Name,
                 Category = new ItemCategoryDTO { Id = item.Category.Id, Name = item.Category.Name, ParentId = null },
-                SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.SubCategory.ParentCategory.Id },
+                SubCategory = new ItemCategoryDTO { Id = item.SubCategory.Id, Name = item.SubCategory.Name, ParentId = item.Category.Id },
                 Price = item.Price,
                 Available = item.Available,
                 UnitType = item.UnitType,

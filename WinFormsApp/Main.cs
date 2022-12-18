@@ -22,18 +22,19 @@ namespace WinFormsApp
         List<Item> items;
         Item selectedItem;
 
-        public Main()
+
+		public Main()
         {
             itemRepository = new ItemRepository();
             itemManager = new ItemManager(itemRepository);
             itemCategoryRepository = new ItemCategoryRepository();
             itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
 
-            (itemCategories, itemSubCategories) = itemCategoryManager.ReadAllItemCategories();
+            itemCategories = itemCategoryManager.ReadAllItemCategories();
 
             InitializeComponent();
 
-            List<ItemCategory> cbCategorySearchList = new List<ItemCategory>(itemCategories);
+			List<ItemCategory> cbCategorySearchList = new List<ItemCategory>(itemCategories);
             cbCategorySearchList.Insert(0, new ItemCategory(0, ""));
             cbCategorySearch.DataSource = cbCategorySearchList;
             cbCategoryDetails.DataSource = new List<ItemCategory>(itemCategories);
@@ -145,7 +146,9 @@ namespace WinFormsApp
         {
             gbItemDeatils.Enabled = true;
             tbNameDetails.Text = selectedItem.Name;
-            cbCategoryDetails.SelectedIndex = itemCategories.FindIndex(i => i.Id == selectedItem.Category.Id);
+			// Changes comboBox selected Item to ItemCategory of selected Item
+			// SubCategory is set in the cbCategoryDetails_SelectedIndexChanged
+			cbCategoryDetails.SelectedIndex = itemCategories.FindIndex(i => i.Id == selectedItem.Category.Id);
             tbPriceDetails.Text = selectedItem.Price.ToString();
             cbAvailableDetails.Checked = selectedItem.Available;
             tbUnitTypeDetails.Text = selectedItem.UnitType;
@@ -267,17 +270,18 @@ namespace WinFormsApp
         {
             cbSubCategoryCreator.DataSource = null;
             cbSubCategoryCreator.Items.Clear();
-            cbSubCategoryCreator.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryCreator.SelectedValue);
+            cbSubCategoryCreator.DataSource = ((ItemCategory)cbCategoryCreator.SelectedItem).SubCategories;
         }
 
         private void cbCategoryDetails_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbSubCategoryDetails.DataSource = null;
             cbSubCategoryDetails.Items.Clear();
-            List<ItemCategory> validSubCategories = itemSubCategories.FindAll(x => x.ParentCategory == cbCategoryDetails.SelectedValue);
-            cbSubCategoryDetails.DataSource = validSubCategories;
+            cbSubCategoryDetails.DataSource = ((ItemCategory)cbCategoryDetails.SelectedItem).SubCategories;
+            // Selects subcategory already assigned to the selected item
             if(selectedItem != null)
-                cbSubCategoryDetails.SelectedIndex = validSubCategories.FindIndex(i => i.Id == selectedItem.SubCategory.Id);
+                cbSubCategoryDetails.SelectedIndex = ((ItemCategory)cbCategoryDetails.SelectedItem).SubCategories.FindIndex(i => i.Id == selectedItem.SubCategory.Id);
+            // In case of the category change sets subCategories to the first from list 
             if (cbSubCategoryDetails.SelectedIndex == -1)
                 cbSubCategoryDetails.SelectedIndex = 0;
         }
@@ -286,8 +290,8 @@ namespace WinFormsApp
         {
             cbSubCategorySearch.DataSource = null;
             cbSubCategorySearch.Items.Clear();
-            cbSubCategorySearch.DataSource = itemSubCategories.FindAll(x => x.ParentCategory == cbCategorySearch.SelectedValue);
-        }
+            cbSubCategorySearch.DataSource = ((ItemCategory)cbCategorySearch.SelectedItem).SubCategories;
+		}
 
         private void lbItemSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
