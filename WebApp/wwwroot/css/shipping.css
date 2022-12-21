@@ -48,7 +48,11 @@ main {
     grid-column: 1 / span 2;
 }
 
-.shippingAddress{
+.paymentMethod{
+    margin-right: 20px;
+}
+
+.shippingAddress {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;

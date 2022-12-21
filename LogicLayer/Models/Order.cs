@@ -11,10 +11,11 @@ namespace LogicLayer.Models
 		private DateOnly orderDate;
 		private DateOnly? deliveryDate;
 		private OrderStatus orderStatus;
-		private List<LineItem> purchasedItems;
+		private PaymentMethod paymentMethod;
 		private Address address;
+        private List<LineItem> purchasedItems;
 
-		public Order()
+        public Order()
 		{
 			throw new System.NotImplementedException();
 		}
@@ -27,6 +28,7 @@ namespace LogicLayer.Models
 			this.orderDate = orderDTO.OrderDate;
 			this.deliveryDate = orderDTO.DeliveryDate;
 			this.orderStatus = (OrderStatus)orderDTO.OrderStatus;
+			this.paymentMethod = (PaymentMethod)orderDTO.PaymentMethod;
 			this.purchasedItems = new List<LineItem>();
 			foreach (LineItemDTO lineItemDTO in orderDTO.PurchasedItems)
 			{
@@ -35,7 +37,7 @@ namespace LogicLayer.Models
 			this.address = new Address(orderDTO.AddressDTO);
 		}
 
-		public Order(Client client, int? orderBonusPoints, int? orderSpentBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, List<LineItem> purchasedItems, Address address)
+		public Order(Client client, int? orderBonusPoints, int? orderSpentBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, PaymentMethod paymentMethod, Address address, List<LineItem> purchasedItems)
 		{
 			this.client = client;
 			this.orderBonusPoints = orderBonusPoints;
@@ -43,8 +45,9 @@ namespace LogicLayer.Models
 			this.orderDate = orderDate;
 			this.deliveryDate = deliveryDate;
 			this.orderStatus = orderStatus;
-			this.purchasedItems = purchasedItems;
+			this.paymentMethod = paymentMethod;
 			this.address = address;
+			this.purchasedItems = purchasedItems;
 		}
 
 
@@ -84,7 +87,8 @@ namespace LogicLayer.Models
 		public DateOnly OrderDate { get => orderDate; set => orderDate = value; }
 		public DateOnly? DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
 		public OrderStatus OrderStatus { get => orderStatus; set => orderStatus = value; }
-		public List<LineItem> PurchasedItems { get => purchasedItems; set => purchasedItems = value; }
+		public PaymentMethod PaymentMethod { get => paymentMethod; set => paymentMethod = value; }
 		public Address Address { get => address; set => address = value; }
+		public List<LineItem> PurchasedItems { get => purchasedItems; set => purchasedItems = value; }
 	}
 }

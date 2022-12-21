@@ -16,8 +16,10 @@ namespace WebApp.Pages
 {
 	[Authorize]
 	public class ShippingModel : PageModel
-	{
-		[BindProperty]
+    {
+        [BindProperty]
+        public int paymentMethod { get; set; }
+        [BindProperty]
 		public Address Address { get; set; }
 		[BindProperty]
 		public bool useDefaultAddress { get; set; }
@@ -78,7 +80,7 @@ namespace WebApp.Pages
 			}
 
 
-			Order order = new Order(client, null, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, shoppingCart.AddedItems, Address);
+			Order order = new Order(client, null, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, (PaymentMethod)paymentMethod, Address, shoppingCart.AddedItems);
 			if (client.BonusCard != null)
 			{
 				order.Client.BonusCard = client.BonusCard;

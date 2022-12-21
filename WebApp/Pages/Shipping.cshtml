@@ -53,6 +53,16 @@
 	}
 
 	<div class="totalPrice cell">
+		Payment Method:
+		<div>
+			@foreach (PaymentMethod paymentMethod in Enum.GetValues(typeof(PaymentMethod)))
+			{
+				<span class="paymentMethod">
+					<input value="@((int)paymentMethod)" asp-for="paymentMethod" form="mainForm" type="radio">
+					@paymentMethod
+				</span>
+			}
+		</div>
 		@if (Model.client.BonusCard != null)
 		{
 			<div>

@@ -63,6 +63,7 @@ namespace DataAccessLayer
 								orderDTO.DeliveryDate = null;
 							}
 							orderDTO.OrderStatus = reader.GetInt32(reader.GetOrdinal("orderStatus"));
+							orderDTO.PaymentMethod = reader.GetInt32(reader.GetOrdinal("paymentMethodId"));
 
 							addressDTO.Country = reader.GetString(reader.GetOrdinal("country"));
 							addressDTO.City = reader.GetString(reader.GetOrdinal("city"));
@@ -163,7 +164,7 @@ namespace DataAccessLayer
 						 "INSERT INTO Address VALUES (@country, @city, @street, @postalCode);" +
 						 "DECLARE @addressId INT;" +
 						 "SET @addressId = IDENT_CURRENT('Address')" +
-						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderSpentBonusPoints, @orderDate, @deliveryDate, @orderStatus, @addressId);" +
+						 "INSERT INTO [Order] VALUES (@clientId, @totalBonusPointsBeforeOrder, @orderBonusPoints, @orderSpentBonusPoints, @orderDate, @deliveryDate, @orderStatus, @paymentMethodId, @addressId);" +
 						 "DECLARE @orderId INT;" +
 						 "SET @orderId = IDENT_CURRENT('Order')" +
 						 "UPDATE LineItem SET LineItem.orderId = @orderId FROM LineItem RIGHT JOIN ShoppingCart ON ShoppingCart.lineItemId = LineItem.id WHERE ShoppingCart.clientId = @clientId;" +
@@ -200,6 +201,7 @@ namespace DataAccessLayer
 				cmd.Parameters.Add(new SqlParameter { ParameterName = "@deliveryDate", Value = DBNull.Value });
 			}
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@orderStatus", Value = orderDTO.OrderStatus });
+			cmd.Parameters.Add(new SqlParameter { ParameterName = "@paymentMethodId", Value = orderDTO.PaymentMethod });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@country", Value = orderDTO.AddressDTO.Country });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@city", Value = orderDTO.AddressDTO.City });
 			cmd.Parameters.Add(new SqlParameter { ParameterName = "@street", Value = orderDTO.AddressDTO.Street });
@@ -234,7 +236,7 @@ namespace DataAccessLayer
 
 		OrderDTO IOrderRepository.ReadOrderByClientIdOrderId(int clientId, int orderId)
 		{
-			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, paymentMethodId, " +
 				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +
@@ -266,7 +268,7 @@ namespace DataAccessLayer
 
 		List<OrderDTO> IOrderRepository.ReadOrdersByClientId(int clientId)
 		{
-			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, " +
+			string Query = "SELECT [Order].id ,clientId ,totalBonusPointsBeforeOrder ,orderBonusPoints ,orderSpentBonusPoints ,orderDate ,deliveryDate ,orderStatus, paymentMethodId, " +
 				"country, city, street, postalCode, " +
 				"LineItem.id AS lineItemId, LineItem.purchasePrice, LineItem.amount, " +
 				"Item.id AS itemId, Item.name AS itemName, price, unitType, available, stockAmount, " +

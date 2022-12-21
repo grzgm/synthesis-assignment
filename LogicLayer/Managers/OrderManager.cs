@@ -77,6 +77,7 @@ namespace LogicLayer.Managers
 				OrderDate = order.OrderDate,
 				DeliveryDate = order.DeliveryDate,
 				OrderStatus = (int)order.OrderStatus,
+				PaymentMethod = (int)order.PaymentMethod,
 			};
 			orderDTO.PurchasedItems = new List<LineItemDTO>();
 			orderDTO.AddressDTO = new AddressDTO()

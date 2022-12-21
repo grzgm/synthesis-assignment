@@ -12,7 +12,8 @@ namespace LogicLayer.DTOs
 		public DateOnly OrderDate { get; set; }
 		public DateOnly? DeliveryDate { get; set; }
 		public int OrderStatus { get; set; }
-		public List<LineItemDTO> PurchasedItems { get; set; }
-		public AddressDTO AddressDTO { get; set; }
+		public int PaymentMethod { get; set; }
+        public AddressDTO AddressDTO { get; set; }
+        public List<LineItemDTO> PurchasedItems { get; set; }
 	}
 }
