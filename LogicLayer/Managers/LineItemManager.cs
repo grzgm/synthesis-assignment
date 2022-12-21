@@ -66,7 +66,7 @@ namespace LogicLayer.Managers
 			LineItemDTO lineItemDTO = new LineItemDTO()
 			{
 				Id = lineItem.Id,
-				ItemDTO = ItemManager.ConvertToItemDTO(lineItem.Item),
+				ItemDTO = ItemManager.ConvertToItemDTOWithoutDiscounts(lineItem.Item),
 				PurchasePrice = lineItem.PurchasePrice,
 				Amount = lineItem.Amount,
 			};

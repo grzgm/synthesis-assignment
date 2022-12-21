@@ -19,7 +19,7 @@ namespace LogicLayer.Managers
         {
             try
             {
-                return itemRepository.CreateItem(ConvertToItemDTO(item));
+                return itemRepository.CreateItem(ConvertToItemDTOWithoutDiscounts(item));
             }
             catch(Exception ex)
             {
@@ -127,7 +127,7 @@ namespace LogicLayer.Managers
         {
             try
             {
-                return itemRepository.UpdateItem(ConvertToItemDTO(item));
+                return itemRepository.UpdateItem(ConvertToItemDTOWithoutDiscounts(item));
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace LogicLayer.Managers
         {
             try
             {
-                return itemRepository.DeleteItem(ConvertToItemDTO(item));
+                return itemRepository.DeleteItem(ConvertToItemDTOWithoutDiscounts(item));
             }
             catch (Exception ex)
             {
@@ -147,7 +147,7 @@ namespace LogicLayer.Managers
             }
         }
 
-        public static ItemDTO ConvertToItemDTO(Item item)
+        public static ItemDTO ConvertToItemDTOWithoutDiscounts(Item item)
         {
             ItemDTO itemDTO = new ItemDTO()
             {

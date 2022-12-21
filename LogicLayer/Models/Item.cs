@@ -30,7 +30,7 @@ namespace LogicLayer.Models
 			this.stockAmount = itemDTO.StockAmount;
             this.discounts = new List<IDiscount>();
 
-			if (itemDTO.Discounts.Any())
+			if (itemDTO.Discounts != null && itemDTO.Discounts.Any())
             {
                 this.discounts= new List<IDiscount>();
                 // choosing strategy how to count bounus
