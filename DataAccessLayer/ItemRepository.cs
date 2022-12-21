@@ -200,10 +200,9 @@ namespace DataAccessLayer
                 "FROM Item " +
                 "LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
                 "LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-                "LEFT JOIN Discount ON Discount.itemId = Item.id " +
+				"LEFT JOIN Discount ON Discount.itemId = Item.id AND ( Discount.id is NULL OR (Discount.startOfDiscount <= GETDATE() AND Discount.endOfDiscount >= GETDATE())) " +
                 "WHERE Item.available = 1 " +
-                "AND Item.stockAmount > 0 " +
-				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= GETDATE() AND Discount.endOfDiscount >= GETDATE()));";
+                "AND Item.stockAmount > 0;";
 
 			try
 			{

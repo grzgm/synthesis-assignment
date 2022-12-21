@@ -249,9 +249,9 @@ namespace DataAccessLayer
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
-				"WHERE [Order].clientId = @clientId AND [Order].id = @orderId " +
-				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate));";
+				"LEFT JOIN Discount ON Discount.itemId = Item.id AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate)) " +
+				"WHERE [Order].clientId = @clientId AND [Order].id = @orderId;";
+
 			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
 			try
@@ -281,9 +281,8 @@ namespace DataAccessLayer
 				"LEFT JOIN Item ON Item.id = LineItem.itemId " +
 				"LEFT JOIN Category SubCat ON Item.subCategory = SubCat.id " +
 				"LEFT JOIN Category Cat ON SubCat.parentCategory = Cat.id " +
-				"LEFT JOIN Discount ON Discount.itemId = Item.id " +
-				"WHERE [Order].clientId = @clientId " +
-				"AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate));";
+				"LEFT JOIN Discount ON Discount.itemId = Item.id AND ( Discount.id is NULL OR (Discount.startOfDiscount <= [Order].orderDate AND Discount.endOfDiscount >= [Order].orderDate)) " +
+				"WHERE [Order].clientId = @clientId;";
 			List<SqlParameter> sqlParameters = new List<SqlParameter>();
 
 			try
