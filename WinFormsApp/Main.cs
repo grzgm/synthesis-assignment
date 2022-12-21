@@ -45,7 +45,7 @@ namespace WinFormsApp
 
         private void btnItemSearch_Click(object sender, EventArgs e)
         {
-
+            lbItemSearch.Enabled = true;
             DisableItemDetailsGroup();
 
             items = null;
@@ -129,7 +129,8 @@ namespace WinFormsApp
                 lbItemSearch.DataSource = null;
                 lbItemSearch.Items.Clear();
                 lbItemSearch.Items.Add("There is no such Item.");
-            }
+				lbItemSearch.Enabled = false;
+			}
         }
 
         private void DisableItemDetailsGroup()
@@ -295,8 +296,11 @@ namespace WinFormsApp
 
         private void lbItemSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedItem = (Item)lbItemSearch.SelectedValue;
-            EnableItemDetailsGroup();
+            selectedItem = (Item)lbItemSearch.SelectedItem;
+            if(selectedItem != null)
+			{
+				EnableItemDetailsGroup();
+			}
         }
 
         private void btnItemUpdate_Click(object sender, EventArgs e)
