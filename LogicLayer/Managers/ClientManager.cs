@@ -47,7 +47,7 @@ namespace LogicLayer.Managers
 		{
 			try
 			{
-				ClientDTO clientDTO = clientRepository.ReadClientByUsernamePassword(username, password);
+				ClientDTO clientDTO = clientRepository.ReadClientByUsernamePassword(username);
 
 				if (!AccountManager.ValidatePassword(password, clientDTO.Password))
 				{

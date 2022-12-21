@@ -8,7 +8,7 @@ namespace LogicLayer.InterfacesRepository
 		bool CreateClient(ClientDTO clientDTO);
 		bool CreateAddress(ClientDTO clientDTO);
 
-		ClientDTO ReadClientByUsernamePassword(string username, string password);
+		ClientDTO ReadClientByUsernamePassword(string username);
         ClientDTO ReadClientById(int clientId);
         int? ReadClientBonusPointsById(int clientId);
 

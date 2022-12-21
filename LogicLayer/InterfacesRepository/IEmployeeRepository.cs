@@ -4,6 +4,6 @@ namespace LogicLayer.InterfacesRepository
 {
 	public interface IEmployeeRepository
 	{
-		EmployeeDTO ReadEmployeeByEmailPassword(string email, string password);
+		EmployeeDTO ReadEmployeeByEmailPassword(string email);
 	}
 }

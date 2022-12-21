@@ -99,7 +99,7 @@ namespace DataAccessLayer
             return true;
         }
 
-		ClientDTO IClientRepository.ReadClientByUsernamePassword(string username, string password)
+		ClientDTO IClientRepository.ReadClientByUsernamePassword(string username)
 		{
 			conn = new SqlConnection(constr);
 			conn.Open();

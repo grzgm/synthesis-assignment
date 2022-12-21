@@ -19,7 +19,7 @@ namespace LogicLayer.Managers
 		{
 			try
 			{
-				EmployeeDTO employeeDTO = employeeRepository.ReadEmployeeByEmailPassword(email, password);
+				EmployeeDTO employeeDTO = employeeRepository.ReadEmployeeByEmailPassword(email);
 
 				if (!AccountManager.ValidatePassword(password, employeeDTO.Password))
 				{
