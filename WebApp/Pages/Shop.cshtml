@@ -6,6 +6,10 @@
 	ViewData["Css"] = "~/css/shop.css";
 }
 
+<div class="popUp">
+	@Model.mess
+</div>
+
 @{
 	foreach (Item item in Model.items)
 	{

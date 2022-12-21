@@ -26,6 +26,8 @@ namespace WebApp.Pages
 		public int ItemId { get; set; }
 		[BindProperty]
 		public int Amount { get; set; }
+		[BindProperty]
+		public string mess { get; set; }
 
 		ShoppingCart shoppingCart;
 
@@ -52,6 +54,8 @@ namespace WebApp.Pages
 		}
 		public void OnPostAddItem()
 		{
+			bool success;
+
 			Item addedItem = items.Find(x => x.Id == ItemId);
 
 			if (Amount > 0 && Amount <= addedItem.StockAmount)
@@ -62,11 +66,19 @@ namespace WebApp.Pages
 
 				if (shoppingCart.IsAddedLineItemNew(addedLineItem))
 				{
-					shoppingCartManager.CreateShoppingCartItem(int.Parse(User.FindFirst("Id").Value), addedLineItem);
+					success = shoppingCartManager.CreateShoppingCartItem(int.Parse(User.FindFirst("Id").Value), addedLineItem);
 				}
 				else
 				{
-					shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
+					success = shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
+				}
+				if(success)
+				{
+					mess = "Item added to shopping cart";
+				}
+				else
+				{
+					mess = "Couldn't add item to shopping cart";
 				}
 			}
 		}
