@@ -2,11 +2,7 @@
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnitTests.FakeDBs;
 
 namespace UnitTests
 {
@@ -17,7 +13,7 @@ namespace UnitTests
 		private IEmployeeManager EmployeeManager;
 
 		[TestMethod]
-		public void CreateEmployee()
+		public void ReadEmployeeTest()
 		{
 			// Arrange
 			EmployeeRepository = new FakeEmployeeDB();
@@ -35,7 +31,7 @@ namespace UnitTests
 		//// Assert
 		[TestMethod]
 		//[ExpectedException(typeof(Exception))]
-		public void CreateEmployeeWithWrongCredentialsEmail()
+		public void ReadEmployeeWithWrongCredentialsEmailTest()
 		{
 			// Arrange
 			EmployeeRepository = new FakeEmployeeDB();

@@ -46,7 +46,7 @@ namespace LogicLayer.Managers
             throw new NotImplementedException();
         }
 
-        private List<ItemCategory> ConvertToModel(List<ItemCategoryDTO> itemCategoriesDTO)
+        public static List<ItemCategory> ConvertToModel(List<ItemCategoryDTO> itemCategoriesDTO)
         {
             List<ItemCategory> itemCategories = new List<ItemCategory>();
             foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
@@ -58,7 +58,7 @@ namespace LogicLayer.Managers
             return itemCategories;
         }
 
-        private List<ItemCategory> ConvertToModelChildren(List<ItemCategoryDTO> itemCategoriesDTO)
+        public static List<ItemCategory> ConvertToModelChildren(List<ItemCategoryDTO> itemCategoriesDTO)
         {
             List<ItemCategory> itemCategories = new List<ItemCategory>();
             foreach (ItemCategoryDTO itemCategoryDTO in itemCategoriesDTO)
