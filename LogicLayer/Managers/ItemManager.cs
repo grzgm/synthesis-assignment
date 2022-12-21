@@ -64,11 +64,8 @@ namespace LogicLayer.Managers
                     return null;
             }
 
-            if(available)
-            {
-                if (itemDTO.Available != available)
-                    return null;
-            }
+            if (itemDTO.Available != available)
+                return null;
 
             return new Item(itemDTO);
         }
