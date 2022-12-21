@@ -30,11 +30,16 @@ namespace WebApp.Pages
             client = clientManager.ReadClientById(int.Parse(User.FindFirst("Id").Value));
         }
 
-        public void OnPost()
+        public void OnPostAddress()
         {
             Client client2 = clientManager.ReadClientById(int.Parse(User.FindFirst("Id").Value));
             client.Id = int.Parse(User.FindFirst("Id").Value);
             client.BonusCard = client2.BonusCard;
+
+            if(client.Address.Country == null || client.Address.City == null || client.Address.Street == null || client.Address.PostalCode == null)
+            {
+                return;
+            }
 
             if(client2.Address == null)
             {
@@ -51,17 +56,22 @@ namespace WebApp.Pages
                 else
                     mess = "Couldn't change address. ";
             }
-
-            if(NewBonusCard)
-            {
-                if (clientManager.UpdateClientAddBonusCardByClientId(client.Id))
-                {
-                    mess += "Now you have bonus card ";
-                    client.BonusCard = new BonusCard(client.Id, 0);
-                }
-                else
-                    mess += "Couldn't create bonus card. ";
-            }
         }
+
+        public void OnPostBonusCard()
+        {
+            client = clientManager.ReadClientById(int.Parse(User.FindFirst("Id").Value));
+
+            if (NewBonusCard)
+			{
+				if (clientManager.UpdateClientAddBonusCardByClientId(client.Id))
+				{
+					mess += "Now you have bonus card ";
+					client.BonusCard = new BonusCard(client.Id, 0);
+				}
+				else
+					mess += "Couldn't create bonus card. ";
+			}
+		}
     }
 }
