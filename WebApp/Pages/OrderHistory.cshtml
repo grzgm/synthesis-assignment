@@ -14,13 +14,13 @@
 			foreach (Order order in Model.orders)
 			{
 				<a asp-page="/OrderDetails" asp-route-OrderId="@order.Id" class="order">
-					<div>
+					<div class="orderId">
 						Order id: @order.Id
 					</div>
 					@if (order.Client.BonusCard != null)
 					{
 						<div>
-							Bonus Card ID
+							Bonus Card ID: @order.Client.BonusCard.Id
 						</div>
 						<div>
 							Total Bonus Points Before Order: @order.Client.BonusCard.AmountOfPoints
@@ -48,6 +48,9 @@
 					</div>
 					<div>
 						Order Status: @order.OrderStatus.ToString()
+					</div>
+					<div>
+						Payment Method: @order.PaymentMethod.ToString()
 					</div>
 					<div>
 						Price: @order.TotalPrice()

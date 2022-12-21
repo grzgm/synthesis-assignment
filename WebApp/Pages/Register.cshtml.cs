@@ -38,7 +38,7 @@ namespace WebApp.Pages
                 {
                     if(BonusCard)
                     {
-                        Client.BonusCard = new BonusCard(Client.Id, 15);
+                        Client.BonusCard = new BonusCard(Client.Id, 0);
                     }
                     if(!clientManager.CreateClient(Client))
                     {

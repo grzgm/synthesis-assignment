@@ -20,6 +20,11 @@ main {
     text-decoration: underline;
 }
 
+.orderId {
+    grid-column: 1/ span 2;
+    text-align: center;
+}
+
 .items {
     display: grid;
     grid-template-columns: 1fr;

@@ -21,6 +21,11 @@ main {
     cursor: pointer;
 }
 
+.orderId {
+    grid-column: 1/ span 2;
+    text-align: center;
+}
+
 .details {
     grid-column: 1/ span 2;
     text-align: center;

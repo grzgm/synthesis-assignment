@@ -7,19 +7,22 @@
 }
 
 <div class="order">
-	<div>
+	<div class="orderId">
 		Order id: @Model.order.Id
 	</div>
 	@if (Model.order.Client.BonusCard != null)
 	{
 		<div>
-			Bonus Card ID
+			Bonus Card ID: @Model.order.Client.BonusCard.Id
 		</div>
 		<div>
 			Total Bonus Points Before Order: @Model.order.Client.BonusCard.AmountOfPoints
 		</div>
 		<div>
 			Total Bonus Points After Order: @Model.order.TotalBonusPointsAfterOrder()
+		</div>
+		<div>
+			Total Spent Bonus Points: @Model.order.OrderSpentBonusPoints
 		</div>
 		<div>
 			Total Bonus Points: @Model.order.OrderBonusPoints
@@ -41,6 +44,9 @@
 	</div>
 	<div>
 		Order Status: @Model.order.OrderStatus.ToString()
+	</div>
+	<div>
+		Payment Method: @Model.order.PaymentMethod.ToString()
 	</div>
 	<div>
 		Country: @Model.order.Address.Country
