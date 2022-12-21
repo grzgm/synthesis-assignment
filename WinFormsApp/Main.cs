@@ -119,7 +119,7 @@ namespace WinFormsApp
                 items = itemManager.ReadItems(itemName, itemCategory, itemSubCategory, itemPrice, itemAvailable);
             }
 
-            if (items != null)
+            if (items != null && items.Any())
             {
                 // Reset also populates listboxitems with list items as data source
                 ResetListBoxItemSearch();
