@@ -34,7 +34,7 @@ namespace UnitTests
 			decimal discountValue;
 
 			// Act
-			discountValue = discount.CalculateDiscount(5, 10);
+			discountValue = discount.CalculateDiscount(7, 10);
 
 			// Assert
 			Assert.AreEqual(discountValue, 25);
