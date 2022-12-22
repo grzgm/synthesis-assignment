@@ -22,13 +22,6 @@ CREATE TABLE PaymentMethod
 	paymentMethod nvarchar(20) NOT NULL UNIQUE,
 );
 
--- OrderStatus Table
-CREATE TABLE OrderStatus
-(
-	id int NOT NULL PRIMARY KEY IDENTITY (0, 1),
-	orderStatus nvarchar(20) NOT NULL UNIQUE,
-);
-
 -- CLASSES
 
 -- Item Table
@@ -60,7 +53,7 @@ CREATE TABLE Account
 	[firstname] nvarchar(20) NOT NULL,
 	[lastname] nvarchar(20) NOT NULL,
 	email nvarchar(50) NOT NULL UNIQUE,
-	[password] nvarchar(60) NOT NULL UNIQUE,
+	[password] nvarchar(60) NOT NULL,
 	[salt] nvarchar(100) NOT NULL,
 );
 
@@ -133,6 +126,11 @@ INSERT INTO Category VALUES ('meat', NULL);
 INSERT INTO Category VALUES ('fruit1', 1);
 INSERT INTO Category VALUES ('fruit2', 1);
 INSERT INTO Category VALUES ('meat1', 2);
+INSERT INTO Category VALUES ('Vegetable', NULL);
+INSERT INTO Category VALUES ('Household goods', NULL);
+INSERT INTO Category VALUES ('Onions', 6);
+INSERT INTO Category VALUES ('Chair', 7);
+INSERT INTO Category VALUES ('Chicken', 2);
 
 INSERT INTO OrderStatus VALUES ('OrderPlaced');
 INSERT INTO OrderStatus VALUES ('Packed');
@@ -144,7 +142,7 @@ INSERT INTO PaymentMethod VALUES ('iDeal');
 INSERT INTO PaymentMethod VALUES ('Bank Transfer');
 
 INSERT INTO Item VALUES ('apple', 3, 10, 'kg', 1, 100);
-INSERT INTO Item VALUES ('banana', 4, 10, 'kg', 0, 1000);
+INSERT INTO Item VALUES ('Banana', 4, 10, 'kg', 0, 1000);
 INSERT INTO Item VALUES ('pear', 3, 10, 'kg', 1, 100);
 INSERT INTO Item VALUES ('pork', 5, 10, 'g', 1, 1000);
 
@@ -156,15 +154,18 @@ INSERT INTO [Address] VALUES ('5', 'adressnumber', 'j@j', 'aa');
 
 INSERT INTO Account VALUES ('jan', 'jan', 'j@j', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
 INSERT INTO Account VALUES ('martin', 'sth', 'm@m', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
+INSERT INTO Account VALUES ('employee', 'sth', 'e@e', '$2a$10$iMKnRelMY5LMGsU5a6lAGOC4gwHBq4FaKCVN//YDFQBI7tO9QHQji', '$2a$10$iMKnRelMY5LMGsU5a6lAGO');
 
 INSERT INTO Client VALUES (1, 'jan', 100, 4);
 INSERT INTO Client VALUES (2, 'martin2', NULL, 5);
 
-INSERT INTO [Order] VALUES (1, 1, 10, NULL, '2022-12-02', '2022-12-04', 1, 1, 1);
-INSERT INTO [Order] VALUES (1, 1, 10, NULL, '2022-12-03', '2022-12-05', 1, 2, 4);
-INSERT INTO [Order] VALUES (1, 1, 10, NULL, '2022-12-01', '2022-12-04', 1, 1, 2);
+INSERT INTO Employee VALUES (3, 'role');
+
+INSERT INTO [Order] VALUES (1, 1, 10, 0, '2022-12-02', '2022-12-04', 1, 1, 1);
+INSERT INTO [Order] VALUES (1, 1, 10, 0, '2022-12-03', '2022-12-05', 1, 2, 4);
+INSERT INTO [Order] VALUES (1, 1, 10, 0, '2022-12-01', '2022-12-04', 1, 1, 2);
 INSERT INTO [Order] VALUES (2, NULL, NULL, NULL, '2022-12-01', '2022-12-05', 1, 1, 3);
-INSERT INTO [Order] VALUES (2, NULL, NULL, NULL, '2022-12-03', '2022-12-05', 1, 3, 5);
+INSERT INTO [Order] VALUES (2, NULL, NULL, NULL, '2022-12-03', '2022-12-05', 1, 0, 5);
 
 INSERT INTO LineItem VALUES (1, 1, 10, 10);
 INSERT INTO LineItem VALUES (2, 1, 11, 1);
@@ -179,5 +180,7 @@ INSERT INTO LineItem VALUES (4, 4, 7, 10);
 INSERT INTO LineItem VALUES (4, 5, 7, 10);
 INSERT INTO LineItem VALUES (4, NULL, 7, 10);
 
-INSERT INTO Discount VALUES (1, 1,'2022-12-10 00:00:00.0000000', '2022-12-23 00:00:00.0000000', 5, 10, 'buy 5 and -10 euro');
-INSERT INTO Discount VALUES (1, 2,'2022-12-09 00:00:00.0000000', '2022-12-23 00:00:00.0000000', 3, 5, 'buy 3 and get -5%');
+INSERT INTO Discount VALUES (1, 1,'2022-12-10 00:00:00.0000000', '2023-02-23 00:00:00.0000000', 5, 10, 'buy 5 and -10 euro');
+INSERT INTO Discount VALUES (1, 2,'2022-12-09 00:00:00.0000000', '2023-02-23 00:00:00.0000000', 3, 5, 'buy 3 and get -5%');
+INSERT INTO Discount VALUES (4, 1,'2023-01-07 00:00:00.0000000', '2023-02-23 00:00:00.0000000', 6, 20, 'buy 6 and -20 euro');
+INSERT INTO Discount VALUES (4, 1,'2022-12-09 00:00:00.0000000', '2023-12-23 00:00:00.0000000', 6, 20, 'buy 6 and -20 euro');

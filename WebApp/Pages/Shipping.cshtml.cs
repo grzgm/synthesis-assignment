@@ -79,6 +79,12 @@ namespace WebApp.Pages
 				Address = client.Address;
 			}
 
+			if (Address.Country == null || Address.City == null || Address.Street == null || Address.PostalCode == null)
+			{
+				mess += "fill in whole address";
+				return Page();
+			}
+
 
 			Order order = new Order(client, null, null, DateOnly.FromDateTime(DateTime.Now), null, OrderStatus.OrderPlaced, (PaymentMethod)paymentMethod, Address, shoppingCart.AddedItems);
 			if (client.BonusCard != null)
