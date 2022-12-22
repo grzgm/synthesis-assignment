@@ -24,7 +24,7 @@ namespace LogicLayer.Models
 		public DateTime StartOfDiscount { get => startOfDiscount; set => startOfDiscount = value; }
 		public DateTime EndOfDiscount { get => endOfDiscount; set => endOfDiscount = value; }
 		public int AmountForDiscount { get => amountForDiscount; set => amountForDiscount = value; }
-		public decimal DiscountValue { get => discountValue; set => discountValue = value; }
+		public decimal DiscountValue { get => Math.Round(this.discountValue, 2); set => discountValue = value; }
 		public string DiscountMessage { get => discountMessage; set => discountMessage = value; }
 	}
 }

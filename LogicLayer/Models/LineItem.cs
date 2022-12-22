@@ -63,7 +63,7 @@ namespace LogicLayer.Models
 
 		public decimal PurchasePrice
 		{
-			get { return purchasePrice; }
+			get { return Math.Round(purchasePrice, 2); }
 			set { purchasePrice = value; }
 		}
 		public int Amount

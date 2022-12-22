@@ -93,7 +93,7 @@ namespace LogicLayer.Models
 
         public decimal Price
         {
-            get { return this.price; }
+            get { return Math.Round(this.price, 2); }
             set { this.price = value; }
         }
 
@@ -122,7 +122,7 @@ namespace LogicLayer.Models
 
         public override string ToString()
         {
-            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + price.ToString() + "; " + unitType + "; " + stockAmount.ToString() + "; " + available.ToString() + "; ";
+            return id.ToString() + "; " + name + "; " + category.ToString() + "; " + subCategory.ToString() + "; " + Math.Round(price, 2).ToString() + "; " + unitType + "; " + stockAmount.ToString() + "; " + available.ToString() + "; ";
         }
     }
 }

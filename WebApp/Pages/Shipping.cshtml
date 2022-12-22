@@ -40,7 +40,7 @@
 							<div class="name">
 								@lineItem.Item.Name
 							</div>
-							<div></div>
+							<div>@discount.ToString()</div>
 							<div>
 								- @discount.CalculateDiscount(lineItem.Amount, lineItem.PurchasePrice)
 							</div>
