@@ -17,7 +17,7 @@ namespace LogicLayer.Models
 			this.discountMessage = discountMessage;
 		}
 
-		public string ToString()
+		public override string ToString()
 		{
 			return this.discountMessage;
 		}

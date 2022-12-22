@@ -5,7 +5,6 @@ namespace LogicLayer.Models
 {
     public class Client : Account
     {
-        //private List<Order> previousOrders;
         private string username;
         private BonusCard? bonusCard;
         private Address? address;

@@ -17,7 +17,7 @@ namespace LogicLayer.Models
 
         public Order()
 		{
-			throw new System.NotImplementedException();
+
 		}
 		public Order(OrderDTO orderDTO)
 		{

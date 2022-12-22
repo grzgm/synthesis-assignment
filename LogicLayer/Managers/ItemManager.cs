@@ -15,7 +15,7 @@ namespace LogicLayer.Managers
                 ?? throw new ArgumentNullException(nameof(itemRepository));
         }
 
-        public bool CreateItem(Item item)
+        bool IItemManager.CreateItem(Item item)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace LogicLayer.Managers
             }
         }
 
-        public Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
+        Item IItemManager.ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
         {
             ItemDTO itemDTO;
             // There is no need to search with name, email, password in database, cuz id is Unique
@@ -70,7 +70,7 @@ namespace LogicLayer.Managers
             return new Item(itemDTO);
         }
 
-        public List<Item> ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
+        List<Item> IItemManager.ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)
         {
             List<ItemDTO> itemsDTO;
             try
@@ -104,7 +104,7 @@ namespace LogicLayer.Managers
             return items;
         }
 
-        public List<Item> ReadAvailableItems()
+        List<Item> IItemManager.ReadAvailableItems()
         {
             List<ItemDTO> itemsDTO;
             try
@@ -123,7 +123,7 @@ namespace LogicLayer.Managers
             return items;
         }
 
-        public bool UpdateItem(Item item)
+        bool IItemManager.UpdateItem(Item item)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace LogicLayer.Managers
             }
         }
 
-        public bool DeleteItem(Item item)
+        bool IItemManager.DeleteItem(Item item)
         {
             try
             {

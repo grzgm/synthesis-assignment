@@ -5,7 +5,7 @@ using LogicLayer.Models;
 
 namespace LogicLayer.Managers
 {
-	public class ClientManager : IClientManager
+	public class ClientManager : AccountManager, IClientManager
 	{
 		private readonly IClientRepository clientRepository;
 
@@ -20,8 +20,8 @@ namespace LogicLayer.Managers
 			try
 			{
 				ClientDTO clientDTO= ConvertToClientDTO(client);
-				clientDTO.Salt = AccountManager.GenerateSalt();
-				clientDTO.Password = AccountManager.HashPassword(client.Password, clientDTO.Salt);
+				clientDTO.Salt = GenerateSalt();
+				clientDTO.Password = HashPassword(client.Password, clientDTO.Salt);
 
 				return clientRepository.CreateClient(clientDTO);
 			}
@@ -49,7 +49,7 @@ namespace LogicLayer.Managers
 			{
 				ClientDTO clientDTO = clientRepository.ReadClientByUsernamePassword(username);
 
-				if (!AccountManager.ValidatePassword(password, clientDTO.Password))
+				if (!ValidatePassword(password, clientDTO.Password))
 				{
 					throw new Exception();
 				}

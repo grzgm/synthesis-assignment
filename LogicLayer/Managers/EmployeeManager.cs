@@ -5,7 +5,7 @@ using LogicLayer.Models;
 
 namespace LogicLayer.Managers
 {
-	public class EmployeeManager : IEmployeeManager
+	public class EmployeeManager : AccountManager, IEmployeeManager
 	{
 		private readonly IEmployeeRepository employeeRepository;
 
@@ -21,7 +21,7 @@ namespace LogicLayer.Managers
 			{
 				EmployeeDTO employeeDTO = employeeRepository.ReadEmployeeByEmailPassword(email);
 
-				if (!AccountManager.ValidatePassword(password, employeeDTO.Password))
+				if (!ValidatePassword(password, employeeDTO.Password))
 				{
 					throw new Exception();
 				}

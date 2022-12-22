@@ -10,40 +10,56 @@
         <Location left="806" top="695" />
         <Size width="178" height="245" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private List&lt;Order&gt; previousOrders</Member>
         <Member type="Field">private string username</Member>
-        <Member type="Field">private BonusCard bonusCard</Member>
-        <Member type="Field">private List&lt;Address&gt; adresses</Member>
+        <Member type="Field">private BonusCard? bonusCard</Member>
+        <Member type="Field">private Address? address</Member>
         <Member type="Constructor">public Client()</Member>
+        <Member type="Constructor">public Client(ClientDTO clientDTO)</Member>
         <Member type="Property">public string Username { get; private set; }</Member>
+        <Member type="Property">public BonusCard? BonusCard { get; set; }</Member>
         <Member type="Property">public List&lt;Address&gt; Adresses { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Order</Name>
         <Access>Public</Access>
-        <Location left="1282" top="816" />
-        <Size width="196" height="281" />
+        <Location left="1220" top="809" />
+        <Size width="303" height="536" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
-        <Member type="Field">private BonusCard bonusCard</Member>
-        <Member type="Field">private int totalBonusPointsBeforeOrder</Member>
-        <Member type="Field">private int totalBonusPointsAfterOrder</Member>
-        <Member type="Field">private int orderBonusPoints</Member>
+        <Member type="Field">private Client client</Member>
+        <Member type="Field">private int? orderBonusPoints</Member>
+        <Member type="Field">private int? orderSpentBonusPoints</Member>
         <Member type="Field">private DateOnly orderDate</Member>
-        <Member type="Field">private DateOnly deliveryDate</Member>
+        <Member type="Field">private DateOnly? deliveryDate</Member>
         <Member type="Field">private OrderStatus orderStatus</Member>
-        <Member type="Field">private List&lt;LineItem&gt; purchasedItems</Member>
+        <Member type="Field">private PaymentMethod paymentMethod</Member>
         <Member type="Field">private Address address</Member>
+        <Member type="Field">private List&lt;LineItem&gt; purchasedItems</Member>
         <Member type="Constructor">public Order()</Member>
+        <Member type="Constructor">public Order(OrderDTO orderDTO)</Member>
+        <Member type="Constructor">public Order(Client client, int? orderBonusPoints, int? orderSpentBonusPoints, DateOnly orderDate, DateOnly? deliveryDate, OrderStatus orderStatus, PaymentMethod paymentMethod, Address address, List&lt;LineItem&gt; purchasedItems)</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
+        <Member type="Method">public decimal DiscountProfit()</Member>
+        <Member type="Method">public decimal PriceWithoutDiscount()</Member>
+        <Member type="Method">public int? TotalBonusPointsAfterOrder()</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public Client Client { get; set; }</Member>
+        <Member type="Property">public int? OrderBonusPoints { get; set; }</Member>
+        <Member type="Property">public int? OrderSpentBonusPoints { get; set; }</Member>
+        <Member type="Property">public DateOnly OrderDate { get; set; }</Member>
+        <Member type="Property">public DateOnly? DeliveryDate { get; set; }</Member>
+        <Member type="Property">public OrderStatus OrderStatus { get; set; }</Member>
+        <Member type="Property">public PaymentMethod PaymentMethod { get; set; }</Member>
+        <Member type="Property">public Address Address { get; set; }</Member>
+        <Member type="Property">public List&lt;LineItem&gt; PurchasedItems { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
         <Location left="3049" top="689" />
-        <Size width="181" height="400" />
+        <Size width="181" height="434" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
@@ -52,9 +68,11 @@
         <Member type="Field">private decimal price</Member>
         <Member type="Field">private string unitType</Member>
         <Member type="Field">private bool available</Member>
+        <Member type="Field">private int stockAmount</Member>
         <Member type="Field">private List&lt;IDiscount&gt; discounts</Member>
         <Member type="Constructor">public Item()</Member>
         <Member type="Constructor">public Item(ItemDTO itemDTO)</Member>
+        <Member type="Constructor">public Item(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, string unitType, bool available, int stockAmount)</Member>
         <Member type="Property">public int Id { get; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
         <Member type="Property">public ItemCategory Category { get; set; }</Member>
@@ -63,6 +81,7 @@
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
         <Member type="Property">public IDiscount Discounts { get; set; }</Member>
+        <Member type="Method">public override string ToString()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Enum">
@@ -85,9 +104,8 @@
         <Member type="Field">private int id</Member>
         <Member type="Field">private int amountOfPoints</Member>
         <Member type="Constructor">public BonusCard(int id, int amountOfPoints)</Member>
-        <Member type="Method">public int ConvertPointsToEuros()</Member>
-        <Member type="Method">public int MaxEuros()</Member>
-        <Member type="Method">public void AddPointsFromEuros()</Member>
+        <Member type="Property">public int Id { set; }</Member>
+        <Member type="Property">public int AmountOfPoints { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -97,18 +115,32 @@
         <Size width="162" height="245" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string employeeRole</Member>
-        <Member type="Constructor">public Employee()</Member>
+        <Member type="Constructor">public Employee(EmployeeDTO employeeDTO)</Member>
         <Member type="Property">public string EmployeeRole { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ShoppingCart</Name>
         <Access>Public</Access>
-        <Location left="1292" top="683" />
-        <Size width="176" height="111" />
+        <Location left="1282" top="323" />
+        <Size width="176" height="349" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
+        <Member type="Field">private LineItem lastAddedLineItem</Member>
+        <Member type="Field">private LineItem lastUpdatedLineItem</Member>
+        <Member type="Constructor">public ShoppingCart()</Member>
+        <Member type="Constructor">public ShoppingCart(List&lt;LineItem&gt; addedItems)</Member>
+        <Member type="Constructor">public ShoppingCart(ShoppingCartDTO shoppingCartDTO)</Member>
         <Member type="Method">public bool IsEmpty()</Member>
+        <Member type="Method">public bool IsAddedLineItemNew(LineItem newLineItem)</Member>
+        <Member type="Method">public void SortAddedItems()</Member>
+        <Member type="Method">public bool AreItemsAvailable()</Member>
+        <Member type="Method">public decimal TotalPrice()</Member>
+        <Member type="Method">public decimal DiscountProfit()</Member>
+        <Member type="Method">public decimal PriceWithoutDiscount()</Member>
+        <Member type="Property">public List&lt;LineItem&gt; AddedItems { get; set; }</Member>
+        <Member type="Property">public LineItem LastAddedLineItem { get; set; }</Member>
+        <Member type="Property">public LineItem LastUpdatedLineItem { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -117,6 +149,7 @@
         <Location left="1299" top="2186" />
         <Size width="163" height="94" />
         <Collapsed>False</Collapsed>
+        <Member type="Method">private IEnumerable&lt;OrderDTO&gt; GetOrders(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -151,10 +184,11 @@
         <Name>ClientManager</Name>
         <Access>Public</Access>
         <Location left="754" top="1650" />
-        <Size width="273" height="111" />
+        <Size width="273" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IClientRepository clientRepository</Member>
         <Member type="Constructor">public ClientManager(IClientRepository clientRepository)</Member>
+        <Member type="Method">public static ClientDTO ConvertToClientDTO(Client client)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -171,10 +205,11 @@
         <Name>OrderManager</Name>
         <Access>Public</Access>
         <Location left="1243" top="1669" />
-        <Size width="274" height="111" />
+        <Size width="274" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IOrderRepository orderRepository</Member>
         <Member type="Constructor">public OrderManager(IOrderRepository orderRepository)</Member>
+        <Member type="Method">public static OrderDTO ConvertToOrderDTO(Order order)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -185,7 +220,7 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemRepository itemRepository</Member>
         <Member type="Constructor">public ItemManager(IItemRepository itemRepository)</Member>
-        <Member type="Method">private ItemDTO ConvertToItemDTO(Item item)</Member>
+        <Member type="Method">public static ItemDTO ConvertToItemDTOWithoutDiscounts(Item item)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -194,7 +229,7 @@
         <Location left="2883" top="2164" />
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
+        <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters = null)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -203,80 +238,99 @@
         <Location left="30" top="1497" />
         <Size width="315" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateEmployee(Employee employee)</Member>
-        <Member type="Method">Employee ReadEmployee(string name, string password)</Member>
-        <Member type="Method">bool UpdateEmployee(Employee employe)</Member>
-        <Member type="Method">bool DeleteEmployee(Employee employe)</Member>
+        <Member type="Method">Employee ReadEmployeeByEmailPassword(string email, string password)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemManager</Name>
         <Access>Public</Access>
         <Location left="2814" top="1465" />
-        <Size width="295" height="146" />
+        <Size width="295" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(Item item)</Member>
-        <Member type="Method">Item ReadItem(int id, string name, ItemCategory Category, ItemCategory SubCategory, decimal price, bool itemAvailable)</Member>
+        <Member type="Method">Item ReadItem(int id, string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)</Member>
         <Member type="Method">List&lt;Item&gt; ReadItems(string name, ItemCategory category, ItemCategory subCategory, decimal price, bool available)</Member>
+        <Member type="Method">List&lt;Item&gt; ReadAvailableItems()</Member>
         <Member type="Method">bool UpdateItem(Item item)</Member>
         <Member type="Method">bool DeleteItem(Item item)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IOrderManager</Name>
         <Access>Public</Access>
-        <Location left="1026" top="1480" />
-        <Size width="276" height="129" />
+        <Location left="1026" top="1475" />
+        <Size width="276" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(Order order)</Member>
-        <Member type="Method">Order ReadOrder(string name, string password)</Member>
+        <Member type="Method">Order ReadOrderByClientIdOrderId(int clientId, int orderId)</Member>
+        <Member type="Method">List&lt;Order&gt; ReadOrdersByClientId(int clientId)</Member>
         <Member type="Method">bool UpdateOrder(Order order)</Member>
         <Member type="Method">bool DeleteOrder(Order order)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IClientManager</Name>
         <Access>Public</Access>
-        <Location left="599" top="1497" />
-        <Size width="275" height="129" />
+        <Location left="477" top="1782" />
+        <Size width="275" height="231" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(Client client)</Member>
-        <Member type="Method">Client ReadClient(string username, string password)</Member>
+        <Member type="Method">bool CreateAddress(Client client)</Member>
+        <Member type="Method">Client ReadClientByUsernamePassword(string username, string password)</Member>
+        <Member type="Method">Client ReadClientById(int clientId)</Member>
+        <Member type="Method">int? ReadClientBonusPointsById(int clientId)</Member>
         <Member type="Method">bool UpdateClient(Client client)</Member>
+        <Member type="Method">bool UpdateClientAddBonusCardByClientId(int clientId)</Member>
+        <Member type="Method">bool UpdateClientBonusPoints(int clientId, int amountOfPoints)</Member>
+        <Member type="Method">bool UpdateClientAddress(Client client)</Member>
         <Member type="Method">bool DeleteClient(Client client)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
         <Location left="3583" top="739" />
-        <Size width="162" height="216" />
+        <Size width="162" height="315" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string name</Member>
         <Member type="Field">private ItemCategory? parentCategory</Member>
+        <Member type="Field">private List&lt;ItemCategory&gt;? subCategories</Member>
         <Member type="Constructor">public ItemCategory(int id, string name, ItemCategory parentCategory)</Member>
         <Member type="Constructor">public ItemCategory(int id, string name)</Member>
+        <Member type="Constructor">public ItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
+        <Member type="Constructor">public ItemCategory(ItemCategoryDTO itemCategoryDTO, ItemCategory itemCategory)</Member>
+        <Member type="Constructor">public ItemCategory(ItemCategoryDTO itemCategoryDTO, List&lt;ItemCategory&gt; itemSubCategories)</Member>
         <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
         <Member type="Property">public ItemCategory? ParentCategory { get; set; }</Member>
+        <Member type="Property">public List&lt;ItemCategory&gt;? SubCategories { get; set; }</Member>
+        <Member type="Method">public override string ToString()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
         <Location left="2440" top="710" />
-        <Size width="162" height="220" />
+        <Size width="162" height="315" />
         <Collapsed>False</Collapsed>
+        <Member type="Field">private int id</Member>
         <Member type="Field">private Item item</Member>
         <Member type="Field">private decimal purchasePrice</Member>
         <Member type="Field">private int amount</Member>
         <Member type="Constructor">public LineItem(Item item)</Member>
         <Member type="Constructor">public LineItem(Item item, int amount)</Member>
+        <Member type="Constructor">public LineItem(LineItemDTO lineItemDTO)</Member>
         <Member type="Method">public decimal TotalPrice()</Member>
+        <Member type="Method">public decimal DiscountProfit()</Member>
+        <Member type="Method">public decimal PriceWithoutDiscount()</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public Item Item { get; set; }</Member>
+        <Member type="Property">public decimal PurchasePrice { get; set; }</Member>
+        <Member type="Property">public int Amount { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>Account</Name>
         <Access>Public</Access>
         <Location left="584" top="274" />
-        <Size width="162" height="275" />
+        <Size width="162" height="298" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
         <Member type="Field">private string firstname</Member>
@@ -284,7 +338,9 @@
         <Member type="Field">private string email</Member>
         <Member type="Field">private string password</Member>
         <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email, string password)</Member>
-        <Member type="Property">public int Id { get; }</Member>
+        <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email)</Member>
+        <Member type="Constructor">protected Account(int id, string firstname, string lastname, string email, string password)</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Firstname { get; private set; }</Member>
         <Member type="Property">public string Lastname { get; private set; }</Member>
         <Member type="Property">public string Email { get; private set; }</Member>
@@ -294,53 +350,58 @@
       <Entity type="Interface">
         <Name>IEmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="259" top="1937" />
+        <Location left="262" top="1937" />
         <Size width="339" height="129" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateEmployee(EmployeeDTO employeeDTO)</Member>
-        <Member type="Method">EmployeeDTO ReadEmployee(string name, string password)</Member>
-        <Member type="Method">bool UpdateEmployee(EmployeeDTO employeDTO)</Member>
-        <Member type="Method">bool DeleteEmployee(EmployeeDTO employeDTO)</Member>
+        <Member type="Method">EmployeeDTO ReadEmployeeByEmailPassword(string email)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemRepository</Name>
         <Access>Public</Access>
         <Location left="2973" top="1926" />
-        <Size width="288" height="146" />
+        <Size width="288" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
-        <Member type="Method">ItemDTO ReadItem(int id)</Member>
+        <Member type="Method">ItemDTO ReadItemById(int id)</Member>
         <Member type="Method">List&lt;ItemDTO&gt; ReadItems(string name, int categoryId, int subCategoryId, decimal price, bool available)</Member>
+        <Member type="Method">List&lt;ItemDTO&gt; ReadAvailableItems()</Member>
         <Member type="Method">bool UpdateItem(ItemDTO itemDTO)</Member>
         <Member type="Method">bool DeleteItem(ItemDTO itemDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IClientRepository</Name>
         <Access>Public</Access>
-        <Location left="742" top="1937" />
-        <Size width="297" height="129" />
+        <Location left="738" top="1921" />
+        <Size width="297" height="231" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
-        <Member type="Method">ClientDTO ReadClient(string username, string password)</Member>
+        <Member type="Method">bool CreateAddress(ClientDTO clientDTO)</Member>
+        <Member type="Method">ClientDTO ReadClientByUsernamePassword(string username)</Member>
+        <Member type="Method">ClientDTO ReadClientById(int clientId)</Member>
+        <Member type="Method">int? ReadClientBonusPointsById(int clientId)</Member>
         <Member type="Method">bool UpdateClient(ClientDTO clientDTO)</Member>
+        <Member type="Method">bool UpdateClientAddBonusCardByClientId(int clientId)</Member>
+        <Member type="Method">bool UpdateClientBonusPoints(int clientId, int amountOfPoints)</Member>
+        <Member type="Method">bool UpdateClientAddress(ClientDTO clientDTO)</Member>
         <Member type="Method">bool DeleteClient(ClientDTO clientDTO)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IOrderRepository</Name>
         <Access>Public</Access>
         <Location left="1231" top="1956" />
-        <Size width="298" height="129" />
+        <Size width="298" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(OrderDTO orderDTO)</Member>
-        <Member type="Method">OrderDTO ReadOrder(string name, string password)</Member>
+        <Member type="Method">OrderDTO ReadOrderByClientIdOrderId(int clientId, int orderId)</Member>
+        <Member type="Method">List&lt;OrderDTO&gt; ReadOrdersByClientId(int clientId)</Member>
         <Member type="Method">bool UpdateOrder(OrderDTO orderDTO)</Member>
         <Member type="Method">bool DeleteOrder(OrderDTO orderDTO)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemDTO</Name>
         <Access>Public</Access>
-        <Location left="3298" top="1850" />
-        <Size width="162" height="216" />
+        <Location left="3272" top="1860" />
+        <Size width="219" height="230" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
@@ -349,31 +410,32 @@
         <Member type="Property">public decimal Price { get; set; }</Member>
         <Member type="Property">public bool Available { get; set; }</Member>
         <Member type="Property">public string UnitType { get; set; }</Member>
+        <Member type="Property">public int StockAmount { get; set; }</Member>
+        <Member type="Property">public List&lt;DiscountDTO&gt; Discounts { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategoryDTO</Name>
         <Access>Public</Access>
-        <Location left="3855" top="1907" />
-        <Size width="162" height="216" />
+        <Location left="3852" top="1926" />
+        <Size width="302" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Name { get; set; }</Member>
         <Member type="Property">public int? ParentId { get; set; }</Member>
+        <Member type="Property">public List&lt;ItemCategoryDTO&gt;? SubCategories { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="3523" top="1928" />
+        <Location left="3523" top="1926" />
         <Size width="297" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
-        <Member type="Method">ItemCategoryDTO ReadItemCategory(string name, string password)</Member>
         <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemCategories()</Member>
-        <Member type="Method">List&lt;ItemCategoryDTO&gt; ReadAllItemSubCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
-        <Member type="Method">bool DeleteItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
+        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
       </Entity>
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
@@ -382,10 +444,9 @@
         <Size width="275" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
-        <Member type="Method">ItemCategory ReadItemCategory(string name, string password)</Member>
         <Member type="Method">List&lt;ItemCategory&gt; ReadAllItemCategories()</Member>
         <Member type="Method">bool UpdateItemCategory(ItemCategory itemCategory)</Member>
-        <Member type="Method">bool DeleteItemCategory(ItemCategory itemCategory)</Member>
+        <Member type="Method">bool DeleteItemCategory(int Id)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>
@@ -395,14 +456,14 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
         <Member type="Constructor">public ItemCategoryManager(IItemCategoryRepository itemCategoryRepository)</Member>
-        <Member type="Method">private List&lt;ItemCategory&gt; ConvertToModelParent(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
-        <Member type="Method">private List&lt;ItemCategory&gt; ConvertToModelChild(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
+        <Member type="Method">public static List&lt;ItemCategory&gt; ConvertToModel(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
+        <Member type="Method">public static List&lt;ItemCategory&gt; ConvertToModelChildren(List&lt;ItemCategoryDTO&gt; itemCategoriesDTO)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="3588" top="2164" />
+        <Location left="3589" top="2164" />
         <Size width="163" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemCategoryDTO&gt; GetItemCategories(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -411,7 +472,7 @@
       <Entity type="Class">
         <Name>Address</Name>
         <Access>Public</Access>
-        <Location left="1632" top="906" />
+        <Location left="1591" top="966" />
         <Size width="209" height="281" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string country</Member>
@@ -419,6 +480,7 @@
         <Member type="Field">private string street</Member>
         <Member type="Field">private string postalCode</Member>
         <Member type="Constructor">public Address()</Member>
+        <Member type="Constructor">public Address(AddressDTO addressDTO)</Member>
         <Member type="Constructor">public Address(string country, string city, string street, string postalCode, Client client)</Member>
         <Member type="Property">public string Country { get; set; }</Member>
         <Member type="Property">public string City { get; set; }</Member>
@@ -426,40 +488,14 @@
         <Member type="Property">public string PostalCode { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
-      <Entity type="Interface">
-        <Name>ILineItemManager</Name>
-        <Access>Public</Access>
-        <Location left="2191" top="1609" />
-        <Size width="295" height="146" />
-        <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateLineItem(LineItem lineItem)</Member>
-        <Member type="Method">LineItem ReadLineItem(int id, Item lineItem, decimal purchasePrice, int amount)</Member>
-        <Member type="Method">List&lt;LineItem&gt; ReadLineItems(Item lineItem, decimal purchasePrice, int amount)</Member>
-        <Member type="Method">bool UpdateLineItem(LineItem lineItem)</Member>
-        <Member type="Method">bool DeleteLineItem(LineItem lineItem)</Member>
-      </Entity>
       <Entity type="Class">
         <Name>LineItemManager</Name>
         <Access>Public</Access>
         <Location left="2361" top="1791" />
         <Size width="260" height="128" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private readonly ILineItemRepository lineItemRepository</Member>
-        <Member type="Constructor">public LineItemManager(ILineItemRepository lineItemRepository)</Member>
-        <Member type="Method">private LineItemDTO ConvertToLineItemDTO(LineItem lineItem)</Member>
+        <Member type="Method">public static LineItemDTO ConvertToLineItemDTO(LineItem lineItem)</Member>
         <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Interface">
-        <Name>ILineItemRepository</Name>
-        <Access>Public</Access>
-        <Location left="2350" top="1936" />
-        <Size width="288" height="146" />
-        <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateLineItem(LineItemDTO lineItemDTO)</Member>
-        <Member type="Method">LineItemDTO ReadLineItem(int id)</Member>
-        <Member type="Method">List&lt;LineItemDTO&gt; ReadLineItems(LineItemDTO lineItemDTO, decimal purchasePrice, int amount)</Member>
-        <Member type="Method">bool UpdateLineItem(LineItemDTO lineItemDTO)</Member>
-        <Member type="Method">bool DeleteLineItem(LineItemDTO lineItemDTO)</Member>
       </Entity>
       <Entity type="Class">
         <Name>LineItemDTO</Name>
@@ -468,37 +504,26 @@
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
-        <Member type="Property">public string Name { get; set; }</Member>
-        <Member type="Property">public LineItemCategoryDTO Category { get; set; }</Member>
-        <Member type="Property">public LineItemCategoryDTO SubCategory { get; set; }</Member>
-        <Member type="Property">public decimal Price { get; set; }</Member>
-        <Member type="Property">public bool Available { get; set; }</Member>
-        <Member type="Property">public string UnitType { get; set; }</Member>
-        <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Class">
-        <Name>LineItemRepository</Name>
-        <Access>Public</Access>
-        <Location left="2260" top="2164" />
-        <Size width="463" height="111" />
-        <Collapsed>False</Collapsed>
-        <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetLineItems(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
+        <Member type="Property">public ItemDTO ItemDTO { get; set; }</Member>
+        <Member type="Property">public decimal PurchasePrice { get; set; }</Member>
+        <Member type="Property">public int Amount { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>ClientDTO</Name>
         <Access>Public</Access>
-        <Location left="1057" top="1879" />
-        <Size width="162" height="216" />
+        <Location left="1046" top="1902" />
+        <Size width="162" height="230" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
         <Member type="Property">public string Firstname { get; set; }</Member>
         <Member type="Property">public string Lastname { get; set; }</Member>
         <Member type="Property">public string Email { get; set; }</Member>
-        <Member type="Property">public int Passowrd { get; set; }</Member>
+        <Member type="Property">public int Password { get; set; }</Member>
+        <Member type="Property">public string Salt { get; set; }</Member>
         <Member type="Property">public int Username { get; set; }</Member>
-        <Member type="Property">public int BonusCardId { get; set; }</Member>
-        <Member type="Property">public int AmountOfPoints { get; set; }</Member>
+        <Member type="Property">public int? AmountOfPoints { get; set; }</Member>
+        <Member type="Property">public AddressDTO? AddressDTO { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -507,7 +532,7 @@
         <Location left="1634" top="2164" />
         <Size width="463" height="111" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">private IEnumerable&lt;ShoppingCartDTO&gt; GetShoppingCarts(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
+        <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetShoppingCart(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -525,10 +550,11 @@
         <Location left="1724" top="1936" />
         <Size width="288" height="146" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateShoppingCart(ShoppingCartDTO shoppingCartDTO)</Member>
-        <Member type="Method">ShoppingCartDTO ReadShoppingCart(int id)</Member>
-        <Member type="Method">bool UpdateShoppingCart(ShoppingCartDTO shoppingCartDTO)</Member>
-        <Member type="Method">bool DeleteShoppingCart(ShoppingCartDTO shoppingCartDTO)</Member>
+        <Member type="Method">bool CreateShoppingCartItem(int clientId, LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">ShoppingCartDTO ReadShoppingCart(int clientId)</Member>
+        <Member type="Method">bool UpdateShoppingCartItem(LineItemDTO lineItemDTO)</Member>
+        <Member type="Method">bool UpdateShoppingCartItems(int clientId, ShoppingCartDTO shoppingCartDTO)</Member>
+        <Member type="Method">bool DeleteShoppingCart(LineItemDTO lineItemDTO)</Member>
       </Entity>
       <Entity type="Class">
         <Name>ShoppingCartManager</Name>
@@ -538,7 +564,7 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IShoppingCartRepository shoppingCartRepository</Member>
         <Member type="Constructor">public ShoppingCartManager(IShoppingCartRepository shoppingCartRepository)</Member>
-        <Member type="Method">private ShoppingCartDTO ConvertToShoppingCartDTO(ShoppingCart shoppingCart)</Member>
+        <Member type="Method">public static ShoppingCartDTO ConvertToShoppingCartDTO(ShoppingCart shoppingCart)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -547,29 +573,38 @@
         <Location left="1565" top="1475" />
         <Size width="295" height="146" />
         <Collapsed>False</Collapsed>
-        <Member type="Method">bool CreateShoppingCart(ShoppingCart shoppingCart)</Member>
-        <Member type="Method">ShoppingCart ReadShoppingCart(int id, Item shoppingCart, decimal purchasePrice, int amount)</Member>
-        <Member type="Method">List&lt;ShoppingCart&gt; ReadShoppingCarts(Item shoppingCart, decimal purchasePrice, int amount)</Member>
-        <Member type="Method">bool UpdateShoppingCart(ShoppingCart shoppingCart)</Member>
-        <Member type="Method">bool DeleteShoppingCart(ShoppingCart shoppingCart)</Member>
+        <Member type="Method">bool CreateShoppingCartItem(int clientId, LineItem lineItem)</Member>
+        <Member type="Method">ShoppingCart ReadShoppingCart(int clientId)</Member>
+        <Member type="Method">bool UpdateShoppingCartItem(LineItem lineItem)</Member>
+        <Member type="Method">bool UpdateShoppingCartItems(int clientId, ShoppingCart shoppingCart)</Member>
+        <Member type="Method">bool DeleteShoppingCart(LineItem lineItem)</Member>
       </Entity>
       <Entity type="Class">
         <Name>OrderDTO</Name>
         <Access>Public</Access>
-        <Location left="1543" top="1879" />
-        <Size width="162" height="216" />
+        <Location left="1528" top="1891" />
+        <Size width="202" height="253" />
         <Collapsed>False</Collapsed>
-        <Member type="Property">public List&lt;LineItemDTO&gt; addedItems { get; set; }</Member>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public ClientDTO clientDTO { get; set; }</Member>
+        <Member type="Property">public int? OrderBonusPoints { get; set; }</Member>
+        <Member type="Property">public int? OrderSpentBonusPoints { get; set; }</Member>
+        <Member type="Property">public DateOnly OrderDate { get; set; }</Member>
+        <Member type="Property">public DateOnly? DeliveryDate { get; set; }</Member>
+        <Member type="Property">public int OrderStatus { get; set; }</Member>
+        <Member type="Property">public int PaymentMethod { get; set; }</Member>
+        <Member type="Property">public AddressDTO AddressDTO { get; set; }</Member>
+        <Member type="Property">public List&lt;LineItemDTO&gt; PurchasedItems { get; set; }</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>DiscountPercentage</Name>
         <Access>Public</Access>
-        <Location left="2438" top="1140" />
+        <Location left="2440" top="1140" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private decimal percentageDiscount</Member>
-        <Member type="Constructor">public DiscountPercentage(int percentageDiscount, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount)</Member>
+        <Member type="Constructor">public DiscountPercentage(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage)</Member>
+        <Member type="Constructor">public DiscountPercentage(DiscountDTO discountDTO)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -578,8 +613,8 @@
         <Location left="2801" top="1140" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private decimal fixedDiscount</Member>
-        <Member type="Constructor">public DiscountFixed(int fixedDiscount, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount)</Member>
+        <Member type="Constructor">public DiscountFixed(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage)</Member>
+        <Member type="Constructor">public DiscountFixed(DiscountDTO discountDTO)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -595,15 +630,83 @@
         <Name>Discount</Name>
         <Access>Public</Access>
         <Location left="2617" top="1298" />
+        <Size width="162" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected DateTime startOfDiscount</Member>
+        <Member type="Field">protected DateTime endOfDiscount</Member>
+        <Member type="Field">protected int amountForDiscount</Member>
+        <Member type="Field">protected decimal discountValue</Member>
+        <Member type="Field">protected string discountMessage</Member>
+        <Member type="Constructor">protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, decimal discountValue, string discountMessage)</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Member type="Property">public DateTime StartOfDiscount { get; set; }</Member>
+        <Member type="Property">public DateTime EndOfDiscount { get; set; }</Member>
+        <Member type="Property">public int AmountForDiscount { get; set; }</Member>
+        <Member type="Property">public decimal DiscountValue { get; set; }</Member>
+        <Member type="Property">public string DiscountMessage { get; set; }</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AddressDTO</Name>
+        <Access>Public</Access>
+        <Location left="1887" top="906" />
+        <Size width="209" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Country { get; set; }</Member>
+        <Member type="Property">public string City { get; set; }</Member>
+        <Member type="Property">public string Street { get; set; }</Member>
+        <Member type="Property">public string PostalCode { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DiscountDTO</Name>
+        <Access>Public</Access>
+        <Location left="2191" top="1180" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private DateTime startOfDiscount</Member>
-        <Member type="Field">private DateTime endOfDiscount</Member>
-        <Member type="Field">private int amountForDiscount</Member>
-        <Member type="Field">private decimal discountValue</Member>
-        <Member type="Field">private string discountMessage</Member>
-        <Member type="Constructor">protected Discount(int amountForDiscount, DateTime startOfDiscount, DateTime endOfDiscount, int discountId)</Member>
+        <Member type="Property">public int DiscountTypeId { get; set; }</Member>
+        <Member type="Property">public DateTime StartOfDiscount { get; set; }</Member>
+        <Member type="Property">public DateTime EndOfDiscount { get; set; }</Member>
+        <Member type="Property">public int AmountForDiscount { get; set; }</Member>
+        <Member type="Property">public decimal DiscountValue { get; set; }</Member>
+        <Member type="Property">public string DiscountMessage { get; set; }</Member>
         <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EmployeeDTO</Name>
+        <Access>Public</Access>
+        <Location left="554" top="2082" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int Id { get; set; }</Member>
+        <Member type="Property">public string Firstname { get; set; }</Member>
+        <Member type="Property">public string Lastname { get; set; }</Member>
+        <Member type="Property">public string Email { get; set; }</Member>
+        <Member type="Property">public int Password { get; set; }</Member>
+        <Member type="Property">public string Salt { get; set; }</Member>
+        <Member type="Property">public string EmployeeRole { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AccountManager</Name>
+        <Access>Public</Access>
+        <Location left="599" top="1260" />
+        <Size width="218" height="226" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public string GenerateSalt(int length = 10)</Member>
+        <Member type="Method">public string HashPassword(string password, string salt)</Member>
+        <Member type="Method">public bool ValidatePassword(string password, string hashedPassword)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>PaymentMethod</Name>
+        <Access>Public</Access>
+        <Location left="3034" top="355" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>PayPal</Value>
+        <Value>iDeal</Value>
+        <Value>Bank_Transfer</Value>
       </Entity>
     </Entities>
     <Relationships>
@@ -843,23 +946,23 @@
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
-      <Relationship type="Realization" first="46" second="48">
+      <Relationship type="Realization" first="43" second="45">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Realization" first="47" second="48">
+      <Relationship type="Realization" first="44" second="45">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="46" second="49">
+      <Relationship type="Generalization" first="43" second="46">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="47" second="49">
+      <Relationship type="Generalization" first="44" second="46">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
-      <Relationship type="Association" first="2" second="48">
+      <Relationship type="Association" first="2" second="45">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -869,6 +972,20 @@
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="28" second="28">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Generalization" first="12" second="50">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="50">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
       </Relationship>
     </Relationships>
   </ProjectItem>

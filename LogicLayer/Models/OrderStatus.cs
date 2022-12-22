@@ -5,6 +5,6 @@ namespace LogicLayer.Models
 		OrderPlaced,
 		Packed,
 		Shipped,
-		Delivered
+		Delivered,
 	}
 }
