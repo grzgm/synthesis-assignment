@@ -36,7 +36,7 @@ namespace LogicLayer.Models
         {
             //this.SortAddedItems();
 
-            LineItem existingLineItem = this.addedItems.Find(x => x.Item.Name == newLineItem.Item.Name);
+            LineItem existingLineItem = this.addedItems.Find(x => x.Item.Id == newLineItem.Item.Id);
 
             if (existingLineItem != null)
             {
@@ -69,7 +69,7 @@ namespace LogicLayer.Models
 				//{
 				//    sortingLineItems.Add(lineItem.Item.Name, lineItem.Amount);
 				//}
-				LineItem searchLineItem = sortedShoppingCart.AddedItems.Find(x => x.Item.Name == lineItem.Item.Name);
+				LineItem searchLineItem = sortedShoppingCart.AddedItems.Find(x => x.Item.Id == lineItem.Item.Id);
 
 				if (searchLineItem != null)
 				{
@@ -88,7 +88,7 @@ namespace LogicLayer.Models
 			bool Availability = true;
 			for (int i = 0; i < addedItems.Count; i++)
 			{
-				if (addedItems[i].Item.StockAmount == 0)
+				if (addedItems[i].Item.StockAmount == 0 || addedItems[i].Item.Available == false)
 				{
 					Availability = false;
 					addedItems.RemoveAt(i);
