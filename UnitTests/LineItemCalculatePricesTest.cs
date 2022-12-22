@@ -6,7 +6,7 @@ namespace UnitTests
 	public class LineItemCalculatePricesTest
 	{
 		[TestMethod]
-		public void CalculateTotalPriceTest()
+		public void CalculateLineItemTotalPriceTest()
 		{
 			// Arrange
 			IDiscount discount = new DiscountPercentage(50, 7, DateTime.Now, DateTime.Now, "test");
@@ -23,7 +23,7 @@ namespace UnitTests
 			Assert.AreEqual(value, 65);
 		}
 		[TestMethod]
-		public void CalculateDiscountProfitTest()
+		public void CalculateLineItemDiscountProfitTest()
 		{
 			// Arrange
 			IDiscount discount = new DiscountFixed(10, 5, DateTime.Now, DateTime.Now, "test");
@@ -40,7 +40,7 @@ namespace UnitTests
 			Assert.AreEqual(value, 20);
 		}
 		[TestMethod]
-		public void CalculatePriceWithoutDiscountTest()
+		public void CalculateLineItemPriceWithoutDiscountTest()
 		{
 			// Arrange
 			IDiscount discount = new DiscountFixed(10, 5, DateTime.Now, DateTime.Now, "test");

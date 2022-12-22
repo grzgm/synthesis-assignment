@@ -37,9 +37,12 @@ namespace LogicLayer.Models
 		public decimal DiscountProfit()
 		{
 			decimal discountProfit = 0;
-			foreach (IDiscount discount in Item.Discounts)
+			if (Item.Discounts != null)
 			{
-				discountProfit += discount.CalculateDiscount(amount, purchasePrice);
+				foreach (IDiscount discount in Item.Discounts)
+				{
+					discountProfit += discount.CalculateDiscount(amount, purchasePrice);
+				}
 			}
 			return discountProfit;
 		}
