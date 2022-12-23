@@ -1,0 +1,2 @@
+ FR-04: Bonus Card & Collecting bonus points
+ FR-07: Spending bonus points from the bonus card
