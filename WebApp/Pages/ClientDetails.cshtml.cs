@@ -3,12 +3,14 @@ using LogicLayer.InterfacesManagers;
 using LogicLayer.InterfacesRepository;
 using LogicLayer.Managers;
 using LogicLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApp.Pages
 {
-    public class ClientDetailsModel : PageModel
+	[Authorize]
+	public class ClientDetailsModel : PageModel
     {
         IClientRepository clientRepository;
         IClientManager clientManager;
