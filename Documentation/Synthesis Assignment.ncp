@@ -7,7 +7,7 @@
       <Entity type="Class">
         <Name>Client</Name>
         <Access>Public</Access>
-        <Location left="1757" top="1874" />
+        <Location left="1467" top="1024" />
         <Size width="211" height="213" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string username</Member>
@@ -23,7 +23,7 @@
       <Entity type="Class">
         <Name>Order</Name>
         <Access>Public</Access>
-        <Location left="2805" top="1605" />
+        <Location left="2515" top="755" />
         <Size width="1172" height="536" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -58,7 +58,7 @@
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
-        <Location left="5423" top="1638" />
+        <Location left="5137" top="788" />
         <Size width="743" height="434" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -87,7 +87,7 @@
       <Entity type="Enum">
         <Name>OrderStatus</Name>
         <Access>Public</Access>
-        <Location left="2443" top="1710" />
+        <Location left="2153" top="860" />
         <Size width="163" height="129" />
         <Collapsed>False</Collapsed>
         <Value>OrderPlaced</Value>
@@ -98,7 +98,7 @@
       <Entity type="Class">
         <Name>BonusCard</Name>
         <Access>Public</Access>
-        <Location left="1235" top="1874" />
+        <Location left="945" top="1024" />
         <Size width="221" height="162" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -111,7 +111,7 @@
       <Entity type="Class">
         <Name>Employee</Name>
         <Access>Public</Access>
-        <Location left="735" top="1929" />
+        <Location left="445" top="1079" />
         <Size width="228" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string employeeRole</Member>
@@ -122,7 +122,7 @@
       <Entity type="Class">
         <Name>ShoppingCart</Name>
         <Access>Public</Access>
-        <Location left="4449" top="1902" />
+        <Location left="4159" top="1052" />
         <Size width="285" height="349" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;LineItem&gt; addedItems</Member>
@@ -146,7 +146,7 @@
       <Entity type="Class">
         <Name>OrderRepository</Name>
         <Access>Public</Access>
-        <Location left="3155" top="3538" />
+        <Location left="2865" top="2688" />
         <Size width="473" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;OrderDTO&gt; GetOrders(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -155,7 +155,7 @@
       <Entity type="Class">
         <Name>ClientRepository</Name>
         <Access>Public</Access>
-        <Location left="1832" top="3555" />
+        <Location left="1542" top="2705" />
         <Size width="163" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -163,7 +163,7 @@
       <Entity type="Class">
         <Name>EmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="766" top="3555" />
+        <Location left="476" top="2705" />
         <Size width="163" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -171,7 +171,7 @@
       <Entity type="Class">
         <Name>MainRepository</Name>
         <Access>Public</Access>
-        <Location left="3298" top="4016" />
+        <Location left="3008" top="3166" />
         <Size width="187" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">protected SqlConnection conn</Member>
@@ -183,7 +183,7 @@
       <Entity type="Class">
         <Name>ClientManager</Name>
         <Access>Public</Access>
-        <Location left="1780" top="2995" />
+        <Location left="1490" top="2145" />
         <Size width="273" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IClientRepository clientRepository</Member>
@@ -194,7 +194,7 @@
       <Entity type="Class">
         <Name>EmployeeManager</Name>
         <Access>Public</Access>
-        <Location left="681" top="3090" />
+        <Location left="391" top="2240" />
         <Size width="333" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IEmployeeRepository employeeRepository</Member>
@@ -204,7 +204,7 @@
       <Entity type="Class">
         <Name>OrderManager</Name>
         <Access>Public</Access>
-        <Location left="3254" top="2969" />
+        <Location left="2964" top="2119" />
         <Size width="274" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IOrderRepository orderRepository</Member>
@@ -215,7 +215,7 @@
       <Entity type="Class">
         <Name>ItemManager</Name>
         <Access>Public</Access>
-        <Location left="5639" top="2996" />
+        <Location left="5347" top="2146" />
         <Size width="323" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemRepository itemRepository</Member>
@@ -226,7 +226,7 @@
       <Entity type="Class">
         <Name>ItemRepository</Name>
         <Access>Public</Access>
-        <Location left="5569" top="3538" />
+        <Location left="5277" top="2688" />
         <Size width="463" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemDTO&gt; GetItems(string Query, List&lt;SqlParameter&gt;? sqlParameters = null)</Member>
@@ -235,7 +235,7 @@
       <Entity type="Interface">
         <Name>IEmployeeManager</Name>
         <Access>Public</Access>
-        <Location left="375" top="2942" />
+        <Location left="85" top="2092" />
         <Size width="398" height="78" />
         <Collapsed>False</Collapsed>
         <Member type="Method">Employee ReadEmployeeByEmailPassword(string email, string password)</Member>
@@ -243,7 +243,7 @@
       <Entity type="Interface">
         <Name>IItemManager</Name>
         <Access>Public</Access>
-        <Location left="5112" top="2804" />
+        <Location left="4822" top="1954" />
         <Size width="631" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(Item item)</Member>
@@ -256,7 +256,7 @@
       <Entity type="Interface">
         <Name>IOrderManager</Name>
         <Access>Public</Access>
-        <Location left="2998" top="2741" />
+        <Location left="2708" top="1891" />
         <Size width="332" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(Order order)</Member>
@@ -268,7 +268,7 @@
       <Entity type="Interface">
         <Name>IClientManager</Name>
         <Access>Public</Access>
-        <Location left="1149" top="2768" />
+        <Location left="859" top="1918" />
         <Size width="403" height="231" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(Client client)</Member>
@@ -285,7 +285,7 @@
       <Entity type="Class">
         <Name>ItemCategory</Name>
         <Access>Public</Access>
-        <Location left="6828" top="1702" />
+        <Location left="6538" top="852" />
         <Size width="488" height="315" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -307,7 +307,7 @@
       <Entity type="Class">
         <Name>LineItem</Name>
         <Access>Public</Access>
-        <Location left="4839" top="1698" />
+        <Location left="4549" top="848" />
         <Size width="213" height="315" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -329,7 +329,7 @@
       <Entity type="Class">
         <Name>Account</Name>
         <Access>Public</Access>
-        <Location left="1146" top="1285" />
+        <Location left="856" top="435" />
         <Size width="430" height="298" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private int id</Member>
@@ -350,7 +350,7 @@
       <Entity type="Interface">
         <Name>IEmployeeRepository</Name>
         <Access>Public</Access>
-        <Location left="681" top="3344" />
+        <Location left="391" top="2494" />
         <Size width="332" height="78" />
         <Collapsed>False</Collapsed>
         <Member type="Method">EmployeeDTO ReadEmployeeByEmailPassword(string email)</Member>
@@ -358,7 +358,7 @@
       <Entity type="Interface">
         <Name>IItemRepository</Name>
         <Access>Public</Access>
-        <Location left="5518" top="3230" />
+        <Location left="5226" top="2380" />
         <Size width="565" height="163" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItem(ItemDTO itemDTO)</Member>
@@ -371,7 +371,7 @@
       <Entity type="Interface">
         <Name>IClientRepository</Name>
         <Access>Public</Access>
-        <Location left="1746" top="3227" />
+        <Location left="1456" top="2377" />
         <Size width="348" height="231" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateClient(ClientDTO clientDTO)</Member>
@@ -388,7 +388,7 @@
       <Entity type="Interface">
         <Name>IOrderRepository</Name>
         <Access>Public</Access>
-        <Location left="3214" top="3238" />
+        <Location left="2924" top="2388" />
         <Size width="354" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateOrder(OrderDTO orderDTO)</Member>
@@ -400,7 +400,7 @@
       <Entity type="Class">
         <Name>ItemDTO</Name>
         <Access>Public</Access>
-        <Location left="6131" top="3196" />
+        <Location left="5841" top="2346" />
         <Size width="251" height="230" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -417,7 +417,7 @@
       <Entity type="Class">
         <Name>ItemCategoryDTO</Name>
         <Access>Public</Access>
-        <Location left="6454" top="3230" />
+        <Location left="6164" top="2380" />
         <Size width="296" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -429,7 +429,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="6903" top="3251" />
+        <Location left="6613" top="2401" />
         <Size width="350" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategoryDTO itemCategoryDTO)</Member>
@@ -440,7 +440,7 @@
       <Entity type="Interface">
         <Name>IItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="6745" top="2782" />
+        <Location left="6455" top="1932" />
         <Size width="307" height="129" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateItemCategory(ItemCategory itemCategory)</Member>
@@ -451,7 +451,7 @@
       <Entity type="Class">
         <Name>ItemCategoryManager</Name>
         <Access>Public</Access>
-        <Location left="6835" top="2995" />
+        <Location left="6545" top="2145" />
         <Size width="487" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IItemCategoryRepository itemCategoryRepository</Member>
@@ -463,7 +463,7 @@
       <Entity type="Class">
         <Name>ItemCategoryRepository</Name>
         <Access>Public</Access>
-        <Location left="6766" top="3538" />
+        <Location left="6476" top="2688" />
         <Size width="553" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;ItemCategoryDTO&gt; GetItemCategories(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -472,7 +472,7 @@
       <Entity type="Class">
         <Name>Address</Name>
         <Access>Public</Access>
-        <Location left="2210" top="2032" />
+        <Location left="1920" top="1182" />
         <Size width="435" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private string country</Member>
@@ -491,7 +491,7 @@
       <Entity type="Class">
         <Name>LineItemManager</Name>
         <Access>Public</Access>
-        <Location left="3962" top="2886" />
+        <Location left="3672" top="2036" />
         <Size width="316" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public static LineItemDTO ConvertToLineItemDTO(LineItem lineItem)</Member>
@@ -500,7 +500,7 @@
       <Entity type="Class">
         <Name>LineItemDTO</Name>
         <Access>Public</Access>
-        <Location left="4017" top="3198" />
+        <Location left="3727" top="2348" />
         <Size width="206" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -512,7 +512,7 @@
       <Entity type="Class">
         <Name>ClientDTO</Name>
         <Access>Public</Access>
-        <Location left="2279" top="3142" />
+        <Location left="1989" top="2292" />
         <Size width="226" height="230" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -529,7 +529,7 @@
       <Entity type="Class">
         <Name>ShoppingCartRepository</Name>
         <Access>Public</Access>
-        <Location left="4330" top="3538" />
+        <Location left="4040" top="2688" />
         <Size width="521" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Method">private IEnumerable&lt;LineItemDTO&gt; GetShoppingCart(string Query, List&lt;SqlParameter&gt;? sqlParameters)</Member>
@@ -538,7 +538,7 @@
       <Entity type="Class">
         <Name>ShoppingCartDTO</Name>
         <Access>Public</Access>
-        <Location left="4944" top="3224" />
+        <Location left="4654" top="2374" />
         <Size width="256" height="94" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public List&lt;LineItemDTO&gt; addedItems { get; set; }</Member>
@@ -547,7 +547,7 @@
       <Entity type="Interface">
         <Name>IShoppingCartRepository</Name>
         <Access>Public</Access>
-        <Location left="4371" top="3198" />
+        <Location left="4081" top="2348" />
         <Size width="438" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateShoppingCartItem(int clientId, LineItemDTO lineItemDTO)</Member>
@@ -559,7 +559,7 @@
       <Entity type="Class">
         <Name>ShoppingCartManager</Name>
         <Access>Public</Access>
-        <Location left="4386" top="2972" />
+        <Location left="4096" top="2122" />
         <Size width="408" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly IShoppingCartRepository shoppingCartRepository</Member>
@@ -570,7 +570,7 @@
       <Entity type="Interface">
         <Name>IShoppingCartManager</Name>
         <Access>Public</Access>
-        <Location left="4141" top="2682" />
+        <Location left="3851" top="1832" />
         <Size width="394" height="146" />
         <Collapsed>False</Collapsed>
         <Member type="Method">bool CreateShoppingCartItem(int clientId, LineItem lineItem)</Member>
@@ -582,7 +582,7 @@
       <Entity type="Class">
         <Name>OrderDTO</Name>
         <Access>Public</Access>
-        <Location left="2902" top="3175" />
+        <Location left="2612" top="2325" />
         <Size width="276" height="247" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -600,7 +600,7 @@
       <Entity type="Class">
         <Name>DiscountPercentage</Name>
         <Access>Public</Access>
-        <Location left="5001" top="925" />
+        <Location left="4714" top="453" />
         <Size width="732" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public DiscountPercentage(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage)</Member>
@@ -610,7 +610,7 @@
       <Entity type="Class">
         <Name>DiscountFixed</Name>
         <Access>Public</Access>
-        <Location left="5860" top="925" />
+        <Location left="5573" top="453" />
         <Size width="704" height="111" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public DiscountFixed(int discountValue, int amountForDiscount, DateTime endOfDiscount, DateTime startOfDiscount, string discountMessage)</Member>
@@ -620,7 +620,7 @@
       <Entity type="Interface">
         <Name>IDiscount</Name>
         <Access>Public</Access>
-        <Location left="5644" top="1068" />
+        <Location left="5358" top="596" />
         <Size width="301" height="95" />
         <Collapsed>False</Collapsed>
         <Member type="Method">decimal CalculateDiscount(int amount, decimal price)</Member>
@@ -629,7 +629,7 @@
       <Entity type="Class">
         <Name>Discount</Name>
         <Access>Public</Access>
-        <Location left="5443" top="590" />
+        <Location left="5157" top="118" />
         <Size width="703" height="281" />
         <Collapsed>False</Collapsed>
         <Member type="Field">protected DateTime startOfDiscount</Member>
@@ -649,7 +649,7 @@
       <Entity type="Class">
         <Name>AddressDTO</Name>
         <Access>Public</Access>
-        <Location left="2636" top="3238" />
+        <Location left="2346" top="2388" />
         <Size width="182" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public string Country { get; set; }</Member>
@@ -661,7 +661,7 @@
       <Entity type="Class">
         <Name>DiscountDTO</Name>
         <Access>Public</Access>
-        <Location left="5248" top="3230" />
+        <Location left="4958" top="2380" />
         <Size width="224" height="179" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int DiscountTypeId { get; set; }</Member>
@@ -675,7 +675,7 @@
       <Entity type="Class">
         <Name>EmployeeDTO</Name>
         <Access>Public</Access>
-        <Location left="1062" top="3274" />
+        <Location left="772" top="2424" />
         <Size width="197" height="196" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public int Id { get; set; }</Member>
@@ -690,7 +690,7 @@
       <Entity type="Class">
         <Name>AccountManager</Name>
         <Access>Public</Access>
-        <Location left="1190" top="2324" />
+        <Location left="900" top="1474" />
         <Size width="355" height="128" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public string GenerateSalt(int length = 10)</Member>
@@ -701,7 +701,7 @@
       <Entity type="Enum">
         <Name>PaymentMethod</Name>
         <Access>Public</Access>
-        <Location left="2443" top="1582" />
+        <Location left="2153" top="732" />
         <Size width="163" height="112" />
         <Collapsed>False</Collapsed>
         <Value>PayPal</Value>
@@ -711,8 +711,6 @@
     </Entities>
     <Relationships>
       <Relationship type="Association" first="0" second="4">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -747,36 +745,36 @@
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3189</X>
-          <Y>2994</Y>
+          <X>2899</X>
+          <Y>2144</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Realization" first="11" second="19">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1742</X>
-          <Y>3042</Y>
+          <X>1452</X>
+          <Y>2192</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="20" second="20">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>7344</X>
-          <Y>1879</Y>
+          <X>7054</X>
+          <Y>1029</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>7166</X>
-          <Y>2043</Y>
+          <X>6876</X>
+          <Y>1193</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>0..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="1" second="21">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -784,19 +782,19 @@
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="6" second="21">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>4805</X>
-          <Y>1966</Y>
+          <X>4515</X>
+          <Y>1116</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="21" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -807,37 +805,45 @@
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>1285</X>
-          <Y>1619</Y>
+          <X>995</X>
+          <Y>769</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Generalization" first="0" second="22">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>1415</X>
-          <Y>1617</Y>
+          <X>1125</X>
+          <Y>767</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="12" second="23">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="24">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="13" second="26">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="11" second="25">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -860,6 +866,8 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="2" second="20">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -870,11 +878,13 @@
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>6945</X>
-          <Y>2970</Y>
+          <X>6655</X>
+          <Y>2120</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="31" second="29">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -889,16 +899,12 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="15" second="27">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="27">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -940,11 +946,13 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="1" second="33">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>2672</X>
-          <Y>2077</Y>
+          <X>2382</X>
+          <Y>1227</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
@@ -967,6 +975,8 @@
         <EndOrientation>Horizontal</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="2" second="45">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -977,27 +987,29 @@
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>967</X>
-          <Y>2840</Y>
+          <X>677</X>
+          <Y>1990</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>1325</X>
-          <Y>2477</Y>
+          <X>1035</X>
+          <Y>1627</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Generalization" first="11" second="50">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1835</X>
-          <Y>2822</Y>
+          <X>1545</X>
+          <Y>1972</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>1412</X>
-          <Y>2477</Y>
+          <X>1122</X>
+          <Y>1627</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="1" second="51">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1005,6 +1017,8 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="1" second="3">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1012,109 +1026,89 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="11" second="36">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>2107</X>
-          <Y>3060</Y>
+          <X>1817</X>
+          <Y>2210</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="8" second="36">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>2020</X>
-          <Y>3571</Y>
+          <X>1730</X>
+          <Y>2721</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="12" second="49">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="9" second="49">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="40" second="38">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="37" second="38">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="13" second="42">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3229</X>
-          <Y>3068</Y>
+          <X>2939</X>
+          <Y>2218</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="7" second="42">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3130</X>
-          <Y>3562</Y>
+          <X>2840</X>
+          <Y>2712</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>3038</X>
-          <Y>3447</Y>
+          <X>2748</X>
+          <Y>2597</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="31" second="28">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>6571</X>
-          <Y>3204</Y>
+          <X>6281</X>
+          <Y>2354</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="32" second="28">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>6573</X>
-          <Y>3403</Y>
+          <X>6283</X>
+          <Y>2553</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
@@ -1124,25 +1118,27 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="34" second="35">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="0" second="33">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1995</X>
-          <Y>2082</Y>
+          <X>1705</X>
+          <Y>1232</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="1" second="0">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1154,8 +1150,6 @@
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
       <Relationship type="Association" first="40" second="39">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1173,150 +1167,132 @@
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="11" second="47">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>2078</X>
-          <Y>3014</Y>
+          <X>1788</X>
+          <Y>2164</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>2695</X>
-          <Y>3210</Y>
+          <X>2405</X>
+          <Y>2360</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="13" second="47">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3223</X>
-          <Y>3022</Y>
+          <X>2933</X>
+          <Y>2172</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>2785</X>
-          <Y>3211</Y>
+          <X>2495</X>
+          <Y>2361</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="7" second="47">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>2782</X>
-          <Y>3408</Y>
+          <X>2492</X>
+          <Y>2558</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="8" second="47">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>2681</X>
-          <Y>3408</Y>
+          <X>2391</X>
+          <Y>2558</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="13" second="35">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3569</X>
-          <Y>3011</Y>
+          <X>3279</X>
+          <Y>2161</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>4048</X>
-          <Y>3169</Y>
+          <X>3758</X>
+          <Y>2319</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="7" second="35">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>3663</X>
-          <Y>3617</Y>
+          <X>3373</X>
+          <Y>2767</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>4088</X>
-          <Y>3371</Y>
+          <X>3798</X>
+          <Y>2521</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="37" second="35">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>4273</X>
-          <Y>3603</Y>
+          <X>3983</X>
+          <Y>2753</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>4150</X>
-          <Y>3369</Y>
+          <X>3860</X>
+          <Y>2519</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="40" second="35">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>4343</X>
-          <Y>3071</Y>
+          <X>4053</X>
+          <Y>2221</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>4194</X>
-          <Y>3158</Y>
+          <X>3904</X>
+          <Y>2308</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="48">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>5603</X>
-          <Y>3094</Y>
+          <X>5311</X>
+          <Y>2244</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="48">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>5510</X>
-          <Y>3594</Y>
+          <X>5218</X>
+          <Y>2744</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="36" second="47">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1324,6 +1300,8 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="42" second="47">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <Direction>Unidirectional</Direction>
@@ -1331,32 +1309,38 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="27" second="28">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>6429</X>
-          <Y>3302</Y>
+          <X>6139</X>
+          <Y>2452</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>2</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="20" second="20">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>7347</X>
-          <Y>1829</Y>
+          <X>7057</X>
+          <Y>979</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>7162</X>
-          <Y>1672</Y>
+          <X>6872</X>
+          <Y>822</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
         <EndMultiplicity>0..1</EndMultiplicity>
       </Relationship>
       <Relationship type="Association" first="28" second="28">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
