@@ -1,0 +1,60 @@
+﻿@page
+@using LogicLayer.Models;
+@model WebApp.Pages.FavListModel
+@{
+	ViewData["Title"] = "Favourite List";
+	ViewData["Css"] = "~/css/favList.css";
+}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<div class="popUp">
+	@Model.mess
+</div>
+
+<form method="post" class="favList" class="mainForm">
+@{
+	foreach (Item item in Model.items)
+	{
+		<div class="item">
+			@{
+				if (item.Discounts.Any())
+				{
+					<div class="discount">
+						@foreach (IDiscount discount in item.Discounts)
+						{
+							@discount.ToString()
+						}
+					</div>
+				}
+			}
+			<div class="image">img</div>
+			<div class="details">
+				<div class="name">
+					@item.Name
+				</div>
+				<div class="category">
+					@item.Category @item.SubCategory
+				</div>
+				<div class="price">
+					@item.Price
+				</div>
+				<div class="amount">
+					<input type="number" asp-for="Amount" max="@item.StockAmount" min="0" value="0" />
+					<label asp-for="Amount">/ @item.StockAmount</label>
+				</div>
+			</div>
+			<button asp-page-handler="AddItem" asp-route-ItemId="@item.Id" type="submit" class="addToCart">
+				Add to Cart
+			</button>
+				<button asp-page-handler="DeleteItem" asp-route-ItemId="@item.Id" class="trashIcon">
+				<span class="material-symbols-outlined">delete</span>
+			</button>
+		</div>
+	}
+}
+</form>
+<div class="addSelected">
+	<button asp-page-handler="AddAll" type="submit" class="addSelectedBtn" form="mainForm">
+		Add Selected
+	</button>
+</div>

@@ -55,7 +55,25 @@ namespace LogicLayer.Managers
         {
             try
             {
-                return shoppingCartRepository.UpdateShoppingCartItems(clientId, ConvertToShoppingCartDTO(shoppingCart));
+				List<LineItemDTO> lineItemsDTOCreate = new List<LineItemDTO>();
+				List<LineItemDTO> lineItemsDTOUpdate = new List<LineItemDTO>();
+
+				ShoppingCartDTO shoppingCartDTO = ConvertToShoppingCartDTO(shoppingCart);
+
+				foreach (LineItemDTO lineItemDTO in shoppingCartDTO.AddedItems)
+				{
+					if (lineItemDTO.Id > 0)
+					{
+						lineItemsDTOUpdate.Add(lineItemDTO);
+					}
+					else
+					{
+						lineItemsDTOCreate.Add(lineItemDTO);
+					}
+				}
+
+				return shoppingCartRepository.CreateShoppingCartItems(clientId, lineItemsDTOCreate) &&
+					shoppingCartRepository.UpdateShoppingCartItems(lineItemsDTOUpdate);
             }
             catch (Exception ex)
             {

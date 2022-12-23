@@ -5,6 +5,7 @@
 	ViewData["Title"] = "Shop";
 	ViewData["Css"] = "~/css/shop.css";
 }
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 <div class="popUp">
 	@Model.mess
@@ -29,6 +30,12 @@
 	<div class="details">
 		<div class="name">
 			@item.Name
+			@if(Model.favListItems.Find(x => x.Id == item.Id) == null)
+			{
+				<a asp-page-handler="FavItem" asp-route-FavItemId="@item.Id" class="favIcon">
+					<span class="material-symbols-outlined">favorite</span>
+				</a>
+			}
 		</div>
 		<div class="category">
 			@item.Category @item.SubCategory

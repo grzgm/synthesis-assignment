@@ -104,6 +104,12 @@ CREATE TABLE ShoppingCart
 	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]),
 	lineItemId int FOREIGN KEY REFERENCES [LineItem]([id]) ON DELETE CASCADE UNIQUE,
 );
+-- FavList Table
+CREATE TABLE FavList
+(
+	clientId int NOT NULL FOREIGN KEY REFERENCES [Client]([id]),
+	itemId int FOREIGN KEY REFERENCES [Item]([id]) ON DELETE CASCADE UNIQUE,
+);
 
 -- Discount Table
 CREATE TABLE Discount

@@ -5,30 +5,32 @@ using LogicLayer.Managers;
 using LogicLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Principal;
-using System.Text.Json;
 
 namespace WebApp.Pages
 {
-    public class ShopModel : PageModel
-    {
-        IItemRepository itemRepository;
-        IItemManager itemManager;
+	public class ShopModel : PageModel
+	{
+		IItemRepository itemRepository;
+		IItemManager itemManager;
 		IItemCategoryRepository itemCategoryRepository;
 		IItemCategoryManager itemCategoryManager;
 		IShoppingCartRepository shoppingCartRepository;
 		IShoppingCartManager shoppingCartManager;
+		IFavListRepository favListRepository;
+		IFavListManager favListManager;
 
 		public List<Item> items;
 
 		[BindProperty]
-		public int ItemId { get; set; }
+		public int ItemId { get; set; }		
+		[BindProperty(SupportsGet = true)]
+		public int FavItemId { get; set; }
 		[BindProperty]
 		public int Amount { get; set; }
 		[BindProperty]
 		public string mess { get; set; }
 
+		public List<Item> favListItems;
 		ShoppingCart shoppingCart;
 
 
@@ -40,20 +42,19 @@ namespace WebApp.Pages
 			itemCategoryManager = new ItemCategoryManager(itemCategoryRepository);
 			shoppingCartRepository = new ShoppingCartRepository();
 			shoppingCartManager = new ShoppingCartManager(shoppingCartRepository);
+			favListRepository = new FavListRepository();
+			favListManager = new FavListManager(favListRepository);
 
 			items = itemManager.ReadAvailableItems();
 		}
 
-        public void OnGet()
-        {
-
-		}
-		public void OnPost()
+		public void OnGet()
 		{
-
+			favListItems = favListManager.ReadFavList(int.Parse(User.FindFirst("Id").Value)).AddedItems.ToList();
 		}
 		public void OnPostAddItem()
 		{
+			favListItems = favListManager.ReadFavList(int.Parse(User.FindFirst("Id").Value)).AddedItems.ToList();
 			bool success;
 
 			Item addedItem = items.Find(x => x.Id == ItemId);
@@ -72,7 +73,7 @@ namespace WebApp.Pages
 				{
 					success = shoppingCartManager.UpdateShoppingCartItem(shoppingCart.LastUpdatedLineItem);
 				}
-				if(success)
+				if (success)
 				{
 					mess = "Item added to shopping cart";
 				}
@@ -81,6 +82,11 @@ namespace WebApp.Pages
 					mess = "Couldn't add item to shopping cart";
 				}
 			}
+		}
+		public void OnGetFavItem()
+		{
+			favListItems = favListManager.ReadFavList(int.Parse(User.FindFirst("Id").Value)).AddedItems.ToList();
+			favListManager.CreateFavListItem(int.Parse(User.FindFirst("Id").Value), items.Find(x => x.Id == FavItemId));
 		}
 	}
 }
