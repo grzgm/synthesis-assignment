@@ -51,7 +51,8 @@ namespace WebApp.Pages
 			GetClient();
 
 			shoppingCart = shoppingCartManager.ReadShoppingCart(client.Id);
-			if(!shoppingCart.AreItemsAvailable())
+			shoppingCartManager.UpdateShoppingCartItems(int.Parse(User.FindFirst("Id").Value), shoppingCart);
+			if (!shoppingCart.AreItemsAvailable())
 			{
 				shoppingCartManager.UpdateShoppingCartItems(client.Id, shoppingCart);
 				mess = "We don't have some items anymore, your order was adjusted";

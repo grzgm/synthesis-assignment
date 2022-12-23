@@ -28,13 +28,15 @@ namespace WebApp.Pages
         public void OnGet()
         {
             shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
-        }
+			shoppingCartManager.UpdateShoppingCartItems(int.Parse(User.FindFirst("Id").Value), shoppingCart);
+		}
 
         public void OnPostDeleteItem()
 		{
 			shoppingCart = shoppingCartManager.ReadShoppingCart(int.Parse(User.FindFirst("Id").Value));
+			shoppingCartManager.UpdateShoppingCartItems(int.Parse(User.FindFirst("Id").Value), shoppingCart);
 
-            LineItem deletedLineItem = shoppingCart.AddedItems.Find(x => x.Id == LineItemId);
+			LineItem deletedLineItem = shoppingCart.AddedItems.Find(x => x.Id == LineItemId);
 
 			shoppingCartManager.DeleteShoppingCart(deletedLineItem);
             shoppingCart.AddedItems.Remove(deletedLineItem);

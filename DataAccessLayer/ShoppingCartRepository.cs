@@ -37,7 +37,7 @@ namespace DataAccessLayer
 						if (!lineItemsDict.ContainsKey(loopLineItemId))
 						{
 							lineItemDTO.Id = reader.GetInt32(reader.GetOrdinal("lineItemId"));
-							lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("purchasePrice"));
+							lineItemDTO.PurchasePrice = reader.GetDecimal(reader.GetOrdinal("price"));
 							lineItemDTO.Amount = reader.GetInt32(reader.GetOrdinal("amount"));
 
 							itemDTO.Id = reader.GetInt32(reader.GetOrdinal("itemId"));
@@ -215,24 +215,21 @@ namespace DataAccessLayer
 			SqlCommand cmd;
 			SqlDataReader dreader;
 
-			string sql = "BEGIN TRANSACTION;" +
-						 "DELETE FROM ShoppingCart WHERE clientId = @clientId;";
+			string sql = "BEGIN TRANSACTION;";
 
 			for (int i = 0; i < shoppingCartDTO.AddedItems.Count; i++)
 			{
-				sql += $"INSERT INTO ShoppingCart VALUES (@clientId, @lineItemId{i});";
-				sql += $"UPDATE LineItem SET LineItem.amount = @amount{i} WHERE LineItem.id = @lineItemId{i};";
+				sql += $"UPDATE LineItem SET LineItem.purchasePrice = @purchasePrice{i} WHERE LineItem.id = @lineItemId{i};";
 			}
-			sql += "DELETE LineItem FROM LineItem LEFT JOIN ShoppingCart ON LineItem.id = ShoppingCart.lineItemId WHERE ShoppingCart.clientId is NULL AND LineItem.orderId is NULL;" +
-				   "COMMIT;";
+			sql += "COMMIT;";
 
 			cmd = new SqlCommand(sql, conn);
 			cmd.Parameters.Add(new SqlParameter { ParameterName = $"@clientId", Value = clientId });
 
 			for (int i = 0; i < shoppingCartDTO.AddedItems.Count; i++)
 			{
-				cmd.Parameters.Add(new SqlParameter { ParameterName = $"@amount{i}", Value = shoppingCartDTO.AddedItems[i].Amount });
 				cmd.Parameters.Add(new SqlParameter { ParameterName = $"@lineItemId{i}", Value = shoppingCartDTO.AddedItems[i].Id });
+				cmd.Parameters.Add(new SqlParameter { ParameterName = $"@purchasePrice{i}", Value = shoppingCartDTO.AddedItems[i].ItemDTO.Price });
 			}
 
 			try
