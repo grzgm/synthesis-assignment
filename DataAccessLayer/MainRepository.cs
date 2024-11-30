@@ -14,8 +14,8 @@ namespace DataAccessLayer
 
 		public MainRepository()
 		{
-			constr = "Server=mssqlstud.fhict.local;Database=dbi508542_synthesis;User Id=dbi508542_synthesis;Password=123;";
-			//constr = "Data Source=DESKTOP-PCL70MC\\SQLEXPRESS;Initial Catalog=synthesis;Integrated Security=True";
+			constr = "Server=;Database=;User Id=;Password=;";
+			//constr = "Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=synthesis;Integrated Security=True";
 		}
         protected SqlConnection GetConnection()
         {
